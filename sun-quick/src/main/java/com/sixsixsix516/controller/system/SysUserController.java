@@ -3,6 +3,7 @@ package com.sixsixsix516.controller.system;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.sixsixsix516.mapper.SysRoleMapper;
 import com.sixsixsix516.model.vo.Result;
 import com.sixsixsix516.service.SysRoleService;
 import com.sixsixsix516.service.SysUserService;
@@ -93,7 +94,7 @@ public class SysUserController extends BaseController {
 	@GetMapping(value = {"/", "/{userId}"})
 	public Result getInfo(@PathVariable(value = "userId", required = false) Long userId) {
 		Result ajax = Result.success();
-		List<SysRole> roles = roleService.selectRoleAll();
+		List<SysRole> roles = sysRoleMapper.selectList(null);
 		ajax.put("roles", SysUser.isAdmin(userId) ? roles : roles.stream().filter(r -> !r.isAdmin()).collect(Collectors.toList()));
 		if (StringUtils.isNotNull(userId)) {
 			ajax.put(Result.DATA_TAG, userService.selectUserById(userId));
@@ -172,4 +173,7 @@ public class SysUserController extends BaseController {
 		user.setUpdateBy(SecurityUtils.getUsername());
 		return toAjax(userService.updateUserStatus(user));
 	}
+
+	@Autowired
+	private SysRoleMapper sysRoleMapper;
 }

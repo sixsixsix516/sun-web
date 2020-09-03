@@ -1,5 +1,6 @@
 package com.sixsixsix516.web.service;
 
+import com.sixsixsix516.service.SysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
 	@Autowired
-	private ISysUserService userService;
+	private SysUserService userService;
 
 	@Autowired
 	private SysPermissionService permissionService;

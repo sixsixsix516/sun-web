@@ -54,7 +54,6 @@ public class BaseController {
     /**
      * 响应请求分页数据
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
     protected TableDataInfo getDataTable(List<?> list) {
         TableDataInfo rspData = new TableDataInfo();
         rspData.setCode(HttpStatus.SUCCESS);

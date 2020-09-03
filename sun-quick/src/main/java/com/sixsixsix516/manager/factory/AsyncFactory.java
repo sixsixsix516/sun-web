@@ -2,6 +2,8 @@ package com.sixsixsix516.manager.factory;
 
 import java.util.TimerTask;
 
+import com.sixsixsix516.service.SysLogininforService;
+import com.sixsixsix516.service.SysOperLogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.sixsixsix516.constant.Constants;
@@ -66,7 +68,7 @@ public class AsyncFactory {
 					logininfor.setStatus(Constants.FAIL);
 				}
 				// 插入数据
-				SpringUtils.getBean(ISysLogininforService.class).insertLogininfor(logininfor);
+				SpringUtils.getBean(SysLogininforService.class).insertLogininfor(logininfor);
 			}
 		};
 	}
@@ -83,7 +85,7 @@ public class AsyncFactory {
 			public void run() {
 				// 远程查询操作地点
 				operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
-				SpringUtils.getBean(ISysOperLogService.class).insertOperlog(operLog);
+				SpringUtils.getBean(SysOperLogService.class).insertOperlog(operLog);
 			}
 		};
 	}

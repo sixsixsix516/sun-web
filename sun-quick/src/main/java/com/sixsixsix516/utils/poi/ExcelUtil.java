@@ -683,7 +683,7 @@ public class ExcelUtil<T> {
 	 * @param filename 文件名称
 	 */
 	public String getAbsoluteFile(String filename) {
-		String downloadPath = RuoYiConfig.getDownloadPath() + filename;
+		String downloadPath = null;
 		File desc = new File(downloadPath);
 		if (!desc.getParentFile().exists()) {
 			desc.getParentFile().mkdirs();

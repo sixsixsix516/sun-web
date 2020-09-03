@@ -79,16 +79,9 @@ export default {
     }
   },
   created() {
-    this.getCode();
     this.getCookie();
   },
   methods: {
-    getCode() {
-      getCodeImg().then(res => {
-        this.codeUrl = "data:image/gif;base64," + res.img;
-        this.loginForm.uuid = res.uuid;
-      });
-    },
     getCookie() {
       const username = Cookies.get("username");
       const password = Cookies.get("password");

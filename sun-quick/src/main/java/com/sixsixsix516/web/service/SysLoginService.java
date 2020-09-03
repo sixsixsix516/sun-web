@@ -49,8 +49,7 @@ public class SysLoginService {
 		Authentication authentication = null;
 		try {
 			// 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
-			authentication = authenticationManager
-					.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+			authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (Exception e) {
 			if (e instanceof BadCredentialsException) {
 				AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.password.not.match")));

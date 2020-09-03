@@ -117,13 +117,6 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="岗位">
-              <el-select v-model="form.postIds" multiple placeholder="请选择">
-                <el-option v-for="item in postOptions" :key="item.postId" :label="item.postName" :value="item.postId" :disabled="item.status == 1"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
             <el-form-item label="角色">
               <el-select v-model="form.roleIds" multiple placeholder="请选择">
                 <el-option v-for="item in roleOptions" :key="item.roleId" :label="item.roleName" :value="item.roleId" :disabled="item.status == 1"></el-option>
@@ -194,8 +187,6 @@ export default {
       statusOptions: [],
       // 性别状态字典
       sexOptions: [],
-      // 岗位选项
-      postOptions: [],
       // 角色选项
       roleOptions: [],
       // 表单参数
@@ -338,7 +329,6 @@ export default {
       this.reset();
       // this.getTreeselect();
       getUser().then((response) => {
-        this.postOptions = response.posts;
         this.roleOptions = response.roles;
         this.open = true;
         this.title = "添加用户";
@@ -352,7 +342,6 @@ export default {
       const userId = row.userId || this.ids;
       getUser(userId).then((response) => {
         this.form = response.data;
-        this.postOptions = response.posts;
         this.roleOptions = response.roles;
         this.form.postIds = response.postIds;
         this.form.roleIds = response.roleIds;

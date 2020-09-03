@@ -24,6 +24,7 @@ import java.util.*;
  */
 @Service
 public class SysRoleService {
+
 	@Autowired
 	private SysRoleMapper roleMapper;
 
@@ -148,7 +149,6 @@ public class SysRoleService {
 	 * @param role 角色信息
 	 * @return 结果
 	 */
-	@Override
 	@Transactional
 	public int insertRole(SysRole role) {
 		// 新增角色信息
@@ -162,7 +162,6 @@ public class SysRoleService {
 	 * @param role 角色信息
 	 * @return 结果
 	 */
-	@Override
 	@Transactional
 	public int updateRole(SysRole role) {
 		// 修改角色信息
@@ -178,7 +177,6 @@ public class SysRoleService {
 	 * @param role 角色信息
 	 * @return 结果
 	 */
-	@Override
 	public int updateRoleStatus(SysRole role) {
 		return roleMapper.updateRole(role);
 	}
@@ -189,7 +187,6 @@ public class SysRoleService {
 	 * @param role 角色信息
 	 * @return 结果
 	 */
-	@Override
 	@Transactional
 	public int authDataScope(SysRole role) {
 		// 修改角色信息
@@ -248,7 +245,6 @@ public class SysRoleService {
 	 * @param roleId 角色ID
 	 * @return 结果
 	 */
-	@Override
 	public int deleteRoleById(Long roleId) {
 		return roleMapper.deleteRoleById(roleId);
 	}
@@ -259,7 +255,6 @@ public class SysRoleService {
 	 * @param roleIds 需要删除的角色ID
 	 * @return 结果
 	 */
-	@Override
 	public int deleteRoleByIds(Long[] roleIds) {
 		for (Long roleId : roleIds) {
 			checkRoleAllowed(new SysRole(roleId));

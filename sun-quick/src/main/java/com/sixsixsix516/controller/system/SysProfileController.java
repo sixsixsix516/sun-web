@@ -32,6 +32,7 @@ import com.sixsixsix516.web.service.TokenService;
 @RequestMapping("/system/user/profile")
 public class SysProfileController extends BaseController {
 
+
 	@Autowired
 	private SysUserService userService;
 	@Autowired
@@ -100,7 +101,9 @@ public class SysProfileController extends BaseController {
 	public Result avatar(@RequestParam("avatarfile") MultipartFile file) throws IOException {
 		if (!file.isEmpty()) {
 			LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
-			String avatar = FileUploadUtils.upload(RuoYiConfig.getAvatarPath(), file);
+			// todo
+//			String avatar = FileUploadUtils.upload(RuoYiConfig.getAvatarPath(), file);
+			String avatar = "";
 			if (userService.updateUserAvatar(loginUser.getUsername(), avatar)) {
 				Result ajax = Result.success();
 				ajax.put("imgUrl", avatar);

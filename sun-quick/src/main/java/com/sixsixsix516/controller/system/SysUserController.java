@@ -1,12 +1,17 @@
 package com.sixsixsix516.controller.system;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sixsixsix516.framework.vo.PageInfo;
 import com.sixsixsix516.mapper.SysRoleMapper;
+import com.sixsixsix516.mapper.SysUserMapper;
 import com.sixsixsix516.model.vo.Result;
-import com.sixsixsix516.service.SysRoleService;
-import com.sixsixsix516.service.SysUserService;
+import com.sixsixsix516.framework.service.SysRoleService;
+import com.sixsixsix516.framework.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -19,28 +24,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import com.sixsixsix516.annotation.Log;
-import com.sixsixsix516.constant.UserConstants;
-import com.sixsixsix516.core.controller.BaseController;
-import com.sixsixsix516.model.domain.entity.SysRole;
+import com.sixsixsix516.framework.annotation.Log;
 import com.sixsixsix516.model.domain.entity.SysUser;
 import com.sixsixsix516.model.domain.model.LoginUser;
-import com.sixsixsix516.core.page.TableDataInfo;
-import com.sixsixsix516.enums.BusinessType;
-import com.sixsixsix516.utils.SecurityUtils;
-import com.sixsixsix516.utils.ServletUtils;
-import com.sixsixsix516.utils.StringUtils;
-import com.sixsixsix516.utils.poi.ExcelUtil;
-import com.sixsixsix516.web.service.TokenService;
+import com.sixsixsix516.framework.enums.BusinessType;
+import com.sixsixsix516.framework.utils.SecurityUtils;
+import com.sixsixsix516.framework.utils.ServletUtils;
+import com.sixsixsix516.framework.utils.poi.ExcelUtil;
+import com.sixsixsix516.framework.web.service.TokenService;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * 用户信息
  *
  * @author ruoyi
  */
+@Valid
 @RestController
 @RequestMapping("/system/user")
-public class SysUserController extends BaseController {
+public class SysUserController {
 
 	@Autowired
 	private SysUserService userService;
@@ -54,19 +58,9 @@ public class SysUserController extends BaseController {
 	 */
 	@PreAuthorize("@ss.hasPermi('system:user:list')")
 	@GetMapping("/list")
-	public TableDataInfo list(SysUser user) {
-		startPage();
-		List<SysUser> list = userService.selectUserList(user);
-		return getDataTable(list);
-	}
-
-	@Log(title = "用户管理", businessType = BusinessType.EXPORT)
-	@PreAuthorize("@ss.hasPermi('system:user:export')")
-	@GetMapping("/export")
-	public Result export(SysUser user) {
-		List<SysUser> list = userService.selectUserList(user);
-		ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
-		return util.exportExcel(list, "用户数据");
+	public Result list(SysUser user, PageInfo pageInfo) {
+		IPage<SysUser> sysUserPage = sysUserMapper.listUser(new Page(pageInfo.getPageNum(), pageInfo.getPageSize()), user);
+		return Result.ok(sysUserPage.getRecords(), sysUserPage.getTotal());
 	}
 
 	@Log(title = "用户管理", businessType = BusinessType.IMPORT)
@@ -78,7 +72,7 @@ public class SysUserController extends BaseController {
 		LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
 		String operName = loginUser.getUsername();
 		String message = userService.importUser(userList, updateSupport, operName);
-		return Result.success(message);
+		return Result.ok(message);
 	}
 
 	@GetMapping("/importTemplate")
@@ -92,15 +86,12 @@ public class SysUserController extends BaseController {
 	 */
 	@PreAuthorize("@ss.hasPermi('system:user:query')")
 	@GetMapping(value = {"/", "/{userId}"})
-	public Result getInfo(@PathVariable(value = "userId", required = false) Long userId) {
-		Result ajax = Result.success();
-		List<SysRole> roles = sysRoleMapper.selectList(null);
-		ajax.put("roles", SysUser.isAdmin(userId) ? roles : roles.stream().filter(r -> !r.isAdmin()).collect(Collectors.toList()));
-		if (StringUtils.isNotNull(userId)) {
-			ajax.put(Result.DATA_TAG, userService.selectUserById(userId));
-			ajax.put("roleIds", roleService.selectRoleListByUserId(userId));
-		}
-		return ajax;
+	public Result getInfo(@PathVariable(value = "userId", required = false) @NotNull(message = "用户不存在") Long userId) {
+		return Result.ok(new HashMap<String, Object>(3) {{
+			put("roleIds", roleService.selectRoleListByUserId(userId));
+			put("roles", sysRoleMapper.selectList(null));
+			put("data", userService.selectUserById(userId));
+		}});
 	}
 
 	/**
@@ -110,16 +101,18 @@ public class SysUserController extends BaseController {
 	@Log(title = "用户管理", businessType = BusinessType.INSERT)
 	@PostMapping
 	public Result add(@Validated @RequestBody SysUser user) {
-		if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(user.getUserName()))) {
-			return Result.error("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
-		} else if (UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user))) {
-			return Result.error("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
-		} else if (UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user))) {
-			return Result.error("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
+		if (sysUserMapper.selectCount(new QueryWrapper<SysUser>().lambda().eq(SysUser::getUserName, user.getUserName())) > 0) {
+			return Result.fail("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
+		}
+		if (sysUserMapper.selectCount(new QueryWrapper<SysUser>().lambda().eq(SysUser::getPhonenumber, user.getPhonenumber())) > 0) {
+			return Result.fail("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
+		}
+		if (sysUserMapper.selectCount(new QueryWrapper<SysUser>().lambda().eq(SysUser::getEmail, user.getEmail())) > 0) {
+			return Result.fail("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
 		}
 		user.setCreateBy(SecurityUtils.getUsername());
 		user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
-		return toAjax(userService.insertUser(user));
+		return Result.ok(userService.insertUser(user));
 	}
 
 	/**
@@ -130,13 +123,14 @@ public class SysUserController extends BaseController {
 	@PutMapping
 	public Result edit(@Validated @RequestBody SysUser user) {
 		userService.checkUserAllowed(user);
-		if (UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user))) {
-			return Result.error("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
-		} else if (UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user))) {
-			return Result.error("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
+		if (sysUserMapper.selectCount(new QueryWrapper<SysUser>().lambda().eq(SysUser::getPhonenumber, user.getPhonenumber())) > 0) {
+			return Result.fail("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
+		}
+		if (sysUserMapper.selectCount(new QueryWrapper<SysUser>().lambda().eq(SysUser::getEmail, user.getEmail())) > 0) {
+			return Result.fail("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
 		}
 		user.setUpdateBy(SecurityUtils.getUsername());
-		return toAjax(userService.updateUser(user));
+		return Result.ok(userService.updateUser(user));
 	}
 
 	/**
@@ -146,7 +140,7 @@ public class SysUserController extends BaseController {
 	@Log(title = "用户管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{userIds}")
 	public Result remove(@PathVariable Long[] userIds) {
-		return toAjax(userService.deleteUserByIds(userIds));
+		return Result.ok(userService.deleteUserByIds(userIds));
 	}
 
 	/**
@@ -159,7 +153,7 @@ public class SysUserController extends BaseController {
 		userService.checkUserAllowed(user);
 		user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
 		user.setUpdateBy(SecurityUtils.getUsername());
-		return toAjax(userService.resetPwd(user));
+		return Result.ok(userService.resetPwd(user));
 	}
 
 	/**
@@ -171,9 +165,11 @@ public class SysUserController extends BaseController {
 	public Result changeStatus(@RequestBody SysUser user) {
 		userService.checkUserAllowed(user);
 		user.setUpdateBy(SecurityUtils.getUsername());
-		return toAjax(userService.updateUserStatus(user));
+		return Result.ok(userService.updateUserStatus(user));
 	}
 
 	@Autowired
 	private SysRoleMapper sysRoleMapper;
+	@Autowired
+	private SysUserMapper sysUserMapper;
 }

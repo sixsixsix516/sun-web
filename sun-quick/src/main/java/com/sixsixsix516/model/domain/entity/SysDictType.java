@@ -3,11 +3,13 @@ package com.sixsixsix516.model.domain.entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.sixsixsix516.model.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import com.sixsixsix516.annotation.Excel;
-import com.sixsixsix516.annotation.Excel.ColumnType;
+import com.sixsixsix516.framework.annotation.Excel;
+import com.sixsixsix516.framework.annotation.Excel.ColumnType;
 
 /**
  * 字典类型表 sys_dict_type
@@ -20,6 +22,7 @@ public class SysDictType extends BaseEntity {
 	/**
 	 * 字典主键
 	 */
+	@TableId(type = IdType.AUTO)
 	@Excel(name = "字典主键", cellType = ColumnType.NUMERIC)
 	private Long dictId;
 

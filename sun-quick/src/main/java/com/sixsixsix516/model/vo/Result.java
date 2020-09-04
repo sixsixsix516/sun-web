@@ -1,142 +1,70 @@
 package com.sixsixsix516.model.vo;
 
-import com.sixsixsix516.constant.HttpStatus;
-import com.sixsixsix516.utils.StringUtils;
+import com.sixsixsix516.framework.constant.ErrorCode;
+import lombok.*;
 
 import java.util.HashMap;
 
 /**
- * 操作消息提醒
- *
- * @author ruoyi
+ * @author sun 2020/2/23 20:51
  */
-public class Result extends HashMap<String, Object> {
-	private static final long serialVersionUID = 1L;
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+public class Result<T> {
 
-	/**
-	 * 状态码
-	 */
-	public static final String CODE_TAG = "code";
+	private int code;
 
-	/**
-	 * 返回内容
-	 */
-	public static final String MSG_TAG = "msg";
+	private String message;
 
-	/**
-	 * 数据对象
-	 */
-	public static final String DATA_TAG = "data";
+	private T data;
 
-	/**
-	 * 初始化一个新创建的 Result 对象，使其表示一个空消息。
-	 */
-	public Result() {
+	private long total;
+
+	public static <T> Result build(ErrorCode errorCode, T data) {
+		return build(errorCode.getCode(), errorCode.getMessage(), data);
 	}
 
-	/**
-	 * 初始化一个新创建的 Result 对象
-	 *
-	 * @param code 状态码
-	 * @param msg  返回内容
-	 */
-	public Result(int code, String msg) {
-		super.put(CODE_TAG, code);
-		super.put(MSG_TAG, msg);
+	public static <T> Result build(ErrorCode errorCode) {
+		return build(errorCode.getCode(), errorCode.getMessage());
 	}
 
-	/**
-	 * 初始化一个新创建的 Result 对象
-	 *
-	 * @param code 状态码
-	 * @param msg  返回内容
-	 * @param data 数据对象
-	 */
-	public Result(int code, String msg, Object data) {
-		super.put(CODE_TAG, code);
-		super.put(MSG_TAG, msg);
-		if (StringUtils.isNotNull(data)) {
-			super.put(DATA_TAG, data);
-		}
+	public static <T> Result fail() {
+		return build(-1, null);
 	}
 
-	/**
-	 * 返回成功消息
-	 *
-	 * @return 成功消息
-	 */
-	public static Result success() {
-		return Result.success("操作成功");
+	public static <T> Result fail(String message) {
+		return build(-1, message);
 	}
 
-	/**
-	 * 返回成功数据
-	 *
-	 * @return 成功消息
-	 */
-	public static Result success(Object data) {
-		return Result.success("操作成功", data);
+	public static <T> Result ok() {
+		return build(0, "请求成功");
 	}
 
-	/**
-	 * 返回成功消息
-	 *
-	 * @param msg 返回内容
-	 * @return 成功消息
-	 */
-	public static Result success(String msg) {
-		return Result.success(msg, null);
+	public static <T> Result ok(String message) {
+		return build(0, message);
 	}
 
-	/**
-	 * 返回成功消息
-	 *
-	 * @param msg  返回内容
-	 * @param data 数据对象
-	 * @return 成功消息
-	 */
-	public static Result success(String msg, Object data) {
-		return new Result(HttpStatus.SUCCESS, msg, data);
+	public static <T> Result ok(T data) {
+		return build(0, "请求成功", data);
 	}
 
-	/**
-	 * 返回错误消息
-	 *
-	 * @return
-	 */
-	public static Result error() {
-		return Result.error("操作失败");
+	public static <T> Result okData(T data) {
+		return build(0, "请求成功", data);
 	}
 
-	/**
-	 * 返回错误消息
-	 *
-	 * @param msg 返回内容
-	 * @return 警告消息
-	 */
-	public static Result error(String msg) {
-		return Result.error(msg, null);
+	public static <T> Result ok(T data, long total) {
+		return new Result(0, "请求成功", data, total);
 	}
 
-	/**
-	 * 返回错误消息
-	 *
-	 * @param msg  返回内容
-	 * @param data 数据对象
-	 * @return 警告消息
-	 */
-	public static Result error(String msg, Object data) {
-		return new Result(HttpStatus.ERROR, msg, data);
+	public static <T> Result build(int code, String message) {
+		return build(code, message, null);
 	}
 
-	/**
-	 * 返回错误消息
-	 *
-	 * @param code 状态码
-	 * @param msg  返回内容
-	 * @return 警告消息
-	 */
-	public static Result error(int code, String msg) {
-		return new Result(code, msg, null);
+	public static <T> Result build(int code, String message, T data) {
+		return new Result(code, message, data, 0);
 	}
+
 }

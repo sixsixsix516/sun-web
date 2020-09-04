@@ -2,46 +2,38 @@ package com.sixsixsix516.controller.system;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sixsixsix516.framework.vo.PageInfo;
+import com.sixsixsix516.mapper.SysDictTypeMapper;
 import com.sixsixsix516.model.vo.Result;
-import com.sixsixsix516.service.SysDictTypeService;
+import com.sixsixsix516.framework.service.SysDictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.sixsixsix516.annotation.Log;
-import com.sixsixsix516.constant.UserConstants;
-import com.sixsixsix516.core.controller.BaseController;
+import com.sixsixsix516.framework.annotation.Log;
 import com.sixsixsix516.model.domain.entity.SysDictType;
-import com.sixsixsix516.core.page.TableDataInfo;
-import com.sixsixsix516.enums.BusinessType;
-import com.sixsixsix516.utils.SecurityUtils;
-import com.sixsixsix516.utils.poi.ExcelUtil;
+import com.sixsixsix516.framework.core.page.TableDataInfo;
+import com.sixsixsix516.framework.enums.BusinessType;
 
 /**
  * 数据字典信息
- *
- * @author ruoyi
  */
 @RestController
 @RequestMapping("/system/dict/type")
-public class SysDictTypeController extends BaseController {
+public class SysDictTypeController {
 
 	@Autowired
 	private SysDictTypeService dictTypeService;
 
 	@PreAuthorize("@ss.hasPermi('system:dict:list')")
 	@GetMapping("/list")
-	public TableDataInfo list(SysDictType dictType) {
-		startPage();
-		List<SysDictType> list = dictTypeService.selectDictTypeList(dictType);
-		return getDataTable(list);
+	public Result list(SysDictType dictType, PageInfo pageInfo) {
+		IPage<SysDictType> sysDictTypePage = dictTypeMapper.selectDictTypeList(new Page(pageInfo.getPageNum(), pageInfo.getPageSize()), dictType);
+		return Result.ok(sysDictTypePage.getRecords(), sysDictTypePage.getTotal());
 	}
 
 
@@ -53,7 +45,7 @@ public class SysDictTypeController extends BaseController {
 	@DeleteMapping("/clearCache")
 	public Result clearCache() {
 		dictTypeService.clearCache();
-		return Result.success();
+		return Result.ok();
 	}
 
 	/**
@@ -62,6 +54,10 @@ public class SysDictTypeController extends BaseController {
 	@GetMapping("/optionselect")
 	public Result optionselect() {
 		List<SysDictType> dictTypes = dictTypeService.selectDictTypeAll();
-		return Result.success(dictTypes);
+		return Result.ok(dictTypes);
 	}
+
+
+	@Autowired
+	private SysDictTypeMapper dictTypeMapper;
 }

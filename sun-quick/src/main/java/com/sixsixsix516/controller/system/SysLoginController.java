@@ -1,29 +1,29 @@
 package com.sixsixsix516.controller.system;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import com.sixsixsix516.mapper.SysRoleMapper;
 import com.sixsixsix516.model.vo.Result;
-import com.sixsixsix516.service.SysMenuService;
+import com.sixsixsix516.framework.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.sixsixsix516.constant.Constants;
+import com.sixsixsix516.framework.constant.Constants;
 import com.sixsixsix516.model.domain.entity.SysMenu;
 import com.sixsixsix516.model.domain.entity.SysUser;
 import com.sixsixsix516.model.domain.model.LoginBody;
 import com.sixsixsix516.model.domain.model.LoginUser;
-import com.sixsixsix516.utils.ServletUtils;
-import com.sixsixsix516.web.service.SysLoginService;
-import com.sixsixsix516.web.service.SysPermissionService;
-import com.sixsixsix516.web.service.TokenService;
+import com.sixsixsix516.framework.utils.ServletUtils;
+import com.sixsixsix516.framework.web.service.SysLoginService;
+import com.sixsixsix516.framework.web.service.SysPermissionService;
+import com.sixsixsix516.framework.web.service.TokenService;
 
 /**
  * 登录验证
- *
- * @author ruoyi
  */
 @RestController
 public class SysLoginController {
@@ -45,11 +45,9 @@ public class SysLoginController {
 	 */
 	@PostMapping("/login")
 	public Result login(@RequestBody LoginBody loginBody) {
-		Result ajax = Result.success();
 		// 生成令牌
 		String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(), loginBody.getUuid());
-		ajax.put(Constants.TOKEN, token);
-		return ajax;
+		return Result.ok(token);
 	}
 
 	/**
@@ -62,14 +60,12 @@ public class SysLoginController {
 		LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
 		SysUser user = loginUser.getUser();
 		// 角色集合
-		Set<String> roles = permissionService.getRolePermission(user);
-		// 权限集合
 		Set<String> permissions = permissionService.getMenuPermission(user);
-		Result ajax = Result.success();
-		ajax.put("user", user);
-		ajax.put("roles", roles);
-		ajax.put("permissions", permissions);
-		return ajax;
+		return Result.ok(new HashMap<String, Object>(3) {{
+			put("user", user);
+			put("roles", sysRoleMapper.selectRolePermissionByUserId(user.getUserId()));
+			put("permissions", permissions);
+		}});
 	}
 
 	/**
@@ -83,6 +79,9 @@ public class SysLoginController {
 		// 用户信息
 		SysUser user = loginUser.getUser();
 		List<SysMenu> menus = menuService.selectMenuTreeByUserId(user.getUserId());
-		return Result.success(menuService.buildMenus(menus));
+		return Result.ok(menuService.buildMenus(menus));
 	}
+
+	@Autowired
+	private SysRoleMapper sysRoleMapper;
 }

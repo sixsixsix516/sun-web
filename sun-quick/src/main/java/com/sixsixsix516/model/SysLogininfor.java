@@ -3,8 +3,8 @@ package com.sixsixsix516.model;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sixsixsix516.annotation.Excel;
-import com.sixsixsix516.annotation.Excel.ColumnType;
+import com.sixsixsix516.framework.annotation.Excel;
+import com.sixsixsix516.framework.annotation.Excel.ColumnType;
 
 /**
  * 系统访问记录表 sys_logininfor

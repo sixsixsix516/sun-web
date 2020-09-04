@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.sixsixsix516.model.vo.Result;
-import com.sixsixsix516.service.SysUserOnlineService;
+import com.sixsixsix516.framework.service.SysUserOnlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.sixsixsix516.annotation.Log;
-import com.sixsixsix516.constant.Constants;
-import com.sixsixsix516.core.controller.BaseController;
+import com.sixsixsix516.framework.annotation.Log;
+import com.sixsixsix516.framework.constant.Constants;
 import com.sixsixsix516.model.domain.model.LoginUser;
-import com.sixsixsix516.core.page.TableDataInfo;
-import com.sixsixsix516.core.redis.RedisCache;
-import com.sixsixsix516.enums.BusinessType;
-import com.sixsixsix516.utils.StringUtils;
+import com.sixsixsix516.framework.core.page.TableDataInfo;
+import com.sixsixsix516.framework.core.redis.RedisCache;
+import com.sixsixsix516.framework.enums.BusinessType;
+import com.sixsixsix516.framework.utils.StringUtils;
 import com.sixsixsix516.model.SysUserOnline;
 
 /**
@@ -31,7 +30,7 @@ import com.sixsixsix516.model.SysUserOnline;
  */
 @RestController
 @RequestMapping("/monitor/online")
-public class SysUserOnlineController extends BaseController {
+public class SysUserOnlineController {
 
 	@Autowired
 	private SysUserOnlineService userOnlineService;
@@ -41,7 +40,7 @@ public class SysUserOnlineController extends BaseController {
 
 	@PreAuthorize("@ss.hasPermi('monitor:online:list')")
 	@GetMapping("/list")
-	public TableDataInfo list(String ipaddr, String userName) {
+	public Result list(String ipaddr, String userName) {
 		Collection<String> keys = redisCache.keys(Constants.LOGIN_TOKEN_KEY + "*");
 		List<SysUserOnline> userOnlineList = new ArrayList<SysUserOnline>();
 		for (String key : keys) {
@@ -64,7 +63,7 @@ public class SysUserOnlineController extends BaseController {
 		}
 		Collections.reverse(userOnlineList);
 		userOnlineList.removeAll(Collections.singleton(null));
-		return getDataTable(userOnlineList);
+		return Result.ok(userOnlineList);
 	}
 
 	/**
@@ -75,6 +74,6 @@ public class SysUserOnlineController extends BaseController {
 	@DeleteMapping("/{tokenId}")
 	public Result forceLogout(@PathVariable String tokenId) {
 		redisCache.deleteObject(Constants.LOGIN_TOKEN_KEY + tokenId);
-		return Result.success();
+		return Result.ok();
 	}
 }

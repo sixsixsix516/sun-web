@@ -1,9 +1,10 @@
 package com.sixsixsix516.controller.system;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import com.sixsixsix516.model.vo.Result;
-import com.sixsixsix516.service.SysUserService;
+import com.sixsixsix516.framework.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,24 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import com.sixsixsix516.annotation.Log;
-import com.sixsixsix516.core.controller.BaseController;
+import com.sixsixsix516.framework.annotation.Log;
 import com.sixsixsix516.model.domain.entity.SysUser;
 import com.sixsixsix516.model.domain.model.LoginUser;
-import com.sixsixsix516.enums.BusinessType;
-import com.sixsixsix516.utils.SecurityUtils;
-import com.sixsixsix516.utils.ServletUtils;
-import com.sixsixsix516.utils.file.FileUploadUtils;
-import com.sixsixsix516.web.service.TokenService;
+import com.sixsixsix516.framework.enums.BusinessType;
+import com.sixsixsix516.framework.utils.SecurityUtils;
+import com.sixsixsix516.framework.utils.ServletUtils;
+import com.sixsixsix516.framework.web.service.TokenService;
 
 /**
  * 个人信息 业务处理
- *
- * @author ruoyi
  */
 @RestController
 @RequestMapping("/system/user/profile")
-public class SysProfileController extends BaseController {
+public class SysProfileController {
 
 
 	@Autowired
@@ -44,10 +41,10 @@ public class SysProfileController extends BaseController {
 	@GetMapping
 	public Result profile() {
 		LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
-		SysUser user = loginUser.getUser();
-		Result ajax = Result.success(user);
-		ajax.put("roleGroup", userService.selectUserRoleGroup(loginUser.getUsername()));
-		return ajax;
+		return Result.ok(new HashMap<String, Object>(2) {{
+			put("user", loginUser.getUser());
+			put("roleGroup", userService.selectUserRoleGroup(loginUser.getUsername()));
+		}});
 	}
 
 	/**
@@ -64,9 +61,9 @@ public class SysProfileController extends BaseController {
 			loginUser.getUser().setEmail(user.getEmail());
 			loginUser.getUser().setSex(user.getSex());
 			tokenService.setLoginUser(loginUser);
-			return Result.success();
+			return Result.ok();
 		}
-		return Result.error("修改个人信息异常，请联系管理员");
+		return Result.fail("修改个人信息异常，请联系管理员");
 	}
 
 	/**
@@ -79,18 +76,18 @@ public class SysProfileController extends BaseController {
 		String userName = loginUser.getUsername();
 		String password = loginUser.getPassword();
 		if (!SecurityUtils.matchesPassword(oldPassword, password)) {
-			return Result.error("修改密码失败，旧密码错误");
+			return Result.fail("修改密码失败，旧密码错误");
 		}
 		if (SecurityUtils.matchesPassword(newPassword, password)) {
-			return Result.error("新密码不能与旧密码相同");
+			return Result.fail("新密码不能与旧密码相同");
 		}
 		if (userService.resetUserPwd(userName, SecurityUtils.encryptPassword(newPassword)) > 0) {
 			// 更新缓存用户密码
 			loginUser.getUser().setPassword(SecurityUtils.encryptPassword(newPassword));
 			tokenService.setLoginUser(loginUser);
-			return Result.success();
+			return Result.ok();
 		}
-		return Result.error("修改密码异常，请联系管理员");
+		return Result.fail("修改密码异常，请联系管理员");
 	}
 
 	/**
@@ -98,21 +95,19 @@ public class SysProfileController extends BaseController {
 	 */
 	@Log(title = "用户头像", businessType = BusinessType.UPDATE)
 	@PostMapping("/avatar")
-	public Result avatar(@RequestParam("avatarfile") MultipartFile file) throws IOException {
+	public Result avatar(@RequestParam("avatarfile") MultipartFile file) {
 		if (!file.isEmpty()) {
 			LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
 			// todo
-//			String avatar = FileUploadUtils.upload(RuoYiConfig.getAvatarPath(), file);
 			String avatar = "";
 			if (userService.updateUserAvatar(loginUser.getUsername(), avatar)) {
-				Result ajax = Result.success();
-				ajax.put("imgUrl", avatar);
+				Result ajax = Result.ok();
 				// 更新缓存用户头像
 				loginUser.getUser().setAvatar(avatar);
 				tokenService.setLoginUser(loginUser);
 				return ajax;
 			}
 		}
-		return Result.error("上传图片异常，请联系管理员");
+		return Result.fail("上传图片异常，请联系管理员");
 	}
 }

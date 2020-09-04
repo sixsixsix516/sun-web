@@ -1,9 +1,10 @@
 package com.sixsixsix516.controller.system;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.sixsixsix516.model.vo.Result;
-import com.sixsixsix516.service.SysMenuService;
+import com.sixsixsix516.framework.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -15,17 +16,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.sixsixsix516.annotation.Log;
-import com.sixsixsix516.constant.Constants;
-import com.sixsixsix516.constant.UserConstants;
-import com.sixsixsix516.core.controller.BaseController;
+import com.sixsixsix516.framework.annotation.Log;
+import com.sixsixsix516.framework.constant.Constants;
+import com.sixsixsix516.framework.constant.UserConstants;
 import com.sixsixsix516.model.domain.entity.SysMenu;
 import com.sixsixsix516.model.domain.model.LoginUser;
-import com.sixsixsix516.enums.BusinessType;
-import com.sixsixsix516.utils.SecurityUtils;
-import com.sixsixsix516.utils.ServletUtils;
-import com.sixsixsix516.utils.StringUtils;
-import com.sixsixsix516.web.service.TokenService;
+import com.sixsixsix516.framework.enums.BusinessType;
+import com.sixsixsix516.framework.utils.SecurityUtils;
+import com.sixsixsix516.framework.utils.ServletUtils;
+import com.sixsixsix516.framework.utils.StringUtils;
+import com.sixsixsix516.framework.web.service.TokenService;
 
 /**
  * 菜单信息
@@ -34,7 +34,7 @@ import com.sixsixsix516.web.service.TokenService;
  */
 @RestController
 @RequestMapping("/system/menu")
-public class SysMenuController extends BaseController {
+public class SysMenuController {
 
 	@Autowired
 	private SysMenuService menuService;
@@ -50,7 +50,7 @@ public class SysMenuController extends BaseController {
 		LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
 		Long userId = loginUser.getUser().getUserId();
 		List<SysMenu> menus = menuService.selectMenuList(menu, userId);
-		return Result.success(menus);
+		return Result.ok(menus);
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class SysMenuController extends BaseController {
 	@PreAuthorize("@ss.hasPermi('system:menu:query')")
 	@GetMapping(value = "/{menuId}")
 	public Result getInfo(@PathVariable Long menuId) {
-		return Result.success(menuService.selectMenuById(menuId));
+		return Result.ok(menuService.selectMenuById(menuId));
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class SysMenuController extends BaseController {
 		LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
 		Long userId = loginUser.getUser().getUserId();
 		List<SysMenu> menus = menuService.selectMenuList(menu, userId);
-		return Result.success(menuService.buildMenuTreeSelect(menus));
+		return Result.ok(menuService.buildMenuTreeSelect(menus));
 	}
 
 	/**
@@ -80,10 +80,10 @@ public class SysMenuController extends BaseController {
 	public Result roleMenuTreeselect(@PathVariable("roleId") Long roleId) {
 		LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
 		List<SysMenu> menus = menuService.selectMenuList(loginUser.getUser().getUserId());
-		Result ajax = Result.success();
-		ajax.put("checkedKeys", menuService.selectMenuListByRoleId(roleId));
-		ajax.put("menus", menuService.buildMenuTreeSelect(menus));
-		return ajax;
+		return Result.ok(new HashMap<String, Object>(2) {{
+			put("checkedKeys", menuService.selectMenuListByRoleId(roleId));
+			put("menus", menuService.buildMenuTreeSelect(menus));
+		}});
 	}
 
 	/**
@@ -94,13 +94,13 @@ public class SysMenuController extends BaseController {
 	@PostMapping
 	public Result add(@Validated @RequestBody SysMenu menu) {
 		if (UserConstants.NOT_UNIQUE.equals(menuService.checkMenuNameUnique(menu))) {
-			return Result.error("新增菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
+			return Result.fail("新增菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
 		} else if (UserConstants.YES_FRAME.equals(menu.getIsFrame())
 				&& !StringUtils.startsWithAny(menu.getPath(), Constants.HTTP, Constants.HTTPS)) {
-			return Result.error("新增菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
+			return Result.fail("新增菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
 		}
 		menu.setCreateBy(SecurityUtils.getUsername());
-		return toAjax(menuService.insertMenu(menu));
+		return Result.ok(menuService.insertMenu(menu));
 	}
 
 	/**
@@ -111,15 +111,15 @@ public class SysMenuController extends BaseController {
 	@PutMapping
 	public Result edit(@Validated @RequestBody SysMenu menu) {
 		if (UserConstants.NOT_UNIQUE.equals(menuService.checkMenuNameUnique(menu))) {
-			return Result.error("修改菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
+			return Result.fail("修改菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
 		} else if (UserConstants.YES_FRAME.equals(menu.getIsFrame())
 				&& !StringUtils.startsWithAny(menu.getPath(), Constants.HTTP, Constants.HTTPS)) {
-			return Result.error("新增菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
+			return Result.fail("新增菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
 		} else if (menu.getMenuId().equals(menu.getParentId())) {
-			return Result.error("新增菜单'" + menu.getMenuName() + "'失败，上级菜单不能选择自己");
+			return Result.fail("新增菜单'" + menu.getMenuName() + "'失败，上级菜单不能选择自己");
 		}
 		menu.setUpdateBy(SecurityUtils.getUsername());
-		return toAjax(menuService.updateMenu(menu));
+		return Result.ok(menuService.updateMenu(menu));
 	}
 
 	/**
@@ -130,11 +130,11 @@ public class SysMenuController extends BaseController {
 	@DeleteMapping("/{menuId}")
 	public Result remove(@PathVariable("menuId") Long menuId) {
 		if (menuService.hasChildByMenuId(menuId)) {
-			return Result.error("存在子菜单,不允许删除");
+			return Result.fail("存在子菜单,不允许删除");
 		}
 		if (menuService.checkMenuExistRole(menuId)) {
-			return Result.error("菜单已分配,不允许删除");
+			return Result.fail("菜单已分配,不允许删除");
 		}
-		return toAjax(menuService.deleteMenuById(menuId));
+		return Result.ok(menuService.deleteMenuById(menuId));
 	}
 }

@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.sixsixsix516.core.controller.BaseController;
-import com.sixsixsix516.utils.StringUtils;
+import com.sixsixsix516.framework.utils.StringUtils;
 
 /**
  * swagger 用户测试方法
@@ -23,7 +22,7 @@ import com.sixsixsix516.utils.StringUtils;
  */
 @RestController
 @RequestMapping("/test/user")
-public class TestController extends BaseController {
+public class TestController {
 	private final static Map<Integer, UserEntity> users = new LinkedHashMap<Integer, UserEntity>();
 
 	{
@@ -34,45 +33,45 @@ public class TestController extends BaseController {
 	@GetMapping("/list")
 	public Result userList() {
 		List<UserEntity> userList = new ArrayList<UserEntity>(users.values());
-		return Result.success(userList);
+		return Result.ok(userList);
 	}
 
 	@GetMapping("/{userId}")
 	public Result getUser(@PathVariable Integer userId) {
 		if (!users.isEmpty() && users.containsKey(userId)) {
-			return Result.success(users.get(userId));
+			return Result.ok(users.get(userId));
 		} else {
-			return Result.error("用户不存在");
+			return Result.fail("用户不存在");
 		}
 	}
 
 	@PostMapping("/save")
 	public Result save(UserEntity user) {
 		if (StringUtils.isNull(user) || StringUtils.isNull(user.getUserId())) {
-			return Result.error("用户ID不能为空");
+			return Result.fail("用户ID不能为空");
 		}
-		return Result.success(users.put(user.getUserId(), user));
+		return Result.ok(users.put(user.getUserId(), user));
 	}
 
 	@PutMapping("/update")
 	public Result update(UserEntity user) {
 		if (StringUtils.isNull(user) || StringUtils.isNull(user.getUserId())) {
-			return Result.error("用户ID不能为空");
+			return Result.fail("用户ID不能为空");
 		}
 		if (users.isEmpty() || !users.containsKey(user.getUserId())) {
-			return Result.error("用户不存在");
+			return Result.fail("用户不存在");
 		}
 		users.remove(user.getUserId());
-		return Result.success(users.put(user.getUserId(), user));
+		return Result.ok(users.put(user.getUserId(), user));
 	}
 
 	@DeleteMapping("/{userId}")
 	public Result delete(@PathVariable Integer userId) {
 		if (!users.isEmpty() && users.containsKey(userId)) {
 			users.remove(userId);
-			return Result.success();
+			return Result.ok();
 		} else {
-			return Result.error("用户不存在");
+			return Result.fail("用户不存在");
 		}
 	}
 }

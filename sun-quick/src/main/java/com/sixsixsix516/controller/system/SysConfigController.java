@@ -1,7 +1,7 @@
 package com.sixsixsix516.controller.system;
 
 import com.sixsixsix516.model.vo.Result;
-import com.sixsixsix516.service.SysConfigService;
+import com.sixsixsix516.framework.service.SysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +25,7 @@ public class SysConfigController {
 	@PreAuthorize("@ss.hasPermi('system:config:query')")
 	@GetMapping(value = "/{configId}")
 	public Result getInfo(@PathVariable Long configId) {
-		return Result.success(configService.selectConfigById(configId));
+		return Result.ok(configService.selectConfigById(configId));
 	}
 
 	/**
@@ -33,7 +33,7 @@ public class SysConfigController {
 	 */
 	@GetMapping(value = "/configKey/{configKey}")
 	public Result getConfigKey(@PathVariable String configKey) {
-		return Result.success(configService.selectConfigByKey(configKey));
+		return Result.ok(configService.selectConfigByKey(configKey));
 	}
 
 

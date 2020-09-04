@@ -2,8 +2,12 @@ package com.sixsixsix516.controller.monitor;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sixsixsix516.framework.vo.PageInfo;
+import com.sixsixsix516.mapper.SysLogininforMapper;
 import com.sixsixsix516.model.vo.Result;
-import com.sixsixsix516.service.SysLogininforService;
+import com.sixsixsix516.framework.service.SysLogininforService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,11 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.sixsixsix516.annotation.Log;
-import com.sixsixsix516.core.controller.BaseController;
-import com.sixsixsix516.core.page.TableDataInfo;
-import com.sixsixsix516.enums.BusinessType;
-import com.sixsixsix516.utils.poi.ExcelUtil;
+import com.sixsixsix516.framework.annotation.Log;
+import com.sixsixsix516.framework.core.page.TableDataInfo;
+import com.sixsixsix516.framework.enums.BusinessType;
+import com.sixsixsix516.framework.utils.poi.ExcelUtil;
 import com.sixsixsix516.model.SysLogininfor;
 
 /**
@@ -25,33 +28,24 @@ import com.sixsixsix516.model.SysLogininfor;
  */
 @RestController
 @RequestMapping("/monitor/logininfor")
-public class SysLogininforController extends BaseController {
+public class SysLogininforController {
 
 	@Autowired
 	private SysLogininforService logininforService;
 
 	@PreAuthorize("@ss.hasPermi('monitor:logininfor:list')")
 	@GetMapping("/list")
-	public TableDataInfo list(SysLogininfor logininfor) {
-		startPage();
-		List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
-		return getDataTable(list);
+	public Result list(SysLogininfor logininfor, PageInfo pageInfo) {
+		IPage<SysLogininfor> sysLogininforPage = logininforMapper.selectLogininforList(new Page(pageInfo.getPageNum(), pageInfo.getPageSize()), logininfor);
+		return Result.ok(sysLogininforPage.getRecords(), sysLogininforPage.getTotal());
 	}
 
-	@Log(title = "登陆日志", businessType = BusinessType.EXPORT)
-	@PreAuthorize("@ss.hasPermi('monitor:logininfor:export')")
-	@GetMapping("/export")
-	public Result export(SysLogininfor logininfor) {
-		List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
-		ExcelUtil<SysLogininfor> util = new ExcelUtil<SysLogininfor>(SysLogininfor.class);
-		return util.exportExcel(list, "登陆日志");
-	}
 
 	@PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
 	@Log(title = "登陆日志", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{infoIds}")
 	public Result remove(@PathVariable Long[] infoIds) {
-		return toAjax(logininforService.deleteLogininforByIds(infoIds));
+		return Result.ok(logininforService.deleteLogininforByIds(infoIds));
 	}
 
 	@PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
@@ -59,6 +53,9 @@ public class SysLogininforController extends BaseController {
 	@DeleteMapping("/clean")
 	public Result clean() {
 		logininforService.cleanLogininfor();
-		return Result.success();
+		return Result.ok();
 	}
+
+	@Autowired
+	private SysLogininforMapper logininforMapper;
 }

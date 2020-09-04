@@ -3,12 +3,14 @@ package com.sixsixsix516.model.domain.entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.sixsixsix516.model.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import com.sixsixsix516.annotation.Excel;
-import com.sixsixsix516.annotation.Excel.ColumnType;
-import com.sixsixsix516.constant.UserConstants;
+import com.sixsixsix516.framework.annotation.Excel;
+import com.sixsixsix516.framework.annotation.Excel.ColumnType;
+import com.sixsixsix516.framework.constant.UserConstants;
 
 /**
  * 字典数据表 sys_dict_data
@@ -21,6 +23,7 @@ public class SysDictData extends BaseEntity {
 	/**
 	 * 字典编码
 	 */
+	@TableId(type = IdType.AUTO)
 	@Excel(name = "字典编码", cellType = ColumnType.NUMERIC)
 	private Long dictCode;
 

@@ -3,6 +3,7 @@ package com.sixsixsix516.mapper;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sixsixsix516.model.domain.entity.SysRole;
 
 /**
@@ -17,7 +18,7 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
 	 * @param role 角色信息
 	 * @return 角色数据集合信息
 	 */
-	public List<SysRole> selectRoleList(SysRole role);
+	IPage<SysRole> selectRoleList(IPage page, SysRole role);
 
 	/**
 	 * 根据用户ID查询角色
@@ -66,13 +67,6 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
 	 */
 	public SysRole checkRoleNameUnique(String roleName);
 
-	/**
-	 * 校验角色权限是否唯一
-	 *
-	 * @param roleKey 角色权限
-	 * @return 角色信息
-	 */
-	public SysRole checkRoleKeyUnique(String roleKey);
 
 	/**
 	 * 修改角色信息

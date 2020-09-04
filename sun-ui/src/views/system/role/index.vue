@@ -11,16 +11,6 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="权限字符" prop="roleKey">
-        <el-input
-          v-model="queryParams.roleKey"
-          placeholder="请输入权限字符"
-          clearable
-          size="small"
-          style="width: 240px"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-select
           v-model="queryParams.status"
@@ -105,7 +95,6 @@
       <el-table-column type="selection" width="55" align="center"/>
       <el-table-column label="角色编号" prop="roleId" width="120"/>
       <el-table-column label="角色名称" prop="roleName" :show-overflow-tooltip="true" width="150"/>
-      <el-table-column label="权限字符" prop="roleKey" :show-overflow-tooltip="true" width="150"/>
       <el-table-column label="显示顺序" prop="roleSort" width="100"/>
       <el-table-column label="状态" align="center" width="100">
         <template slot-scope="scope">
@@ -157,9 +146,6 @@
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="角色名称" prop="roleName">
           <el-input v-model="form.roleName" placeholder="请输入角色名称"/>
-        </el-form-item>
-        <el-form-item label="权限字符" prop="roleKey">
-          <el-input v-model="form.roleKey" placeholder="请输入权限字符"/>
         </el-form-item>
         <el-form-item label="角色顺序" prop="roleSort">
           <el-input-number v-model="form.roleSort" controls-position="right" :min="0"/>
@@ -243,7 +229,6 @@
                     pageNum: 1,
                     pageSize: 10,
                     roleName: undefined,
-                    roleKey: undefined,
                     status: undefined
                 },
                 // 表单参数
@@ -256,9 +241,6 @@
                 rules: {
                     roleName: [
                         {required: true, message: "角色名称不能为空", trigger: "blur"}
-                    ],
-                    roleKey: [
-                        {required: true, message: "权限字符不能为空", trigger: "blur"}
                     ],
                     roleSort: [
                         {required: true, message: "角色顺序不能为空", trigger: "blur"}
@@ -278,7 +260,7 @@
                 this.loading = true;
                 listRole(this.addDateRange(this.queryParams, this.dateRange)).then(
                     response => {
-                        this.roleList = response.rows;
+                        this.roleList = response.data;
                         this.total = response.total;
                         this.loading = false;
                     }
@@ -335,7 +317,6 @@
                 this.form = {
                     roleId: undefined,
                     roleName: undefined,
-                    roleKey: undefined,
                     roleSort: 0,
                     status: "0",
                     menuIds: [],
@@ -390,7 +371,7 @@
                         if (this.form.roleId != undefined) {
                             this.form.menuIds = this.getMenuAllCheckedKeys();
                             updateRole(this.form).then(response => {
-                                if (response.code === 200) {
+                                if (response.code === 0) {
                                     this.msgSuccess("修改成功");
                                     this.open = false;
                                     this.getList();
@@ -399,7 +380,7 @@
                         } else {
                             this.form.menuIds = this.getMenuAllCheckedKeys();
                             addRole(this.form).then(response => {
-                                if (response.code === 200) {
+                                if (response.code === 0) {
                                     this.msgSuccess("新增成功");
                                     this.open = false;
                                     this.getList();

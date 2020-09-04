@@ -2,8 +2,8 @@ package com.sixsixsix516.model;
 
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sixsixsix516.annotation.Excel;
-import com.sixsixsix516.annotation.Excel.ColumnType;
+import com.sixsixsix516.framework.annotation.Excel;
+import com.sixsixsix516.framework.annotation.Excel.ColumnType;
 
 /**
  * 操作日志记录表 oper_log

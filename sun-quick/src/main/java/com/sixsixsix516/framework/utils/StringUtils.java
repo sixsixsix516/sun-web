@@ -133,6 +133,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 		return !isNull(object);
 	}
 
+
+
 	/**
 	 * * 判断一个对象是否是数组类型（Java基本型别的数组）
 	 *

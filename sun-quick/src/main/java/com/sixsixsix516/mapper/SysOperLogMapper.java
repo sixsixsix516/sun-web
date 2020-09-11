@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sixsixsix516.model.SysOperLog;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 操作日志 数据层
@@ -24,7 +25,7 @@ public interface SysOperLogMapper {
 	 * @param operLog 操作日志对象
 	 * @return 操作日志集合
 	 */
-	IPage<SysOperLog> selectOperLogList(IPage page, SysOperLog operLog);
+	IPage<SysOperLog> selectOperLogList(IPage page, @Param("operLog") SysOperLog operLog);
 
 	/**
 	 * 批量删除系统操作日志

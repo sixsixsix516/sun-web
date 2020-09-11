@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author ruoyi
  */
-@MapperScan("com.sixsixsix516.mapper")
+@MapperScan({"com.sixsixsix516.mapper","com.sixsixsix516.framework.generate.mapper"})
 @SpringBootApplication
 public class SunApp {
 

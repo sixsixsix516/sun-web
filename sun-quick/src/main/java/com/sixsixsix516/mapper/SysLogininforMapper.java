@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sixsixsix516.model.SysLogininfor;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 系统访问日志情况信息 数据层
@@ -24,7 +25,7 @@ public interface SysLogininforMapper {
 	 * @param logininfor 访问日志对象
 	 * @return 登录记录集合
 	 */
-	IPage<SysLogininfor> selectLogininforList(IPage page, SysLogininfor logininfor);
+	IPage<SysLogininfor> selectLogininforList(IPage page, @Param("logininfor") SysLogininfor logininfor);
 
 	/**
 	 * 批量删除系统登录日志

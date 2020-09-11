@@ -122,13 +122,6 @@ public class SysUserController {
 	@Log(title = "用户管理", businessType = BusinessType.UPDATE)
 	@PutMapping
 	public Result edit(@Validated @RequestBody SysUser user) {
-		userService.checkUserAllowed(user);
-		if (sysUserMapper.selectCount(new QueryWrapper<SysUser>().lambda().eq(SysUser::getPhonenumber, user.getPhonenumber())) > 0) {
-			return Result.fail("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
-		}
-		if (sysUserMapper.selectCount(new QueryWrapper<SysUser>().lambda().eq(SysUser::getEmail, user.getEmail())) > 0) {
-			return Result.fail("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
-		}
 		user.setUpdateBy(SecurityUtils.getUsername());
 		return Result.ok(userService.updateUser(user));
 	}

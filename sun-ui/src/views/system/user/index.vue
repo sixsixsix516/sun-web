@@ -146,6 +146,7 @@
                            :disabled="item.status == 1"></el-option>
               </el-select>
             </el-form-item>
+
           </el-col>
         </el-row>
         <el-row>
@@ -351,7 +352,7 @@
             handleAdd() {
                 this.reset();
                 getUser().then((response) => {
-                    this.roleOptions = response.roles;
+                    this.roleOptions = response.data.roles;
                     this.open = true;
                     this.title = "添加用户";
                     this.form.password = this.initPassword;
@@ -363,10 +364,9 @@
                 // this.getTreeselect();
                 const userId = row.userId || this.ids;
                 getUser(userId).then((response) => {
-                    this.form = response.data;
-                    this.roleOptions = response.roles;
-                    this.form.postIds = response.postIds;
-                    this.form.roleIds = response.roleIds;
+                    this.form = response.data.data;
+                    this.roleOptions = response.data.roles;
+                    this.form.roleIds = response.data.roleIds;
                     this.open = true;
                     this.title = "修改用户";
                     this.form.password = "";
@@ -380,7 +380,7 @@
                 })
                     .then(({value}) => {
                         resetUserPwd(row.userId, value).then((response) => {
-                            if (response.code === 200) {
+                            if (response.code === 0) {
                                 this.msgSuccess("修改成功，新密码是：" + value);
                             }
                         });
@@ -394,7 +394,7 @@
                     if (valid) {
                         if (this.form.userId != undefined) {
                             updateUser(this.form).then((response) => {
-                                if (response.code === 200) {
+                                if (response.code === 0) {
                                     this.msgSuccess("修改成功");
                                     this.open = false;
                                     this.getList();

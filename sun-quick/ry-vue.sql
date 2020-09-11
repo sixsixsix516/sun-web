@@ -11,7 +11,7 @@
  Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 04/09/2020 17:48:39
+ Date: 11/09/2020 17:30:43
 */
 
 SET NAMES utf8mb4;
@@ -41,12 +41,12 @@ CREATE TABLE `gen_table`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`table_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成业务表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成业务表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of gen_table
 -- ----------------------------
-INSERT INTO `gen_table` VALUES (1, 'super_user', '用户表', 'SuperUser', 'crud', 'com.ruoyi.system', 'system', 'user', '用户', 'ruoyi', '0', '/', NULL, 'admin', '2020-08-20 17:02:58', '', NULL, NULL);
+INSERT INTO `gen_table` VALUES (16, 'super_user', '用户表', 'SuperUser', 'crud', 'com.ruoyi.system', 'system', 'user', '用户', 'ruoyi', '0', '/', NULL, '', NULL, '', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for gen_table_column
@@ -76,14 +76,14 @@ CREATE TABLE `gen_table_column`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`column_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of gen_table_column
 -- ----------------------------
-INSERT INTO `gen_table_column` VALUES (1, '1', 'id', NULL, 'bigint(20) unsigned', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2020-08-20 17:02:58', '', NULL);
-INSERT INTO `gen_table_column` VALUES (2, '1', 'username', '用户名', 'varchar(255)', 'String', 'username', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2020-08-20 17:02:58', '', NULL);
-INSERT INTO `gen_table_column` VALUES (3, '1', 'password', '密码', 'varchar(255)', 'String', 'password', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2020-08-20 17:02:58', '', NULL);
+INSERT INTO `gen_table_column` VALUES (37, '16', 'id', '', 'bigint(20) unsigned', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, '', NULL, '', NULL);
+INSERT INTO `gen_table_column` VALUES (38, '16', 'username', '用户名', 'varchar(255)', 'String', 'username', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 2, '', NULL, '', NULL);
+INSERT INTO `gen_table_column` VALUES (39, '16', 'password', '密码', 'varchar(255)', 'String', 'password', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 3, '', NULL, '', NULL);
 
 -- ----------------------------
 -- Table structure for super_user
@@ -227,7 +227,7 @@ CREATE TABLE `sys_logininfor`  (
   `msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '提示消息',
   `login_time` datetime(0) NULL DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 135 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 136 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -267,6 +267,7 @@ INSERT INTO `sys_logininfor` VALUES (131, 'admin', '127.0.0.1', '内网IP', 'Chr
 INSERT INTO `sys_logininfor` VALUES (132, 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', '0', '登录成功', '2020-09-04 16:45:42');
 INSERT INTO `sys_logininfor` VALUES (133, 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', '0', '登录成功', '2020-09-04 17:04:19');
 INSERT INTO `sys_logininfor` VALUES (134, 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', '0', '登录成功', '2020-09-04 17:22:10');
+INSERT INTO `sys_logininfor` VALUES (135, 'admin', '127.0.0.1', '内网IP', 'Chrome', 'Windows 10', '0', '登录成功', '2020-09-11 14:24:59');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -369,7 +370,7 @@ CREATE TABLE `sys_oper_log`  (
   `error_msg` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime(0) NULL DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`oper_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 277 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 295 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -531,6 +532,24 @@ INSERT INTO `sys_oper_log` VALUES (273, '用户管理', 2, 'com.sixsixsix516.con
 INSERT INTO `sys_oper_log` VALUES (274, '用户管理', 2, 'com.sixsixsix516.controller.system.SysUserController.changeStatus()', 'PUT', 1, 'admin', NULL, '/system/user/changeStatus', '127.0.0.1', '内网IP', '{\"admin\":true,\"params\":{},\"userId\":1,\"status\":0}', 'null', 1, '不允许操作超级管理员用户', '2020-09-04 17:38:57');
 INSERT INTO `sys_oper_log` VALUES (275, '用户管理', 2, 'com.sixsixsix516.controller.system.SysUserController.changeStatus()', 'PUT', 1, 'admin', NULL, '/system/user/changeStatus', '127.0.0.1', '内网IP', '{\"admin\":false,\"updateBy\":\"admin\",\"params\":{},\"userId\":7,\"status\":0}', '{\"code\":0,\"data\":1,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-04 17:38:59');
 INSERT INTO `sys_oper_log` VALUES (276, '角色管理', 2, 'com.sixsixsix516.controller.system.SysRoleController.changeStatus()', 'PUT', 1, 'admin', NULL, '/system/role/changeStatus', '127.0.0.1', '内网IP', '{\"flag\":false,\"roleId\":2,\"admin\":false,\"params\":{},\"updateBy\":\"admin\",\"status\":\"1\"}', '{\"code\":0,\"data\":1,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-04 17:39:08');
+INSERT INTO `sys_oper_log` VALUES (277, '用户管理', 1, 'com.sixsixsix516.controller.system.SysUserController.add()', 'POST', 1, 'admin', NULL, '/system/user', '127.0.0.1', '内网IP', '{\"phonenumber\":\"13289333516\",\"admin\":false,\"remark\":\"111\",\"password\":\"$2a$10$NNQ6UMR/ZeM5WBZjb638MeWp8qVgmma0yxyp7V5UOyupN62CRL.UW\",\"postIds\":[],\"email\":\"sixsixsix516@163.com\",\"nickName\":\"SUN测试\",\"sex\":\"0\",\"params\":{},\"userName\":\"SUN用户名\",\"userId\":8,\"createBy\":\"admin\",\"roleIds\":[],\"status\":0}', '{\"code\":0,\"data\":1,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-11 14:25:51');
+INSERT INTO `sys_oper_log` VALUES (278, '用户管理', 2, 'com.sixsixsix516.controller.system.SysUserController.changeStatus()', 'PUT', 1, 'admin', NULL, '/system/user/changeStatus', '127.0.0.1', '内网IP', '{\"admin\":false,\"updateBy\":\"admin\",\"params\":{},\"userId\":8,\"status\":0}', '{\"code\":0,\"data\":1,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-11 14:25:55');
+INSERT INTO `sys_oper_log` VALUES (279, '角色管理', 2, 'com.sixsixsix516.controller.system.SysRoleController.changeStatus()', 'PUT', 1, 'admin', NULL, '/system/role/changeStatus', '127.0.0.1', '内网IP', '{\"flag\":false,\"roleId\":2,\"admin\":false,\"params\":{},\"updateBy\":\"admin\",\"status\":\"0\"}', '{\"code\":0,\"data\":1,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-11 14:27:15');
+INSERT INTO `sys_oper_log` VALUES (280, '用户管理', 2, 'com.sixsixsix516.controller.system.SysUserController.changeStatus()', 'PUT', 1, 'admin', NULL, '/system/user/changeStatus', '127.0.0.1', '内网IP', '{\"admin\":false,\"updateBy\":\"admin\",\"params\":{},\"userId\":8,\"status\":0}', '{\"code\":0,\"data\":1,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-11 14:35:34');
+INSERT INTO `sys_oper_log` VALUES (281, '用户管理', 3, 'com.sixsixsix516.controller.system.SysUserController.remove()', 'DELETE', 1, 'admin', NULL, '/system/user/8,7', '127.0.0.1', '内网IP', '{userIds=8,7}', '{\"code\":0,\"data\":2,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-11 14:35:43');
+INSERT INTO `sys_oper_log` VALUES (282, '用户管理', 1, 'com.sixsixsix516.controller.system.SysUserController.add()', 'POST', 1, 'admin', NULL, '/system/user', '127.0.0.1', '内网IP', '{\"phonenumber\":\"13289333516\",\"admin\":false,\"remark\":\"111\",\"password\":\"123456\",\"postIds\":[],\"email\":\"sixsixsix516@163.com\",\"nickName\":\"测试\",\"sex\":\"0\",\"params\":{},\"userName\":\"测试\",\"roleIds\":[8],\"status\":0}', '{\"code\":-1,\"message\":\"新增用户\'测试\'失败，手机号码已存在\",\"total\":0}', 0, NULL, '2020-09-11 14:36:12');
+INSERT INTO `sys_oper_log` VALUES (283, '用户管理', 1, 'com.sixsixsix516.controller.system.SysUserController.add()', 'POST', 1, 'admin', NULL, '/system/user', '127.0.0.1', '内网IP', '{\"phonenumber\":\"13289333517\",\"admin\":false,\"remark\":\"111\",\"password\":\"123456\",\"postIds\":[],\"email\":\"sixsixsix516@163.com\",\"nickName\":\"测试\",\"sex\":\"0\",\"params\":{},\"userName\":\"测试\",\"roleIds\":[8],\"status\":0}', '{\"code\":-1,\"message\":\"新增用户\'测试\'失败，邮箱账号已存在\",\"total\":0}', 0, NULL, '2020-09-11 14:36:20');
+INSERT INTO `sys_oper_log` VALUES (284, '用户管理', 1, 'com.sixsixsix516.controller.system.SysUserController.add()', 'POST', 1, 'admin', NULL, '/system/user', '127.0.0.1', '内网IP', '{\"phonenumber\":\"13289333517\",\"admin\":false,\"remark\":\"111\",\"password\":\"$2a$10$6/zBaXDM89WjEAKqjzOOJeSz7ZIVFwAMDpNNO0gIsm4a1jLWJrDNe\",\"postIds\":[],\"email\":\"sixsixsix517@163.com\",\"nickName\":\"测试\",\"sex\":\"0\",\"params\":{},\"userName\":\"测试\",\"userId\":9,\"createBy\":\"admin\",\"roleIds\":[8],\"status\":0}', '{\"code\":0,\"data\":1,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-11 14:36:25');
+INSERT INTO `sys_oper_log` VALUES (285, '用户管理', 2, 'com.sixsixsix516.controller.system.SysUserController.edit()', 'PUT', 1, 'admin', NULL, '/system/user', '127.0.0.1', '内网IP', '{\"roles\":[{\"flag\":false,\"roleId\":8,\"admin\":false,\"params\":{},\"roleSort\":\"2\",\"roleName\":\"测试角色\",\"status\":\"0\"}],\"phonenumber\":\"13289333517\",\"admin\":false,\"remark\":\"111\",\"delFlag\":\"0\",\"password\":\"\",\"loginIp\":\"\",\"email\":\"sixsixsix517@163.com\",\"nickName\":\"测试\",\"sex\":\"0\",\"avatar\":\"\",\"params\":{},\"userName\":\"测试\",\"userId\":9,\"createBy\":\"admin\",\"roleIds\":[],\"createTime\":1599806185000,\"status\":0}', '{\"code\":-1,\"message\":\"新增用户\'测试\'失败，手机号码已存在\",\"total\":0}', 0, NULL, '2020-09-11 14:36:35');
+INSERT INTO `sys_oper_log` VALUES (286, '用户管理', 2, 'com.sixsixsix516.controller.system.SysUserController.edit()', 'PUT', 1, 'admin', NULL, '/system/user', '127.0.0.1', '内网IP', '{\"roles\":[{\"flag\":false,\"roleId\":8,\"admin\":false,\"params\":{},\"roleSort\":\"2\",\"roleName\":\"测试角色\",\"status\":\"0\"}],\"phonenumber\":\"13289333517\",\"admin\":false,\"remark\":\"111\",\"delFlag\":\"0\",\"password\":\"\",\"loginIp\":\"\",\"email\":\"sixsixsix517@163.com\",\"nickName\":\"测试2\",\"sex\":\"0\",\"avatar\":\"\",\"params\":{},\"userName\":\"测试\",\"userId\":9,\"createBy\":\"admin\",\"roleIds\":[8],\"createTime\":1599806185000,\"status\":0}', '{\"code\":-1,\"message\":\"新增用户\'测试\'失败，手机号码已存在\",\"total\":0}', 0, NULL, '2020-09-11 14:36:46');
+INSERT INTO `sys_oper_log` VALUES (287, '用户管理', 2, 'com.sixsixsix516.controller.system.SysUserController.edit()', 'PUT', 1, 'admin', NULL, '/system/user', '127.0.0.1', '内网IP', '{\"roles\":[{\"flag\":false,\"roleId\":8,\"admin\":false,\"params\":{},\"roleSort\":\"2\",\"roleName\":\"测试角色\",\"status\":\"0\"}],\"phonenumber\":\"13289333517\",\"admin\":false,\"remark\":\"111\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"loginIp\":\"\",\"email\":\"sixsixsix517@163.com\",\"nickName\":\"测试2\",\"sex\":\"0\",\"avatar\":\"\",\"params\":{},\"userName\":\"测试\",\"userId\":9,\"createBy\":\"admin\",\"roleIds\":[8],\"createTime\":1599806185000,\"status\":0}', '{\"code\":0,\"data\":1,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-11 14:37:49');
+INSERT INTO `sys_oper_log` VALUES (288, '用户管理', 2, 'com.sixsixsix516.controller.system.SysUserController.edit()', 'PUT', 1, 'admin', NULL, '/system/user', '127.0.0.1', '内网IP', '{\"roles\":[{\"flag\":false,\"roleId\":8,\"admin\":false,\"params\":{},\"roleSort\":\"2\",\"roleName\":\"测试角色\",\"status\":\"0\"}],\"phonenumber\":\"13289333517\",\"admin\":false,\"remark\":\"111\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"loginIp\":\"\",\"email\":\"sixsixsix517@163.com\",\"nickName\":\"测试1\",\"sex\":\"0\",\"avatar\":\"\",\"params\":{},\"userName\":\"测试\",\"userId\":9,\"createBy\":\"admin\",\"roleIds\":[8],\"createTime\":1599806185000,\"status\":0}', '{\"code\":0,\"data\":1,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-11 14:42:07');
+INSERT INTO `sys_oper_log` VALUES (289, '用户管理', 2, 'com.sixsixsix516.controller.system.SysUserController.changeStatus()', 'PUT', 1, 'admin', NULL, '/system/user/changeStatus', '127.0.0.1', '内网IP', '{\"admin\":false,\"updateBy\":\"admin\",\"params\":{},\"userId\":9,\"status\":0}', '{\"code\":0,\"data\":1,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-11 14:48:28');
+INSERT INTO `sys_oper_log` VALUES (290, '用户管理', 2, 'com.sixsixsix516.controller.system.SysUserController.edit()', 'PUT', 1, 'admin', NULL, '/system/user', '127.0.0.1', '内网IP', '{\"roles\":[{\"flag\":false,\"roleId\":8,\"admin\":false,\"params\":{},\"roleSort\":\"2\",\"roleName\":\"测试角色\",\"status\":\"0\"}],\"phonenumber\":\"13289333517\",\"admin\":false,\"remark\":\"111\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"loginIp\":\"\",\"email\":\"sixsixsix517@163.com\",\"nickName\":\"测试2\",\"sex\":\"0\",\"avatar\":\"\",\"params\":{},\"userName\":\"测试\",\"userId\":9,\"createBy\":\"admin\",\"roleIds\":[8],\"createTime\":1599806185000,\"status\":0}', '{\"code\":0,\"data\":1,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-11 14:48:42');
+INSERT INTO `sys_oper_log` VALUES (291, '用户管理', 2, 'com.sixsixsix516.controller.system.SysUserController.edit()', 'PUT', 1, 'admin', NULL, '/system/user', '127.0.0.1', '内网IP', '{\"roles\":[{\"flag\":false,\"roleId\":8,\"admin\":false,\"params\":{},\"roleSort\":\"2\",\"roleName\":\"测试角色\",\"status\":\"0\"}],\"phonenumber\":\"13289333517\",\"admin\":false,\"remark\":\"111\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"loginIp\":\"\",\"email\":\"sixsixsix517@163.com\",\"nickName\":\"测试1\",\"sex\":\"0\",\"avatar\":\"\",\"params\":{},\"userName\":\"测试\",\"userId\":9,\"createBy\":\"admin\",\"roleIds\":[8],\"createTime\":1599806185000,\"status\":0}', '{\"code\":0,\"data\":1,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-11 14:48:59');
+INSERT INTO `sys_oper_log` VALUES (292, '角色管理', 1, 'com.sixsixsix516.controller.system.SysRoleController.add()', 'POST', 1, 'admin', NULL, '/system/role', '127.0.0.1', '内网IP', '{\"flag\":false,\"admin\":false,\"params\":{},\"roleSort\":\"0\",\"roleName\":\"111\",\"menuIds\":[1,100,1001,1002,1003,1004,1005,1006,1007,101,1008,1009,1010,1011,1012,102,1013,1014,1015,1016,108,500,1040,1041,1042,501,1043,1044,1045,2,109,1046,1047,1048,112,3,113,2000,2001,2002,2003,2004,2005,114,1055,1056,1058,1057,1059,1060],\"status\":\"0\"}', '{\"code\":-1,\"message\":\"新增角色\'111\'失败，角色名称已存在\",\"total\":0}', 0, NULL, '2020-09-11 14:49:19');
+INSERT INTO `sys_oper_log` VALUES (293, '角色管理', 1, 'com.sixsixsix516.controller.system.SysRoleController.add()', 'POST', 1, 'admin', NULL, '/system/role', '127.0.0.1', '内网IP', '{\"flag\":false,\"roleId\":9,\"admin\":false,\"params\":{},\"roleSort\":\"0\",\"createBy\":\"admin\",\"roleName\":\"222\",\"menuIds\":[1,100,1001,1002,1003,1004,1005,1006,1007,101,1008,1009,1010,1011,1012,102,1013,1014,1015,1016,108,500,1040,1041,1042,501,1043,1044,1045,2,109,1046,1047,1048,112,3,113,2000,2001,2002,2003,2004,2005,114,1055,1056,1058,1057,1059,1060],\"status\":\"0\"}', '{\"code\":0,\"data\":50,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-11 14:49:32');
+INSERT INTO `sys_oper_log` VALUES (294, '用户管理', 2, 'com.sixsixsix516.controller.system.SysUserController.edit()', 'PUT', 1, 'admin', NULL, '/system/user', '127.0.0.1', '内网IP', '{\"roles\":[{\"flag\":false,\"roleId\":1,\"admin\":true,\"params\":{},\"roleSort\":\"1\",\"roleName\":\"超级管理员\",\"status\":\"0\"}],\"phonenumber\":\"15888888888\",\"admin\":true,\"loginDate\":1521171180000,\"remark\":\"管理员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"loginIp\":\"127.0.0.1\",\"email\":\"ry@163.com\",\"nickName\":\"若依\",\"sex\":\"1\",\"avatar\":\"\",\"params\":{},\"userName\":\"admin\",\"userId\":1,\"createBy\":\"admin\",\"roleIds\":[1,9],\"createTime\":1521171180000,\"status\":0}', '{\"code\":0,\"data\":1,\"message\":\"请求成功\",\"total\":0}', 0, NULL, '2020-09-11 14:49:40');
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -574,19 +593,20 @@ CREATE TABLE `sys_role`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
 INSERT INTO `sys_role` VALUES (1, '超级管理员', 1, '0', '0', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '超级管理员');
-INSERT INTO `sys_role` VALUES (2, '普通角色4', 2, '1', '0', 'admin', '2018-03-16 11:33:00', 'admin', '2020-09-04 17:39:08', '普通角色');
+INSERT INTO `sys_role` VALUES (2, '普通角色4', 2, '0', '0', 'admin', '2018-03-16 11:33:00', 'admin', '2020-09-11 14:27:15', '普通角色');
 INSERT INTO `sys_role` VALUES (3, '1', 0, '0', '2', 'admin', '2020-09-03 14:37:18', '', NULL, NULL);
 INSERT INTO `sys_role` VALUES (4, '1', 0, '0', '2', 'admin', '2020-09-03 14:37:21', '', NULL, '1');
 INSERT INTO `sys_role` VALUES (5, '1', 0, '0', '2', 'admin', '2020-09-03 14:37:26', '', NULL, '1');
 INSERT INTO `sys_role` VALUES (6, '1', 0, '0', '2', 'admin', '2020-09-03 14:37:26', '', NULL, '1');
 INSERT INTO `sys_role` VALUES (7, '111', 0, '0', '2', 'admin', '2020-09-04 17:24:51', '', NULL, '1');
 INSERT INTO `sys_role` VALUES (8, '测试角色', 2, '0', '0', 'admin', '2020-09-04 17:27:10', '', NULL, NULL);
+INSERT INTO `sys_role` VALUES (9, '222', 0, '0', '0', 'admin', '2020-09-11 14:49:32', '', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -767,6 +787,56 @@ INSERT INTO `sys_role_menu` VALUES (8, 2002);
 INSERT INTO `sys_role_menu` VALUES (8, 2003);
 INSERT INTO `sys_role_menu` VALUES (8, 2004);
 INSERT INTO `sys_role_menu` VALUES (8, 2005);
+INSERT INTO `sys_role_menu` VALUES (9, 1);
+INSERT INTO `sys_role_menu` VALUES (9, 2);
+INSERT INTO `sys_role_menu` VALUES (9, 3);
+INSERT INTO `sys_role_menu` VALUES (9, 100);
+INSERT INTO `sys_role_menu` VALUES (9, 101);
+INSERT INTO `sys_role_menu` VALUES (9, 102);
+INSERT INTO `sys_role_menu` VALUES (9, 108);
+INSERT INTO `sys_role_menu` VALUES (9, 109);
+INSERT INTO `sys_role_menu` VALUES (9, 112);
+INSERT INTO `sys_role_menu` VALUES (9, 113);
+INSERT INTO `sys_role_menu` VALUES (9, 114);
+INSERT INTO `sys_role_menu` VALUES (9, 500);
+INSERT INTO `sys_role_menu` VALUES (9, 501);
+INSERT INTO `sys_role_menu` VALUES (9, 1001);
+INSERT INTO `sys_role_menu` VALUES (9, 1002);
+INSERT INTO `sys_role_menu` VALUES (9, 1003);
+INSERT INTO `sys_role_menu` VALUES (9, 1004);
+INSERT INTO `sys_role_menu` VALUES (9, 1005);
+INSERT INTO `sys_role_menu` VALUES (9, 1006);
+INSERT INTO `sys_role_menu` VALUES (9, 1007);
+INSERT INTO `sys_role_menu` VALUES (9, 1008);
+INSERT INTO `sys_role_menu` VALUES (9, 1009);
+INSERT INTO `sys_role_menu` VALUES (9, 1010);
+INSERT INTO `sys_role_menu` VALUES (9, 1011);
+INSERT INTO `sys_role_menu` VALUES (9, 1012);
+INSERT INTO `sys_role_menu` VALUES (9, 1013);
+INSERT INTO `sys_role_menu` VALUES (9, 1014);
+INSERT INTO `sys_role_menu` VALUES (9, 1015);
+INSERT INTO `sys_role_menu` VALUES (9, 1016);
+INSERT INTO `sys_role_menu` VALUES (9, 1040);
+INSERT INTO `sys_role_menu` VALUES (9, 1041);
+INSERT INTO `sys_role_menu` VALUES (9, 1042);
+INSERT INTO `sys_role_menu` VALUES (9, 1043);
+INSERT INTO `sys_role_menu` VALUES (9, 1044);
+INSERT INTO `sys_role_menu` VALUES (9, 1045);
+INSERT INTO `sys_role_menu` VALUES (9, 1046);
+INSERT INTO `sys_role_menu` VALUES (9, 1047);
+INSERT INTO `sys_role_menu` VALUES (9, 1048);
+INSERT INTO `sys_role_menu` VALUES (9, 1055);
+INSERT INTO `sys_role_menu` VALUES (9, 1056);
+INSERT INTO `sys_role_menu` VALUES (9, 1057);
+INSERT INTO `sys_role_menu` VALUES (9, 1058);
+INSERT INTO `sys_role_menu` VALUES (9, 1059);
+INSERT INTO `sys_role_menu` VALUES (9, 1060);
+INSERT INTO `sys_role_menu` VALUES (9, 2000);
+INSERT INTO `sys_role_menu` VALUES (9, 2001);
+INSERT INTO `sys_role_menu` VALUES (9, 2002);
+INSERT INTO `sys_role_menu` VALUES (9, 2003);
+INSERT INTO `sys_role_menu` VALUES (9, 2004);
+INSERT INTO `sys_role_menu` VALUES (9, 2005);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -793,13 +863,15 @@ CREATE TABLE `sys_user`  (
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', 0, '0', '127.0.0.1', '2018-03-16 11:33:00', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '管理员');
-INSERT INTO `sys_user` VALUES (7, NULL, '21', '23123', '00', '12six@163.com', '13245485454', '0', '', '$2a$10$nY.aKzmLXtqxIelVDzfO3OhgXXyRGswUw9iBC6J1VUD5jeeEHr8GG', 1, '0', '', NULL, 'admin', '2020-09-04 17:30:59', 'admin', '2020-09-04 17:38:59', '11');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', 0, '0', '127.0.0.1', '2018-03-16 11:33:00', 'admin', '2018-03-16 11:33:00', 'admin', '2020-09-11 14:49:40', '管理员');
+INSERT INTO `sys_user` VALUES (7, NULL, '21', '23123', '00', '12six@163.com', '13245485454', '0', '', '$2a$10$nY.aKzmLXtqxIelVDzfO3OhgXXyRGswUw9iBC6J1VUD5jeeEHr8GG', 1, '2', '', NULL, 'admin', '2020-09-04 17:30:59', 'admin', '2020-09-04 17:38:59', '11');
+INSERT INTO `sys_user` VALUES (8, NULL, 'SUN用户名', 'SUN测试', '00', 'sixsixsix516@163.com', '13289333516', '0', '', '$2a$10$NNQ6UMR/ZeM5WBZjb638MeWp8qVgmma0yxyp7V5UOyupN62CRL.UW', 0, '2', '', NULL, 'admin', '2020-09-11 14:25:51', 'admin', '2020-09-11 14:35:34', '111');
+INSERT INTO `sys_user` VALUES (9, NULL, '测试', '测试1', '00', 'sixsixsix517@163.com', '13289333517', '0', '', '$2a$10$6/zBaXDM89WjEAKqjzOOJeSz7ZIVFwAMDpNNO0gIsm4a1jLWJrDNe', 0, '0', '', NULL, 'admin', '2020-09-11 14:36:25', 'admin', '2020-09-11 14:48:59', '111');
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -815,7 +887,9 @@ CREATE TABLE `sys_user_role`  (
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES (1, 1);
+INSERT INTO `sys_user_role` VALUES (1, 9);
 INSERT INTO `sys_user_role` VALUES (2, 2);
 INSERT INTO `sys_user_role` VALUES (3, 2);
+INSERT INTO `sys_user_role` VALUES (9, 8);
 
 SET FOREIGN_KEY_CHECKS = 1;

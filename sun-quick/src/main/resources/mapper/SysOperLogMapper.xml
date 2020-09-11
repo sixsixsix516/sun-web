@@ -36,29 +36,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectOperLogList" parameterType="SysOperLog" resultMap="SysOperLogResult">
 		<include refid="selectOperLogVo"/>
 		<where>
-			<if test="title != null and title != ''">
-				AND title like concat('%', #{title}, '%')
+			<if test="operLog.title != null and operLog.title != ''">
+				AND title like concat('%', #{operLog.title}, '%')
 			</if>
-			<if test="businessType != null and businessType != ''">
-				AND business_type = #{businessType}
+			<if test="operLog.businessType != null and operLog.businessType != ''">
+				AND business_type = #{operLog.businessType}
 			</if>
-			<if test="businessTypes != null and businessTypes.length > 0">
+			<if test="operLog.businessTypes != null and operLog.businessTypes.length > 0">
 			    AND business_type in
-			    <foreach collection="businessTypes" item="businessType" open="(" separator="," close=")">
-		 			#{businessType}
+			    <foreach collection="operLog.businessTypes" item="businessType" open="(" separator="," close=")">
+		 			#{operLog.businessType}
 		        </foreach>
 			</if>
-			<if test="status != null">
-				AND status = #{status}
+			<if test="operLog.status != null">
+				AND status = #{operLog.status}
 			</if>
-			<if test="operName != null and operName != ''">
-				AND oper_name like concat('%', #{operName}, '%')
+			<if test="operLog.operName != null and operLog.operName != ''">
+				AND oper_name like concat('%', #{operLog.operName}, '%')
 			</if>
-			<if test="beginTime != null and beginTime != ''"><!-- 开始时间检索 -->
-				and date_format(oper_time,'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
+			<if test="operLog.beginTime != null and operLog.beginTime != ''"><!-- 开始时间检索 -->
+				and date_format(operLog.oper_time,'%y%m%d') &gt;= date_format(#{operLog.beginTime},'%y%m%d')
 			</if>
-			<if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
-				and date_format(oper_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
+			<if test="operLog.endTime != null and operLog.endTime != ''"><!-- 结束时间检索 -->
+				and date_format(operLog.oper_time,'%y%m%d') &lt;= date_format(#{operLog.endTime},'%y%m%d')
 			</if>
 		</where>
 		order by oper_id desc

@@ -2,11 +2,11 @@ package com.sixsixsix516.framework.service;
 
 import com.sixsixsix516.framework.constant.UserConstants;
 import com.sixsixsix516.framework.exception.CustomException;
-import com.sixsixsix516.mapper.SysRoleMapper;
-import com.sixsixsix516.mapper.SysRoleMenuMapper;
-import com.sixsixsix516.mapper.SysUserRoleMapper;
-import com.sixsixsix516.model.SysRoleMenu;
-import com.sixsixsix516.model.domain.entity.SysRole;
+import com.sixsixsix516.mapper.system.SysRoleMapper;
+import com.sixsixsix516.mapper.system.SysRoleMenuMapper;
+import com.sixsixsix516.mapper.system.SysUserRoleMapper;
+import com.sixsixsix516.model.system.SysRoleMenu;
+import com.sixsixsix516.model.system.SysRole;
 import com.sixsixsix516.framework.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -179,15 +179,6 @@ public class SysRoleService {
 		return rows;
 	}
 
-	/**
-	 * 通过角色ID删除角色
-	 *
-	 * @param roleId 角色ID
-	 * @return 结果
-	 */
-	public int deleteRoleById(Long roleId) {
-		return roleMapper.deleteRoleById(roleId);
-	}
 
 	/**
 	 * 批量删除角色信息

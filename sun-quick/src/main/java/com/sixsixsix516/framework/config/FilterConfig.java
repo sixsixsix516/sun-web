@@ -15,7 +15,7 @@ import com.sixsixsix516.framework.utils.StringUtils;
 /**
  * Filter配置
  *
- * @author ruoyi
+ * @author SUN
  */
 @Configuration
 public class FilterConfig {

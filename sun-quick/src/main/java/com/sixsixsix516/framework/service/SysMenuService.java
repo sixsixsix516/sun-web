@@ -9,23 +9,23 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.sixsixsix516.model.domain.TreeSelect;
+import com.sixsixsix516.model.system.TreeSelect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sixsixsix516.framework.constant.UserConstants;
-import com.sixsixsix516.model.domain.entity.SysMenu;
-import com.sixsixsix516.model.domain.entity.SysUser;
+import com.sixsixsix516.model.system.SysMenu;
+import com.sixsixsix516.model.system.SysUser;
 import com.sixsixsix516.framework.utils.SecurityUtils;
 import com.sixsixsix516.framework.utils.StringUtils;
-import com.sixsixsix516.model.vo.MetaVo;
-import com.sixsixsix516.model.vo.RouterVo;
-import com.sixsixsix516.mapper.SysMenuMapper;
-import com.sixsixsix516.mapper.SysRoleMenuMapper;
+import com.sixsixsix516.vo.MetaVo;
+import com.sixsixsix516.vo.RouterVo;
+import com.sixsixsix516.mapper.system.SysMenuMapper;
+import com.sixsixsix516.mapper.system.SysRoleMenuMapper;
 
 /**
  * 菜单 业务层处理
  *
- * @author ruoyi
+ * @author SUN
  */
 @Service
 public class SysMenuService {

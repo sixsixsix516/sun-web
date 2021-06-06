@@ -4,19 +4,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import com.sixsixsix516.mapper.SysRoleMapper;
-import com.sixsixsix516.model.vo.Result;
+import com.sixsixsix516.mapper.system.SysRoleMapper;
+import com.sixsixsix516.vo.Result;
 import com.sixsixsix516.framework.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.sixsixsix516.framework.constant.Constants;
-import com.sixsixsix516.model.domain.entity.SysMenu;
-import com.sixsixsix516.model.domain.entity.SysUser;
-import com.sixsixsix516.model.domain.model.LoginBody;
-import com.sixsixsix516.model.domain.model.LoginUser;
+import com.sixsixsix516.model.system.SysMenu;
+import com.sixsixsix516.model.system.SysUser;
+import com.sixsixsix516.model.system.LoginBody;
+import com.sixsixsix516.model.system.LoginUser;
 import com.sixsixsix516.framework.utils.ServletUtils;
 import com.sixsixsix516.framework.web.service.SysLoginService;
 import com.sixsixsix516.framework.web.service.SysPermissionService;
@@ -46,8 +45,7 @@ public class SysLoginController {
 	@PostMapping("/login")
 	public Result login(@RequestBody LoginBody loginBody) {
 		// 生成令牌
-		String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(), loginBody.getUuid());
-		return Result.ok(token);
+		return Result.ok(loginService.login(loginBody.getUsername(), loginBody.getPassword()));
 	}
 
 	/**

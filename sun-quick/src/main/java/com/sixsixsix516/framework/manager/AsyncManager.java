@@ -10,7 +10,7 @@ import com.sixsixsix516.framework.utils.spring.SpringUtils;
 /**
  * 异步任务管理器
  *
- * @author ruoyi
+ * @author SUN
  */
 public class AsyncManager {
 	/**

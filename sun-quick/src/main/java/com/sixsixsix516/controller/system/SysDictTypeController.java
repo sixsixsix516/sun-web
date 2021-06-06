@@ -5,8 +5,8 @@ import java.util.List;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sixsixsix516.framework.vo.PageInfo;
-import com.sixsixsix516.mapper.SysDictTypeMapper;
-import com.sixsixsix516.model.vo.Result;
+import com.sixsixsix516.mapper.system.SysDictTypeMapper;
+import com.sixsixsix516.vo.Result;
 import com.sixsixsix516.framework.service.SysDictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.sixsixsix516.framework.annotation.Log;
-import com.sixsixsix516.model.domain.entity.SysDictType;
-import com.sixsixsix516.framework.core.page.TableDataInfo;
+import com.sixsixsix516.model.system.SysDictType;
 import com.sixsixsix516.framework.enums.BusinessType;
 
 /**
@@ -35,7 +34,6 @@ public class SysDictTypeController {
 		IPage<SysDictType> sysDictTypePage = dictTypeMapper.selectDictTypeList(new Page(pageInfo.getPageNum(), pageInfo.getPageSize()), dictType);
 		return Result.ok(sysDictTypePage.getRecords(), sysDictTypePage.getTotal());
 	}
-
 
 	/**
 	 * 清空缓存

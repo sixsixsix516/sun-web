@@ -16,7 +16,7 @@ import com.sixsixsix516.framework.utils.uuid.IdUtils;
 /**
  * 文件上传工具类
  *
- * @author ruoyi
+ * @author SUN
  */
 public class FileUploadUtils {
 	/**

@@ -3,7 +3,7 @@ package com.sixsixsix516.framework.enums;
 /**
  * 操作状态
  *
- * @author ruoyi
+ * @author SUN
  *
  */
 public enum BusinessStatus

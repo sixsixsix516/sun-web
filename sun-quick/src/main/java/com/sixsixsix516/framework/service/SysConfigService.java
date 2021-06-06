@@ -10,13 +10,13 @@ import com.sixsixsix516.framework.constant.Constants;
 import com.sixsixsix516.framework.core.redis.RedisCache;
 import com.sixsixsix516.framework.core.text.Convert;
 import com.sixsixsix516.framework.utils.StringUtils;
-import com.sixsixsix516.model.SysConfig;
-import com.sixsixsix516.mapper.SysConfigMapper;
+import com.sixsixsix516.model.system.SysConfig;
+import com.sixsixsix516.mapper.system.SysConfigMapper;
 
 /**
  * 参数配置 服务层实现
  *
- * @author ruoyi
+ * @author SUN
  */
 @Service
 public class SysConfigService {

@@ -10,7 +10,7 @@ import com.sixsixsix516.framework.utils.http.HttpUtils;
 /**
  * 获取地址类
  *
- * @author ruoyi
+ * @author SUN
  */
 public class AddressUtils {
 	private static final Logger log = LoggerFactory.getLogger(AddressUtils.class);

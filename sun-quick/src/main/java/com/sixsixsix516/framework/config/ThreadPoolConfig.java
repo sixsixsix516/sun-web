@@ -12,7 +12,7 @@ import com.sixsixsix516.framework.utils.Threads;
 /**
  * 线程池配置
  *
- * @author ruoyi
+ * @author SUN
  **/
 @Configuration
 public class ThreadPoolConfig

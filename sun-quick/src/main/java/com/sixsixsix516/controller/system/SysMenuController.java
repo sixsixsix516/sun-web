@@ -3,7 +3,7 @@ package com.sixsixsix516.controller.system;
 import java.util.HashMap;
 import java.util.List;
 
-import com.sixsixsix516.model.vo.Result;
+import com.sixsixsix516.vo.Result;
 import com.sixsixsix516.framework.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sixsixsix516.framework.annotation.Log;
 import com.sixsixsix516.framework.constant.Constants;
 import com.sixsixsix516.framework.constant.UserConstants;
-import com.sixsixsix516.model.domain.entity.SysMenu;
-import com.sixsixsix516.model.domain.model.LoginUser;
+import com.sixsixsix516.model.system.SysMenu;
+import com.sixsixsix516.model.system.LoginUser;
 import com.sixsixsix516.framework.enums.BusinessType;
 import com.sixsixsix516.framework.utils.SecurityUtils;
 import com.sixsixsix516.framework.utils.ServletUtils;
@@ -30,7 +30,7 @@ import com.sixsixsix516.framework.web.service.TokenService;
 /**
  * 菜单信息
  *
- * @author ruoyi
+ * @author SUN
  */
 @RestController
 @RequestMapping("/system/menu")

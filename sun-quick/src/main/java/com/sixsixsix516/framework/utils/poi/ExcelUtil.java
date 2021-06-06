@@ -19,7 +19,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import com.sixsixsix516.model.vo.Result;
+import com.sixsixsix516.vo.Result;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -57,7 +57,7 @@ import com.sixsixsix516.framework.utils.reflect.ReflectUtils;
 /**
  * Excel相关处理
  *
- * @author ruoyi
+ * @author SUN
  */
 public class ExcelUtil<T> {
 	private static final Logger log = LoggerFactory.getLogger(ExcelUtil.class);

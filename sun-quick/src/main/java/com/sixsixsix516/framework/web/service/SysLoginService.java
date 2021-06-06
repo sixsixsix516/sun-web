@@ -9,18 +9,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import com.sixsixsix516.framework.constant.Constants;
-import com.sixsixsix516.model.domain.model.LoginUser;
+import com.sixsixsix516.model.system.LoginUser;
 import com.sixsixsix516.framework.core.redis.RedisCache;
 import com.sixsixsix516.framework.exception.CustomException;
 import com.sixsixsix516.framework.exception.user.UserPasswordNotMatchException;
 import com.sixsixsix516.framework.manager.AsyncManager;
 import com.sixsixsix516.framework.manager.factory.AsyncFactory;
-import sun.misc.MessageUtils;
 
 /**
  * 登录校验方法
  *
- * @author ruoyi
+ * @author SUN
  */
 @Component
 public class SysLoginService {
@@ -38,11 +37,9 @@ public class SysLoginService {
 	 *
 	 * @param username 用户名
 	 * @param password 密码
-	 * @param code     验证码
-	 * @param uuid     唯一标识
 	 * @return 结果
 	 */
-	public String login(String username, String password, String code, String uuid) {
+	public String login(String username, String password) {
 		// 用户验证
 		Authentication authentication = null;
 		try {
@@ -59,7 +56,6 @@ public class SysLoginService {
 		}
 		AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, "登录成功"));
 		LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-		// 生成token
 		return tokenService.createToken(loginUser);
 	}
 }

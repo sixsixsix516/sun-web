@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * 业务 服务层实现
  *
- * @author ruoyi
+ * @author SUN
  */
 @RestController
 public class GenTableService {

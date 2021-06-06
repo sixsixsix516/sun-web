@@ -5,7 +5,7 @@ import com.sixsixsix516.framework.utils.StringUtils;
 /**
  * 分页数据
  *
- * @author ruoyi
+ * @author SUN
  */
 public class PageDomain {
 	/**

@@ -3,7 +3,7 @@ package com.sixsixsix516.framework.utils;
 /**
  * 处理并记录日志文件
  *
- * @author ruoyi
+ * @author SUN
  */
 public class LogUtils
 {

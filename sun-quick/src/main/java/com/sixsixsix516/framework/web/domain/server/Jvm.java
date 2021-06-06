@@ -8,7 +8,7 @@ import com.sixsixsix516.framework.utils.DateUtils;
 /**
  * JVM相关信息
  *
- * @author ruoyi
+ * @author SUN
  */
 public class Jvm {
     /**

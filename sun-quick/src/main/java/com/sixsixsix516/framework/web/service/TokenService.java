@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import com.sixsixsix516.framework.constant.Constants;
-import com.sixsixsix516.model.domain.model.LoginUser;
+import com.sixsixsix516.model.system.LoginUser;
 import com.sixsixsix516.framework.core.redis.RedisCache;
 import com.sixsixsix516.framework.utils.ServletUtils;
 import com.sixsixsix516.framework.utils.StringUtils;
@@ -24,7 +24,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 /**
  * token验证处理
  *
- * @author ruoyi
+ * @author SUN
  */
 @Component
 public class TokenService {

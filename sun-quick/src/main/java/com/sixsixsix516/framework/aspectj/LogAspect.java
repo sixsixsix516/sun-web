@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.HandlerMapping;
 import com.alibaba.fastjson.JSON;
 import com.sixsixsix516.framework.annotation.Log;
-import com.sixsixsix516.model.domain.model.LoginUser;
+import com.sixsixsix516.model.system.LoginUser;
 import com.sixsixsix516.framework.enums.BusinessStatus;
 import com.sixsixsix516.framework.utils.ServletUtils;
 import com.sixsixsix516.framework.utils.StringUtils;
@@ -29,12 +29,12 @@ import com.sixsixsix516.framework.utils.spring.SpringUtils;
 import com.sixsixsix516.framework.manager.AsyncManager;
 import com.sixsixsix516.framework.manager.factory.AsyncFactory;
 import com.sixsixsix516.framework.web.service.TokenService;
-import com.sixsixsix516.model.SysOperLog;
+import com.sixsixsix516.model.system.SysOperLog;
 
 /**
  * 操作日志记录处理
  *
- * @author ruoyi
+ * @author SUN
  */
 @Aspect
 @Component

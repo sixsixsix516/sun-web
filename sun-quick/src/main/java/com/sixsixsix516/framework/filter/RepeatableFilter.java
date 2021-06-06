@@ -15,7 +15,7 @@ import com.sixsixsix516.framework.utils.StringUtils;
 /**
  * Repeatable 过滤器
  *
- * @author ruoyi
+ * @author SUN
  */
 public class RepeatableFilter implements Filter {
 	@Override

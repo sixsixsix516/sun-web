@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 业务 数据层
  *
- * @author ruoyi
+ * @author SUN
  */
 public interface GenTableMapper extends BaseMapper<GenTable> {
 

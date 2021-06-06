@@ -13,7 +13,7 @@ import com.sixsixsix516.framework.utils.StringUtils;
 /**
  * 类型转换器
  *
- * @author ruoyi
+ * @author SUN
  */
 public class Convert {
 	/**

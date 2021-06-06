@@ -6,7 +6,7 @@ import com.sixsixsix516.framework.utils.StringUtils;
 /**
  * sql操作工具类
  *
- * @author ruoyi
+ * @author SUN
  */
 public class SqlUtil
 {

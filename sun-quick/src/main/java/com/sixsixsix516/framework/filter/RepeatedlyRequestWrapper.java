@@ -16,7 +16,7 @@ import com.sixsixsix516.framework.utils.http.HttpHelper;
 /**
  * 构建可重复读取inputStream的request
  *
- * @author ruoyi
+ * @author SUN
  */
 public class RepeatedlyRequestWrapper extends HttpServletRequestWrapper {
 	private final byte[] body;

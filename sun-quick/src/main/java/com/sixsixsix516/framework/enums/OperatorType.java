@@ -3,7 +3,7 @@ package com.sixsixsix516.framework.enums;
 /**
  * 操作人类别
  *
- * @author ruoyi
+ * @author SUN
  */
 public enum OperatorType
 {

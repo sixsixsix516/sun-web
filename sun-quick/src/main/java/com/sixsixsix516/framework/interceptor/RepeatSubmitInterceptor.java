@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sixsixsix516.model.vo.Result;
+import com.sixsixsix516.vo.Result;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -15,7 +15,7 @@ import com.sixsixsix516.framework.utils.ServletUtils;
 /**
  * 防止重复提交拦截器
  *
- * @author ruoyi
+ * @author SUN
  */
 @Component
 public abstract class RepeatSubmitInterceptor extends HandlerInterceptorAdapter {

@@ -1,25 +1,22 @@
 package com.sixsixsix516.framework.service;
 
-import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.sixsixsix516.framework.constant.UserConstants;
-import com.sixsixsix516.model.domain.entity.SysDictData;
-import com.sixsixsix516.model.domain.entity.SysDictType;
-import com.sixsixsix516.framework.exception.CustomException;
+import com.sixsixsix516.model.system.SysDictData;
+import com.sixsixsix516.model.system.SysDictType;
 import com.sixsixsix516.framework.utils.DictUtils;
 import com.sixsixsix516.framework.utils.StringUtils;
-import com.sixsixsix516.mapper.SysDictDataMapper;
-import com.sixsixsix516.mapper.SysDictTypeMapper;
+import com.sixsixsix516.mapper.system.SysDictDataMapper;
+import com.sixsixsix516.mapper.system.SysDictTypeMapper;
 
 /**
  * 字典 业务层处理
  *
- * @author ruoyi
+ * @author SUN
  */
 @Service
 public class SysDictTypeService {

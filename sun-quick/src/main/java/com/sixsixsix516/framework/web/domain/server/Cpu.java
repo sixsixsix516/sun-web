@@ -5,7 +5,7 @@ import com.sixsixsix516.framework.utils.Arith;
 /**
  * CPU相关信息
  *
- * @author ruoyi
+ * @author SUN
  */
 public class Cpu {
 	/**

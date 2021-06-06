@@ -1,6 +1,6 @@
 package com.sixsixsix516.framework.web.exception;
 
-import com.sixsixsix516.model.vo.Result;
+import com.sixsixsix516.vo.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import com.sixsixsix516.framework.constant.HttpStatus;
 import com.sixsixsix516.framework.exception.BaseException;
 import com.sixsixsix516.framework.exception.CustomException;
 import com.sixsixsix516.framework.exception.DemoModeException;
@@ -20,7 +19,7 @@ import com.sixsixsix516.framework.utils.StringUtils;
 /**
  * 全局异常处理器
  *
- * @author ruoyi
+ * @author SUN
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {

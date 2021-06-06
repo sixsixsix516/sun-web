@@ -13,7 +13,7 @@ import com.sixsixsix516.framework.utils.StringUtils;
 /**
  * spring工具类 方便在非spring管理环境中获取bean
  *
- * @author ruoyi
+ * @author SUN
  */
 @Component
 public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationContextAware {

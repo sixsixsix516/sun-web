@@ -1,12 +1,10 @@
 package com.sixsixsix516.controller.system;
 
-import java.util.List;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sixsixsix516.framework.vo.PageInfo;
-import com.sixsixsix516.mapper.SysRoleMapper;
-import com.sixsixsix516.model.vo.Result;
+import com.sixsixsix516.mapper.system.SysRoleMapper;
+import com.sixsixsix516.vo.Result;
 import com.sixsixsix516.framework.service.SysRoleService;
 import com.sixsixsix516.framework.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +20,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.sixsixsix516.framework.annotation.Log;
 import com.sixsixsix516.framework.constant.UserConstants;
-import com.sixsixsix516.model.domain.entity.SysRole;
-import com.sixsixsix516.model.domain.model.LoginUser;
-import com.sixsixsix516.framework.core.page.TableDataInfo;
+import com.sixsixsix516.model.system.SysRole;
+import com.sixsixsix516.model.system.LoginUser;
 import com.sixsixsix516.framework.enums.BusinessType;
 import com.sixsixsix516.framework.utils.SecurityUtils;
 import com.sixsixsix516.framework.utils.ServletUtils;
 import com.sixsixsix516.framework.utils.StringUtils;
-import com.sixsixsix516.framework.utils.poi.ExcelUtil;
 import com.sixsixsix516.framework.web.service.SysPermissionService;
 import com.sixsixsix516.framework.web.service.TokenService;
 
 /**
  * 角色信息
  *
- * @author ruoyi
+ * @author SUN
  */
 @RestController
 @RequestMapping("/system/role")
@@ -98,7 +94,7 @@ public class SysRoleController {
 			LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
 			if (StringUtils.isNotNull(loginUser.getUser()) && !loginUser.getUser().isAdmin()) {
 				loginUser.setPermissions(permissionService.getMenuPermission(loginUser.getUser()));
-				loginUser.setUser(userService.selectUserByUserName(loginUser.getUser().getUserName()));
+				loginUser.setUser(userService.selectUserByUserName(loginUser.getUser().getRealname()));
 				tokenService.setLoginUser(loginUser);
 			}
 			return Result.ok();

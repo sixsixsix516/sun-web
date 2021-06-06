@@ -1,16 +1,14 @@
 package com.sixsixsix516.framework.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.sixsixsix516.model.SysLogininfor;
-import com.sixsixsix516.mapper.SysLogininforMapper;
+import com.sixsixsix516.model.system.SysLogininfor;
+import com.sixsixsix516.mapper.system.SysLogininforMapper;
 
 /**
  * 系统访问日志情况信息 服务层处理
  *
- * @author ruoyi
+ * @author SUN
  */
 @Service
 public class SysLogininforService {
@@ -24,7 +22,7 @@ public class SysLogininforService {
 	 * @param logininfor 访问日志对象
 	 */
 	public void insertLogininfor(SysLogininfor logininfor) {
-		logininforMapper.insertLogininfor(logininfor);
+		logininforMapper.insert(logininfor);
 	}
 
 

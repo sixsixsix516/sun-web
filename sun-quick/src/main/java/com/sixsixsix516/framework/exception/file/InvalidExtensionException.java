@@ -7,7 +7,7 @@ import org.apache.commons.fileupload.FileUploadException;
 /**
  * 文件上传 误异常类
  *
- * @author ruoyi
+ * @author SUN
  */
 public class InvalidExtensionException extends FileUploadException {
 	private static final long serialVersionUID = 1L;

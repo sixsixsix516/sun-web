@@ -3,7 +3,7 @@ package com.sixsixsix516.framework.utils.sign;
 /**
  * Base64工具类
  *
- * @author ruoyi
+ * @author SUN
  */
 public final class Base64
 {

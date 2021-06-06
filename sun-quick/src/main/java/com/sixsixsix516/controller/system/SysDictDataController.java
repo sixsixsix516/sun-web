@@ -1,6 +1,6 @@
 package com.sixsixsix516.controller.system;
 
-import com.sixsixsix516.model.vo.Result;
+import com.sixsixsix516.vo.Result;
 import com.sixsixsix516.framework.service.SysDictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 数据字典信息
  *
- * @author ruoyi
+ * @author SUN
  */
 @RestController
 @RequestMapping("/system/dict/data")

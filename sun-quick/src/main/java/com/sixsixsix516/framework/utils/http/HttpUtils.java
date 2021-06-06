@@ -23,7 +23,7 @@ import com.sixsixsix516.framework.constant.Constants;
 /**
  * 通用http发送方法
  *
- * @author ruoyi
+ * @author SUN
  */
 public class HttpUtils
 {

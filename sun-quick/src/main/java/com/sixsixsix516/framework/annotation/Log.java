@@ -11,7 +11,7 @@ import com.sixsixsix516.framework.enums.OperatorType;
 /**
  * 自定义操作日志记录注解
  *
- * @author ruoyi
+ * @author SUN
  *
  */
 @Target({ ElementType.PARAMETER, ElementType.METHOD })

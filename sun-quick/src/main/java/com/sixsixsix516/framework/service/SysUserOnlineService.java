@@ -1,15 +1,15 @@
 package com.sixsixsix516.framework.service;
 
 
-import com.sixsixsix516.model.SysUserOnline;
-import com.sixsixsix516.model.domain.model.LoginUser;
+import com.sixsixsix516.model.system.SysUserOnline;
+import com.sixsixsix516.model.system.LoginUser;
 import com.sixsixsix516.framework.utils.StringUtils;
 import org.springframework.stereotype.Service;
 
 /**
  * 在线用户 服务层处理
  *
- * @author ruoyi
+ * @author SUN
  */
 @Service
 public class SysUserOnlineService {

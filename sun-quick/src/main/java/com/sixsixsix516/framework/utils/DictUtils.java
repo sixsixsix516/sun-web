@@ -3,14 +3,14 @@ package com.sixsixsix516.framework.utils;
 import java.util.Collection;
 import java.util.List;
 import com.sixsixsix516.framework.constant.Constants;
-import com.sixsixsix516.model.domain.entity.SysDictData;
+import com.sixsixsix516.model.system.SysDictData;
 import com.sixsixsix516.framework.core.redis.RedisCache;
 import com.sixsixsix516.framework.utils.spring.SpringUtils;
 
 /**
  * 字典工具类
  *
- * @author ruoyi
+ * @author SUN
  */
 public class DictUtils
 {

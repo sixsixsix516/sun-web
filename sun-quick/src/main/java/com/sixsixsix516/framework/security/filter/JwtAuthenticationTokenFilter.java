@@ -12,7 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.sixsixsix516.model.domain.model.LoginUser;
+import com.sixsixsix516.model.system.LoginUser;
 import com.sixsixsix516.framework.utils.SecurityUtils;
 import com.sixsixsix516.framework.utils.StringUtils;
 import com.sixsixsix516.framework.web.service.TokenService;
@@ -20,7 +20,7 @@ import com.sixsixsix516.framework.web.service.TokenService;
 /**
  * token过滤器 验证token有效性
  *
- * @author ruoyi
+ * @author SUN
  */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {

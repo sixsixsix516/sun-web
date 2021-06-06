@@ -5,7 +5,7 @@ import com.sixsixsix516.framework.utils.StringUtils;
 /**
  * 转义和反转义工具类
  *
- * @author ruoyi
+ * @author SUN
  */
 public class EscapeUtil
 {

@@ -7,12 +7,12 @@ import com.sixsixsix516.framework.service.SysMenuService;
 import com.sixsixsix516.framework.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.sixsixsix516.model.domain.entity.SysUser;
+import com.sixsixsix516.model.system.SysUser;
 
 /**
  * 用户权限处理
  *
- * @author ruoyi
+ * @author SUN
  */
 @Component
 public class SysPermissionService {

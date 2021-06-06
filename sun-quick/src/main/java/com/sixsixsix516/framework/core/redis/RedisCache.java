@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 /**
  * spring redis 工具类
  *
- * @author ruoyi
+ * @author SUN
  **/
 @SuppressWarnings(value = {"unchecked", "rawtypes"})
 @Component

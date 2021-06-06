@@ -5,15 +5,15 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import com.sixsixsix516.model.domain.entity.SysRole;
-import com.sixsixsix516.model.domain.model.LoginUser;
+import com.sixsixsix516.model.system.SysRole;
+import com.sixsixsix516.model.system.LoginUser;
 import com.sixsixsix516.framework.utils.ServletUtils;
 import com.sixsixsix516.framework.utils.StringUtils;
 
 /**
  * RuoYi首创 自定义权限实现，ss取自SpringSecurity首字母
  *
- * @author ruoyi
+ * @author SUN
  */
 @Service("ss")
 public class PermissionService {

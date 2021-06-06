@@ -3,7 +3,7 @@ package com.sixsixsix516.framework.utils.uuid;
 /**
  * ID生成器工具类
  *
- * @author ruoyi
+ * @author SUN
  */
 public class IdUtils
 {

@@ -5,7 +5,7 @@ import com.sixsixsix516.framework.utils.Arith;
 /**
  * 內存相关信息
  *
- * @author ruoyi
+ * @author SUN
  */
 public class Mem
 {

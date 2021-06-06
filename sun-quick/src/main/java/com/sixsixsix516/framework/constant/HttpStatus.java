@@ -3,7 +3,7 @@ package com.sixsixsix516.framework.constant;
 /**
  * 返回状态码
  *
- * @author ruoyi
+ * @author SUN
  */
 public class HttpStatus
 {

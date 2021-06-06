@@ -13,7 +13,7 @@ import com.sixsixsix516.framework.interceptor.RepeatSubmitInterceptor;
 /**
  * 通用配置
  *
- * @author ruoyi
+ * @author SUN
  */
 @Configuration
 public class ResourcesConfig implements WebMvcConfigurer {

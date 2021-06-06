@@ -1,16 +1,14 @@
 package com.sixsixsix516.framework.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.sixsixsix516.model.SysOperLog;
-import com.sixsixsix516.mapper.SysOperLogMapper;
+import com.sixsixsix516.model.system.SysOperLog;
+import com.sixsixsix516.mapper.system.SysOperLogMapper;
 
 /**
  * 操作日志 服务层处理
  *
- * @author ruoyi
+ * @author SUN
  */
 @Service
 public class SysOperLogService {

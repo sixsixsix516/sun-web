@@ -3,7 +3,7 @@ package com.sixsixsix516.framework.web.domain.server;
 /**
  * 系统文件相关信息
  *
- * @author ruoyi
+ * @author SUN
  */
 public class SysFile
 {

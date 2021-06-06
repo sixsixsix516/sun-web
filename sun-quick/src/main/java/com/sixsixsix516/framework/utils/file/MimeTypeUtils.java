@@ -3,7 +3,7 @@ package com.sixsixsix516.framework.utils.file;
 /**
  * 媒体类型工具类
  *
- * @author ruoyi
+ * @author SUN
  */
 public class MimeTypeUtils
 {

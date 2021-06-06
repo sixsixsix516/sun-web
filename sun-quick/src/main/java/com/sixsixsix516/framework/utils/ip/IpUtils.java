@@ -9,7 +9,7 @@ import com.sixsixsix516.framework.utils.html.EscapeUtil;
 /**
  * 获取IP方法
  *
- * @author ruoyi
+ * @author SUN
  */
 public class IpUtils
 {

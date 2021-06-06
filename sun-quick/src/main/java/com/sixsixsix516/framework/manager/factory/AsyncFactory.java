@@ -12,14 +12,14 @@ import com.sixsixsix516.framework.utils.ServletUtils;
 import com.sixsixsix516.framework.utils.ip.AddressUtils;
 import com.sixsixsix516.framework.utils.ip.IpUtils;
 import com.sixsixsix516.framework.utils.spring.SpringUtils;
-import com.sixsixsix516.model.SysLogininfor;
-import com.sixsixsix516.model.SysOperLog;
+import com.sixsixsix516.model.system.SysLogininfor;
+import com.sixsixsix516.model.system.SysOperLog;
 import eu.bitwalker.useragentutils.UserAgent;
 
 /**
  * 异步工厂（产生任务用）
  *
- * @author ruoyi
+ * @author SUN
  */
 public class AsyncFactory {
 	private static final Logger sys_user_logger = LoggerFactory.getLogger("sys-user");

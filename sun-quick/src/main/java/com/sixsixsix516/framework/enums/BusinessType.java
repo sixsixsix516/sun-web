@@ -3,7 +3,7 @@ package com.sixsixsix516.framework.enums;
 /**
  * 业务操作类型
  *
- * @author ruoyi
+ * @author SUN
  */
 public enum BusinessType {
 	/**

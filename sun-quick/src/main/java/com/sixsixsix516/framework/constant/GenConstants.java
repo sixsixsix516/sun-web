@@ -3,7 +3,7 @@ package com.sixsixsix516.framework.constant;
 /**
  * 代码生成通用常量
  *
- * @author ruoyi
+ * @author SUN
  */
 public class GenConstants
 {

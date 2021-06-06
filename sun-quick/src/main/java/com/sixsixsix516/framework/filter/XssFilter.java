@@ -18,7 +18,7 @@ import com.sixsixsix516.framework.utils.StringUtils;
 /**
  * 防止XSS攻击的过滤器
  *
- * @author ruoyi
+ * @author SUN
  */
 public class XssFilter implements Filter
 {

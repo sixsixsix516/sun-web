@@ -3,7 +3,7 @@ package com.sixsixsix516.framework.constant;
 /**
  * 用户常量信息
  *
- * @author ruoyi
+ * @author SUN
  */
 public class UserConstants
 {

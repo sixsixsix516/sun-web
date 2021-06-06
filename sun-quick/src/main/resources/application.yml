@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///ry-vue?autoReconnect=true&useUnicode=true&characterEncoding=UTF8&useSSL=false&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=GMT%2B8
+    url: jdbc:mysql:///sun-web?autoReconnect=true&useUnicode=true&characterEncoding=UTF8&useSSL=false&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=GMT%2B8
     username: root
     password: 1111
   servlet:
@@ -9,9 +9,10 @@ spring:
        max-file-size:  10MB
        max-request-size:  20MB
   redis:
-    host: localhost
+    database: 4
+    host: 127.0.0.1
     port: 6379
-    password:
+    password: 123456
     timeout: 10s
     lettuce:
       pool:
@@ -27,7 +28,7 @@ token:
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml
-  type-aliases-package: com.sixsixsix516.model
+  type-aliases-package: com.sixsixsix516.model.system
   configuration:
     map-underscore-to-camel-case: true
 

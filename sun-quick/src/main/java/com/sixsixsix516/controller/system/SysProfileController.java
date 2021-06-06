@@ -1,9 +1,8 @@
 package com.sixsixsix516.controller.system;
 
-import java.io.IOException;
 import java.util.HashMap;
 
-import com.sixsixsix516.model.vo.Result;
+import com.sixsixsix516.vo.Result;
 import com.sixsixsix516.framework.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.sixsixsix516.framework.annotation.Log;
-import com.sixsixsix516.model.domain.entity.SysUser;
-import com.sixsixsix516.model.domain.model.LoginUser;
+import com.sixsixsix516.model.system.SysUser;
+import com.sixsixsix516.model.system.LoginUser;
 import com.sixsixsix516.framework.enums.BusinessType;
 import com.sixsixsix516.framework.utils.SecurityUtils;
 import com.sixsixsix516.framework.utils.ServletUtils;
@@ -56,8 +55,8 @@ public class SysProfileController {
 		if (userService.updateUserProfile(user) > 0) {
 			LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
 			// 更新缓存用户信息
-			loginUser.getUser().setNickName(user.getNickName());
-			loginUser.getUser().setPhonenumber(user.getPhonenumber());
+			loginUser.getUser().setRealname(user.getRealname());
+			loginUser.getUser().setPassword(user.getPhone());
 			loginUser.getUser().setEmail(user.getEmail());
 			loginUser.getUser().setSex(user.getSex());
 			tokenService.setLoginUser(loginUser);

@@ -3,7 +3,7 @@ package com.sixsixsix516.framework.exception;
 /**
  * 工具类异常
  *
- * @author ruoyi
+ * @author SUN
  */
 public class UtilException extends RuntimeException
 {

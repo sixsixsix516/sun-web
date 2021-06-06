@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * 启动程序
  *
- * @author ruoyi
+ * @author SUN
  */
 @MapperScan({"com.sixsixsix516.mapper","com.sixsixsix516.framework.generate.mapper"})
 @SpringBootApplication

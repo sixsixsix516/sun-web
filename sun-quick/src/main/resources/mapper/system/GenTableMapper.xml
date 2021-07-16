@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sixsixsix516.framework.generate.mapper.GenTableMapper">
+
+	<select id="listTable" resultType="com.sixsixsix516.framework.generate.domain.GenTable">
+		SELECT
+			table_name,
+			table_comment,
+			create_time,
+			update_time
+		FROM
+			information_schema.TABLES
+		WHERE
+			table_name NOT LIKE 'qrtz_%'
+		  AND table_name NOT LIKE 'gen_%'
+		  AND table_schema = (SELECT DATABASE())
+
+		<if test="name != null and name != ''">
+		  AND table_name = #{name}
+		</if>
+
+	</select>
+
+</mapper>

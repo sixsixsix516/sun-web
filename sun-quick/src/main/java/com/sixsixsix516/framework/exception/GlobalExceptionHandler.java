@@ -1,4 +1,4 @@
-package com.sixsixsix516.framework.web.exception;
+package com.sixsixsix516.framework.exception;
 
 import com.sixsixsix516.vo.Result;
 import org.slf4j.Logger;
@@ -11,9 +11,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import com.sixsixsix516.framework.exception.BaseException;
-import com.sixsixsix516.framework.exception.CustomException;
-import com.sixsixsix516.framework.exception.DemoModeException;
 import com.sixsixsix516.framework.utils.StringUtils;
 
 /**
@@ -30,6 +27,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(BaseException.class)
 	public Result baseException(BaseException e) {
+		e.printStackTrace();
 		return Result.fail(e.getMessage());
 	}
 
@@ -38,6 +36,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(CustomException.class)
 	public Result businessException(CustomException e) {
+		e.printStackTrace();
 		if (StringUtils.isNull(e.getCode())) {
 			return Result.fail(e.getMessage());
 		}
@@ -46,31 +45,31 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public Result handlerNoFoundException(Exception e) {
-		log.error(e.getMessage(), e);
+		e.printStackTrace();
 		return Result.fail("路径不存在，请检查路径是否正确");
 	}
 
 	@ExceptionHandler(AccessDeniedException.class)
 	public Result handleAuthorizationException(AccessDeniedException e) {
-		log.error(e.getMessage());
+		e.printStackTrace();
 		return Result.fail("没有权限，请联系管理员授权");
 	}
 
 	@ExceptionHandler(AccountExpiredException.class)
 	public Result handleAccountExpiredException(AccountExpiredException e) {
-		log.error(e.getMessage(), e);
+		e.printStackTrace();
 		return Result.fail(e.getMessage());
 	}
 
 	@ExceptionHandler(UsernameNotFoundException.class)
 	public Result handleUsernameNotFoundException(UsernameNotFoundException e) {
-		log.error(e.getMessage(), e);
+		e.printStackTrace();
 		return Result.fail(e.getMessage());
 	}
 
 	@ExceptionHandler(Exception.class)
 	public Result handleException(Exception e) {
-		log.error(e.getMessage(), e);
+		e.printStackTrace();
 		return Result.fail(e.getMessage());
 	}
 
@@ -79,7 +78,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(BindException.class)
 	public Result validatedBindException(BindException e) {
-		log.error(e.getMessage(), e);
+		e.printStackTrace();
 		String message = e.getAllErrors().get(0).getDefaultMessage();
 		return Result.fail(message);
 	}
@@ -89,7 +88,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Object validExceptionHandler(MethodArgumentNotValidException e) {
-		log.error(e.getMessage(), e);
+		e.printStackTrace();
 		String message = e.getBindingResult().getFieldError().getDefaultMessage();
 		return Result.fail(message);
 	}

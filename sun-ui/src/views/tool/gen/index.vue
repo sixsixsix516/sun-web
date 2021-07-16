@@ -1,154 +1,114 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="表名称" prop="tableName">
-        <el-input
-          v-model="queryParams.tableName"
-          placeholder="请输入表名称"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="表描述" prop="tableComment">
-        <el-input
-          v-model="queryParams.tableComment"
-          placeholder="请输入表描述"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="创建时间">
-        <el-date-picker
-          v-model="dateRange"
-          size="small"
-          style="width: 240px"
-          value-format="yyyy-MM-dd"
-          type="daterange"
-          range-separator="-"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-        ></el-date-picker>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="cyan" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
-      </el-form-item>
-    </el-form>
+    <div class="searchWrapper">
+      <el-input
+        v-model="queryParams.tableName"
+        placeholder="请输入表名称"
+        clearable
+        size="small"
+        style="width: 240px"
+        @keyup.enter.native="handleQuery"
+      />
 
-    <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
+      <el-input
+        v-model="queryParams.tableComment"
+        placeholder="请输入表描述"
+        clearable
+        size="small"
+        style="width: 240px"
+        @keyup.enter.native="handleQuery"
+      />
+
+      <el-date-picker
+        v-model="dateRange"
+        size="small"
+        style="width: 240px"
+        value-format="yyyy-MM-dd"
+        type="daterange"
+        range-separator="-"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+      ></el-date-picker>
+
+      <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+    </div>
+
+
+    <div class="pageContent">
+
+      <div class="featureList">
         <el-button
           type="primary"
           icon="el-icon-download"
           size="mini"
           @click="handleGenTable"
           v-hasPermi="['tool:gen:code']"
-        >生成</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="info"
-          icon="el-icon-upload"
-          size="mini"
-          @click="openImportTable"
-          v-hasPermi="['tool:gen:import']"
-        >导入</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="success"
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleEditTable"
-          v-hasPermi="['tool:gen:edit']"
-        >修改</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['tool:gen:remove']"
-        >删除</el-button>
-      </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
-    </el-row>
+        >生成
+        </el-button>
+      </div>
 
-    <el-table v-loading="loading" :data="tableList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column label="序号" type="index" width="50" align="center">
-        <template slot-scope="scope">
-          <span>{{(queryParams.pageNum - 1) * queryParams.pageSize + scope.$index + 1}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="表名称"
-        align="center"
-        prop="tableName"
-        :show-overflow-tooltip="true"
-        width="130"
+
+      <el-table v-loading="loading" :data="tableList" @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="55"></el-table-column>
+        <el-table-column label="序号" type="index" width="50" align="center">
+          <template slot-scope="scope">
+            <span>{{ (queryParams.pageNum - 1) * queryParams.pageSize + scope.$index + 1 }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="表名称"
+          align="center"
+          prop="tableName"
+          :show-overflow-tooltip="true"
+          width="130"
+        />
+        <el-table-column
+          label="表描述"
+          align="center"
+          prop="tableComment"
+          :show-overflow-tooltip="true"
+          width="130"
+        />
+        <el-table-column
+          label="实体"
+          align="center"
+          prop="className"
+          :show-overflow-tooltip="true"
+          width="130"
+        />
+        <el-table-column label="创建时间" align="center" prop="createTime" width="160"/>
+        <el-table-column label="更新时间" align="center" prop="updateTime" width="160"/>
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+          <template slot-scope="scope">
+            <el-button
+              type="text"
+              size="small"
+              icon="el-icon-view"
+              @click="handlePreview(scope.row)"
+              v-hasPermi="['tool:gen:preview']"
+            >预览
+            </el-button>
+            <el-button
+              type="text"
+              size="small"
+              icon="el-icon-download"
+              @click="handleGenTable(scope.row)"
+              v-hasPermi="['tool:gen:code']"
+            >生成代码
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <pagination
+        v-show="total>0"
+        :total="total"
+        :page.sync="queryParams.pageNum"
+        :limit.sync="queryParams.pageSize"
+        @pagination="getList"
       />
-      <el-table-column
-        label="表描述"
-        align="center"
-        prop="tableComment"
-        :show-overflow-tooltip="true"
-        width="130"
-      />
-      <el-table-column
-        label="实体"
-        align="center"
-        prop="className"
-        :show-overflow-tooltip="true"
-        width="130"
-      />
-      <el-table-column label="创建时间" align="center" prop="createTime" width="160" />
-      <el-table-column label="更新时间" align="center" prop="updateTime" width="160" />
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
-        <template slot-scope="scope">
-          <el-button
-            type="text"
-            size="small"
-            icon="el-icon-view"
-            @click="handlePreview(scope.row)"
-            v-hasPermi="['tool:gen:preview']"
-          >预览</el-button>
-          <el-button
-            type="text"
-            size="small"
-            icon="el-icon-edit"
-            @click="handleEditTable(scope.row)"
-            v-hasPermi="['tool:gen:edit']"
-          >编辑</el-button>
-          <el-button
-            type="text"
-            size="small"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['tool:gen:remove']"
-          >删除</el-button>
-          <el-button
-            type="text"
-            size="small"
-            icon="el-icon-download"
-            @click="handleGenTable(scope.row)"
-            v-hasPermi="['tool:gen:code']"
-          >生成代码</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="queryParams.pageNum"
-      :limit.sync="queryParams.pageSize"
-      @pagination="getList"
-    />
+
+    </div>
+
     <!-- 预览界面 -->
     <el-dialog :title="preview.title" :visible.sync="preview.open" width="80%" top="5vh" append-to-body>
       <el-tabs v-model="preview.activeName">
@@ -162,17 +122,18 @@
         </el-tab-pane>
       </el-tabs>
     </el-dialog>
-    <import-table ref="import" @ok="handleQuery" />
+    <import-table ref="import" @ok="handleQuery"/>
   </div>
 </template>
 
 <script>
-import { listTable, previewTable, delTable, genCode } from "@/api/tool/gen";
+import {listTable, previewTable, delTable, genCode} from "@/api/tool/gen";
 import importTable from "./importTable";
-import { downLoadZip } from "@/utils/zipdownload";
+import {downLoadZip} from "@/utils/zipdownload";
+
 export default {
   name: "Gen",
-  components: { importTable },
+  components: {importTable},
   data() {
     return {
       // 遮罩层
@@ -244,7 +205,7 @@ export default {
         this.msgError("请选择要生成的数据");
         return;
       }
-      if(row.genType === "1") {
+      if (row.genType === "1") {
         genCode(row.tableName).then(response => {
           this.msgSuccess("成功生成到自定义路径：" + row.genPath);
         });
@@ -288,12 +249,13 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
-      }).then(function() {
-          return delTable(tableIds);
+      }).then(function () {
+        return delTable(tableIds);
       }).then(() => {
-          this.getList();
-          this.msgSuccess("删除成功");
-      }).catch(function() {});
+        this.getList();
+        this.msgSuccess("删除成功");
+      }).catch(function () {
+      });
     }
   }
 };

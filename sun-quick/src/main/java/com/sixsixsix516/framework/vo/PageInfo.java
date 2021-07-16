@@ -11,6 +11,7 @@ public class PageInfo {
 
 	@TableField(exist = false)
 	private int pageNum;
+
 	@TableField(exist = false)
 	private int pageSize;
 

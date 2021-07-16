@@ -16,6 +16,6 @@ public interface SysDictTypeMapper extends BaseMapper<SysDictType> {
 	 * @param dictType 字典类型信息
 	 * @return 字典类型集合信息
 	 */
-	IPage<SysDictType> selectDictTypeList(IPage page, SysDictType dictType);
+	IPage<SysDictType> selectDictTypeList(IPage<SysDictType> page, SysDictType dictType);
 
 }

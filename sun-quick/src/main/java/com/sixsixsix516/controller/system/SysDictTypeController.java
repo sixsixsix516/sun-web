@@ -31,7 +31,7 @@ public class SysDictTypeController {
 	@PreAuthorize("@ss.hasPermi('system:dict:list')")
 	@GetMapping("/list")
 	public Result list(SysDictType dictType, PageInfo pageInfo) {
-		IPage<SysDictType> sysDictTypePage = dictTypeMapper.selectDictTypeList(new Page(pageInfo.getPageNum(), pageInfo.getPageSize()), dictType);
+		IPage<SysDictType> sysDictTypePage = dictTypeMapper.selectDictTypeList(new Page<>(pageInfo.getPageNum(), pageInfo.getPageSize()), dictType);
 		return Result.ok(sysDictTypePage.getRecords(), sysDictTypePage.getTotal());
 	}
 

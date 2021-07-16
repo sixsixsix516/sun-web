@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询生成表数据
 export function listTable(query) {
   return request({
-    url: '/tool/gen/list',
+    url: '/generate/list',
     method: 'get',
     params: query
   })

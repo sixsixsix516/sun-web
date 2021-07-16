@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://106.12.192.161:3306/wkpower2019?autoReconnect=true&useUnicode=true&characterEncoding=UTF8&useSSL=false&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=GMT%2B8
-    username: wk
-    password: 0rfB9%mzav$&0
+    url: jdbc:mysql:///sun-web?autoReconnect=true&useUnicode=true&characterEncoding=UTF8&useSSL=false&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=GMT%2B8
+    username: root
+    password: 1111
     hikari:
       # 最小空闲链接 公式 核数 * 2 + 磁盘数
       minimum-idle: 9

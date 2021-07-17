@@ -136,4 +136,10 @@ public class GenTable {
 	@TableField(exist = false)
 	private String parentMenuName;
 
+	@TableField(exist = false)
+	private String createTime;
+
+	@TableField(exist = false)
+	private String updateTime;
+
 }

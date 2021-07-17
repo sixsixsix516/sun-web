@@ -1,6 +1,7 @@
 package com.sixsixsix516.framework.generate;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sixsixsix516.framework.constant.Constants;
 import com.sixsixsix516.framework.generate.domain.GenTable;
 import com.sixsixsix516.framework.generate.domain.GenTableColumn;
@@ -39,19 +40,22 @@ public class GenTableService {
     private GenTableColumnMapper genTableColumnMapper;
 
     @GetMapping("/generateCode")
-    public ResponseEntity<byte[]> generateCode(String tableName) {
-        importTableSave(tableName);
-        return generatorCode(tableName);
+    public ResponseEntity<byte[]> generateCode(String tables) {
+        importTableSave(tables);
+        return generatorCode(tables);
     }
 
     /**
      * 1. 导入表
      */
-    private void importTableSave(String tableName) {
-        GenTable table = genTableMapper.selectOne(new QueryWrapper<GenTable>().lambda().eq(GenTable::getTableName, tableName));
-        if (table == null) {
-//            List<GenTable> genTables = genTableMapper.listTable(1,1,tableName).getRecords();
-//            importGenTable(genTables);
+    private void importTableSave(String tables) {
+        String[] tableNames = tables.split(",");
+        for (String tableName : tableNames) {
+            GenTable table = genTableMapper.selectOne(new QueryWrapper<GenTable>().lambda().eq(GenTable::getTableName, tableName));
+            if (table == null) {
+                List<GenTable> genTables = genTableMapper.listTable(new Page<>(1, 1), tableName).getRecords();
+                importGenTable(genTables);
+            }
         }
     }
 

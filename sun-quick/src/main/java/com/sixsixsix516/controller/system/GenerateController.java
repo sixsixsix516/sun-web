@@ -43,8 +43,8 @@ public class GenerateController {
      * 生成代码
      */
     @GetMapping
-    public ResponseEntity<byte[]> generate(String tableName){
-        return genTableService.generateCode(tableName);
+    public ResponseEntity<byte[]> generate(String tables){
+        return genTableService.generateCode(tables);
     }
 
 

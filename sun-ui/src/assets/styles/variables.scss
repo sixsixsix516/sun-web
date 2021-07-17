@@ -8,10 +8,12 @@ $tiffany: #4AB7BD;
 $yellow:#FEC171;
 $panGreen: #30B08F;
 
-// sidebar
+// 左侧导航栏颜色
+
+// 白色模式
 $menuText: #8998AC;
 $menuActiveText:#409EFF;
-$subMenuActiveText: #3B4859; // https://github.com/ElemeFE/element/issues/12951
+$subMenuActiveText: #3B4859;
 
 $menuBg:#fff;
 $menuHover:#F5F8FC;
@@ -19,7 +21,19 @@ $menuHover:#F5F8FC;
 $subMenuBg: #F5F8FC;
 $subMenuHover: #F0F3F7;
 
+// 黑暗模式
+//$menuText: #8998AC;
+//$menuActiveText:#478AC3;
+//$subMenuActiveText: #dbdbdb;
+//
+//$menuBg:#22252a;
+//$menuHover:#292C32;
+//
+//$subMenuBg: #34373D;
+//$subMenuHover: #292C32;
+//
 $sideBarWidth: 200px;
+
 
 // the :export directive is the magic sauce for webpack
 // https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass

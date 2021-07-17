@@ -21,22 +21,22 @@
         <el-button type="primary" icon="el-icon-plus"  @click="handleAdd" v-hasPermi="['system:user:add']">新增</el-button>
       </div>
 
-    <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange" :header-cell-style="{background:'#f1f7ff',color:'#3c3c3c'}">
-      <el-table-column label="用户编号" align="center" prop="userId" width="120"/>
+    <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
+      <el-table-column label="用户编号" align="center" prop="userId"  />
       <el-table-column label="姓名" align="center" prop="realname" :show-overflow-tooltip="true"/>
-      <el-table-column label="手机号码" align="center" prop="phone" width="120"/>
+      <el-table-column label="手机号码" align="center" prop="phone"  />
       <el-table-column label="状态" align="center">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.status" :active-value="0" :inactive-value="1"
                      @change="handleStatusChange(scope.row)"></el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" align="center" prop="createTime" width="160">
+      <el-table-column label="创建时间" align="center" prop="createTime"  >
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="180" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center"   class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
                      v-hasPermi="['system:user:edit']">修改

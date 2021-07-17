@@ -19,10 +19,7 @@ spring:
        max-file-size:  10MB
        max-request-size:  20MB
   redis:
-    database: 4
-    host: 106.12.192.161
     port: 6379
-    password: wkpower@redis
     timeout: 10s
     lettuce:
       pool:
@@ -37,8 +34,10 @@ token:
     expireTime: 30
 
 mybatis-plus:
-  mapper-locations: classpath:mapper/*Mapper.xml
-  type-aliases-package: com.sixsixsix516.model.system
+  mapper-locations:
+    - classpath:mapper/*Mapper.xml
+    - classpath:mapper/*/*Mapper.xml
+  type-aliases-package: com.sixsixsix516.model
   configuration:
     map-underscore-to-camel-case: true
 

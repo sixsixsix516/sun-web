@@ -47,12 +47,12 @@
         </el-button>
       </div>
 
-      <el-table v-loading="loading" :data="roleList" @selection-change="handleSelectionChange" :header-cell-style="{background:'#f1f7ff',color:'#3c3c3c'}">
+      <el-table v-loading="loading" :data="roleList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center"/>
-        <el-table-column label="角色编号" prop="roleId" width="120"/>
-        <el-table-column label="角色名称" prop="roleName" :show-overflow-tooltip="true" width="150"/>
-        <el-table-column label="显示顺序" prop="roleSort" width="100"/>
-        <el-table-column label="状态" align="center" width="100">
+        <el-table-column label="角色编号" prop="roleId" />
+        <el-table-column label="角色名称" prop="roleName" :show-overflow-tooltip="true" />
+        <el-table-column label="显示顺序" prop="roleSort"/>
+        <el-table-column label="状态" align="center">
           <template slot-scope="scope">
             <el-switch
               v-model="scope.row.status"
@@ -62,7 +62,7 @@
             ></el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+        <el-table-column label="创建时间" align="center" prop="createTime" >
           <template slot-scope="scope">
             <span>{{ parseTime(scope.row.createTime) }}</span>
           </template>

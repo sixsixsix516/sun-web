@@ -36,8 +36,7 @@
         v-loading="loading"
         :data="menuList"
         row-key="menuId"
-        :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
-        :header-cell-style="{background:'#f1f7ff',color:'#3c3c3c'}" >
+        :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
         <el-table-column prop="menuName" label="菜单名称" :show-overflow-tooltip="true" width="160"></el-table-column>
         <el-table-column prop="icon" label="图标" align="center" width="100">
           <template slot-scope="scope">

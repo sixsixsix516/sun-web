@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.0.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sixsix516</groupId>
+    <artifactId>sun-web</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <description>父工程</description>
+
+    <modules>
+        <module>sun-manager</module>
+        <module>sun-common</module>
+        <module>sun-user</module>
+    </modules>
+
+    <properties>
+        <lombok.version>1.18.12</lombok.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///sun-web?autoReconnect=true&useUnicode=true&characterEncoding=UTF8&useSSL=false&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=GMT%2B8
+    username: root
+    password: 1111
+    hikari:
+      # 最小空闲链接 公式 核数 * 2 + 磁盘数
+      minimum-idle: 9
+      # 连接池最大连接数
+      maximum-pool-size: 20
+      auto-commit: true
+      connection-timeout: 6000000
+      connection-test-query: SELECT 1
+      # 多长时间没有被使用 则回收链接 单位毫秒
+      max-lifetime: 120000
+  servlet:
+     multipart:
+       max-file-size:  10MB
+       max-request-size:  20MB
+  redis:
+    port: 6379
+    timeout: 10s
+    lettuce:
+      pool:
+        min-idle: 0
+        max-idle: 8
+        max-active: 8
+        max-wait: -1ms
+
+token:
+    header: Authorization
+    secret: abcdefghijklmnopqrstuvwxyz
+    expireTime: 30
+
+mybatis-plus:
+  mapper-locations:
+    - classpath:mapper/*Mapper.xml
+    - classpath:mapper/*/*Mapper.xml
+  type-aliases-package: com.sixsixsix516.common.model
+  configuration:
+    map-underscore-to-camel-case: true
+
+xss:
+  enabled: true
+  excludes: /system/notice/*
+  urlPatterns: /system/*,/monitor/*,/tool/*

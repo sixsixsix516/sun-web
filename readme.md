@@ -7,6 +7,7 @@
 项目框架
 
 SpringBoot + Vue
+版本：JDK8
 
 
 

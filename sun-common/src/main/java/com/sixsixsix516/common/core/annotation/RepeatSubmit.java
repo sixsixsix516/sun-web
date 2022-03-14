@@ -11,13 +11,11 @@ import java.lang.annotation.Target;
  * 自定义注解防止表单重复提交
  *
  * @author SUN
- *
  */
 @Inherited
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface RepeatSubmit
-{
+public @interface RepeatSubmit {
 
 }

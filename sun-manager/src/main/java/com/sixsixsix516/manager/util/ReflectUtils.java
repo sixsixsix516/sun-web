@@ -2,13 +2,15 @@ package com.sixsixsix516.manager.util;
 
 import com.sixsixsix516.common.core.core.text.Convert;
 import com.sixsixsix516.common.core.utils.DateUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.poi.ss.usermodel.DateUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -16,14 +18,11 @@ import java.util.Date;
  *
  * @author SUN
  */
+@Slf4j
 public class ReflectUtils {
     private static final String SETTER_PREFIX = "set";
 
     private static final String GETTER_PREFIX = "get";
-
-    private static final String CGLIB_CLASS_SEPARATOR = "$$";
-
-    private static Logger logger = LoggerFactory.getLogger(ReflectUtils.class);
 
     /**
      * 调用Setter方法, 仅匹配方法名。
@@ -56,13 +55,13 @@ public class ReflectUtils {
         }
         Method method = getAccessibleMethod(obj, methodName, parameterTypes);
         if (method == null) {
-            logger.debug("在 [" + obj.getClass() + "] 中，没有找到 [" + methodName + "] 方法 ");
+            log.debug("在 [" + obj.getClass() + "] 中，没有找到 [" + methodName + "] 方法 ");
             return null;
         }
         try {
             return (E) method.invoke(obj, args);
         } catch (Exception e) {
-            String msg = "method: " + method + ", obj: " + obj + ", args: " + args + "";
+            String msg = "method: " + method + ", obj: " + obj + ", args: " + Arrays.toString(args) + "";
             throw convertReflectionExceptionToUnchecked(msg, e);
         }
     }
@@ -76,7 +75,7 @@ public class ReflectUtils {
         Method method = getAccessibleMethodByName(obj, methodName, args.length);
         if (method == null) {
             // 如果为空不报错，直接返回空。
-            logger.debug("在 [" + obj.getClass() + "] 中，没有找到 [" + methodName + "] 方法 ");
+            log.debug("在 [" + obj.getClass() + "] 中，没有找到 [" + methodName + "] 方法 ");
             return null;
         }
         try {
@@ -108,7 +107,7 @@ public class ReflectUtils {
             }
             return (E) method.invoke(obj, args);
         } catch (Exception e) {
-            String msg = "method: " + method + ", obj: " + obj + ", args: " + args + "";
+            String msg = "method: " + method + ", obj: " + obj + ", args: " + Arrays.toString(args) + "";
             throw convertReflectionExceptionToUnchecked(msg, e);
         }
     }
@@ -133,7 +132,7 @@ public class ReflectUtils {
                 makeAccessible(method);
                 return method;
             } catch (NoSuchMethodException e) {
-                continue;
+                e.printStackTrace();
             }
         }
         return null;

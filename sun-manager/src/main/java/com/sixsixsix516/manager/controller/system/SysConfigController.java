@@ -3,7 +3,7 @@ package com.sixsixsix516.manager.controller.system;
 import com.sixsixsix516.manager.service.SysConfigService;
 import com.sixsixsix516.common.model.system.SysConfig;
 import com.sixsixsix516.common.vo.Result;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author SUN
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/system/config")
 public class SysConfigController {
@@ -32,11 +33,9 @@ public class SysConfigController {
      * 根据参数键名查询参数值
      */
     @GetMapping(value = "/configKey/{configKey}")
-    public Result getConfigKey(@PathVariable String configKey) {
-        return Result.ok(configService.selectConfigByKey(configKey));
+    public Result<String> getConfigKey(@PathVariable String configKey) {
+        return configService.selectConfigByKey(configKey);
     }
 
-
-    @Autowired
-    private SysConfigService configService;
+    private final SysConfigService configService;
 }

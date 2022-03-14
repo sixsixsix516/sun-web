@@ -4,10 +4,8 @@ package com.sixsixsix516.common.core.enums;
  * 操作状态
  *
  * @author SUN
- *
  */
-public enum BusinessStatus
-{
+public enum BusinessStatus {
     /**
      * 成功
      */

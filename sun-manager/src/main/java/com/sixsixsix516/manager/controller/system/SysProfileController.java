@@ -1,38 +1,30 @@
 package com.sixsixsix516.manager.controller.system;
 
-import java.util.HashMap;
-
-import com.sixsixsix516.manager.service.SysUserService;
-import com.sixsixsix516.manager.core.web.service.TokenService;
+import com.sixsixsix516.common.core.annotation.Log;
+import com.sixsixsix516.common.core.enums.BusinessType;
+import com.sixsixsix516.common.core.utils.ServletUtils;
+import com.sixsixsix516.common.model.system.SysUser;
 import com.sixsixsix516.common.vo.Result;
 import com.sixsixsix516.manager.core.model.LoginUser;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import com.sixsixsix516.common.core.annotation.Log;
-import com.sixsixsix516.common.model.system.SysUser;
-import com.sixsixsix516.common.core.enums.BusinessType;
+import com.sixsixsix516.manager.core.web.service.TokenService;
+import com.sixsixsix516.manager.service.SysUserService;
 import com.sixsixsix516.manager.util.SecurityUtils;
-import com.sixsixsix516.common.core.utils.ServletUtils;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
 
 /**
  * 个人信息 业务处理
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/system/user/profile")
 public class SysProfileController {
 
-
-	@Autowired
-	private SysUserService userService;
-	@Autowired
-	private TokenService tokenService;
+	private final SysUserService userService;
+	private final TokenService tokenService;
 
 	/**
 	 * 个人信息

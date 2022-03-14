@@ -5,14 +5,12 @@ package com.sixsixsix516.common.core.utils;
  *
  * @author SUN
  */
-public class LogUtils
-{
-    public static String getBlock(Object msg)
-    {
-        if (msg == null)
-        {
+public class LogUtils {
+
+    public static String getBlock(Object msg) {
+        if (msg == null) {
             msg = "";
         }
-        return "[" + msg.toString() + "]";
+        return "[" + msg + "]";
     }
 }

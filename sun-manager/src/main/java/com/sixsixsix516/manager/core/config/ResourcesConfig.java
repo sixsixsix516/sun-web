@@ -1,7 +1,7 @@
 package com.sixsixsix516.manager.core.config;
 
 import com.sixsixsix516.common.core.interceptor.RepeatSubmitInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -15,12 +15,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  *
  * @author SUN
  */
+@RequiredArgsConstructor
 @Configuration
 public class ResourcesConfig implements WebMvcConfigurer {
-
-    @Autowired
-    private RepeatSubmitInterceptor repeatSubmitInterceptor;
-
 
     /**
      * 自定义拦截规则
@@ -48,4 +45,7 @@ public class ResourcesConfig implements WebMvcConfigurer {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
+
+    private final RepeatSubmitInterceptor repeatSubmitInterceptor;
+
 }

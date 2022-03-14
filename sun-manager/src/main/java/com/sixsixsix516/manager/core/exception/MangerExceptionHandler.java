@@ -15,22 +15,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class MangerExceptionHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
-    public Result handleAuthorizationException(AccessDeniedException e) {
+    public Result<Void> handleAuthorizationException(AccessDeniedException e) {
         e.printStackTrace();
         return Result.fail("没有权限，请联系管理员授权");
     }
 
     @ExceptionHandler(AccountExpiredException.class)
-    public Result handleAccountExpiredException(AccountExpiredException e) {
+    public Result<Void> handleAccountExpiredException(AccountExpiredException e) {
         e.printStackTrace();
         return Result.fail(e.getMessage());
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
-    public Result handleUsernameNotFoundException(UsernameNotFoundException e) {
+    public Result<Void> handleUsernameNotFoundException(UsernameNotFoundException e) {
         e.printStackTrace();
         return Result.fail(e.getMessage());
     }
-
 
 }

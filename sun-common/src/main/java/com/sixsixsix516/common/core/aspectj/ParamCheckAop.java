@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * 参数校验切面
@@ -34,7 +35,7 @@ public class ParamCheckAop {
             if (arg instanceof BindingResult) {
                 BindingResult result = (BindingResult) arg;
                 if (result.hasErrors()) {
-                    throw new CustomException(result.getFieldError().getDefaultMessage());
+                    throw new CustomException(Objects.requireNonNull(result.getFieldError()).getDefaultMessage());
                 }
             }
         });

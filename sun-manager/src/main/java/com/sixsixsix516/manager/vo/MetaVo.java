@@ -1,12 +1,19 @@
 package com.sixsixsix516.manager.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * 路由显示信息
  *
  * @author SUN
  */
-public class MetaVo
-{
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class MetaVo {
+
     /**
      * 设置该路由在侧边栏和面包屑中展示的名字
      */
@@ -17,33 +24,4 @@ public class MetaVo
      */
     private String icon;
 
-    public MetaVo()
-    {
-    }
-
-    public MetaVo(String title, String icon)
-    {
-        this.title = title;
-        this.icon = icon;
-    }
-
-    public String getTitle()
-    {
-        return title;
-    }
-
-    public void setTitle(String title)
-    {
-        this.title = title;
-    }
-
-    public String getIcon()
-    {
-        return icon;
-    }
-
-    public void setIcon(String icon)
-    {
-        this.icon = icon;
-    }
 }

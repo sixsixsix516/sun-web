@@ -1,15 +1,5 @@
 package com.sixsixsix516.manager.core.web.service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-import javax.servlet.http.HttpServletRequest;
-
-
-import com.sixsixsix516.manager.core.model.LoginUser;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import com.sixsixsix516.common.core.constant.Constants;
 import com.sixsixsix516.common.core.core.redis.RedisCache;
 import com.sixsixsix516.common.core.utils.ServletUtils;
@@ -17,10 +7,19 @@ import com.sixsixsix516.common.core.utils.StringUtils;
 import com.sixsixsix516.common.core.utils.ip.AddressUtils;
 import com.sixsixsix516.common.core.utils.ip.IpUtils;
 import com.sixsixsix516.common.core.utils.uuid.IdUtils;
+import com.sixsixsix516.manager.core.model.LoginUser;
 import eu.bitwalker.useragentutils.UserAgent;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * token验证处理
@@ -101,7 +100,6 @@ public class TokenService {
 
 	/**
 	 * 验证令牌有效期，相差不足20分钟，自动刷新缓存
-	 * @return 令牌
 	 */
 	public void verifyToken(LoginUser loginUser) {
 		long expireTime = loginUser.getExpireTime();

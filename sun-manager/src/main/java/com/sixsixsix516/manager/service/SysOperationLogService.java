@@ -29,8 +29,8 @@ public class SysOperationLogService {
     /**
      * 新增操作日志
      */
-    public void insertOperationLog(SysOperationLog operLog) {
-        sysOperationLogMapper.insertOperlog(operLog);
+    public void insertOperationLog(SysOperationLog sysOperationLog) {
+        sysOperationLogMapper.insertOperlog(sysOperationLog);
     }
 
     /**

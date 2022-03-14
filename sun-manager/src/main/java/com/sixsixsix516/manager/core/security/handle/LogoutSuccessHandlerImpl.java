@@ -1,32 +1,32 @@
 package com.sixsixsix516.manager.core.security.handle;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.alibaba.fastjson.JSON;
 import com.sixsixsix516.common.core.constant.Constants;
+import com.sixsixsix516.common.core.utils.ServletUtils;
 import com.sixsixsix516.common.core.utils.StringUtils;
 import com.sixsixsix516.common.vo.Result;
 import com.sixsixsix516.manager.core.factory.AsyncFactory;
 import com.sixsixsix516.manager.core.factory.AsyncManager;
 import com.sixsixsix516.manager.core.model.LoginUser;
 import com.sixsixsix516.manager.core.web.service.TokenService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import com.alibaba.fastjson.JSON;
-import com.sixsixsix516.common.core.utils.ServletUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 自定义退出处理类 返回成功
  *
  * @author SUN
  */
+@RequiredArgsConstructor
 @Configuration
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 
-    @Autowired
-    private TokenService tokenService;
+    private final TokenService tokenService;
 
     /**
      * 退出处理

@@ -1,9 +1,5 @@
 package com.sixsixsix516.common.core.config;
 
-import java.util.HashMap;
-import java.util.Map;
-import javax.servlet.DispatcherType;
-
 import com.sixsixsix516.common.core.filter.RepeatableFilter;
 import com.sixsixsix516.common.core.filter.XssFilter;
 import com.sixsixsix516.common.core.utils.StringUtils;
@@ -12,6 +8,10 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.DispatcherType;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Filter配置
  *
@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class FilterConfig {
+
 	@Value("${xss.enabled}")
 	private String enabled;
 
@@ -28,7 +29,6 @@ public class FilterConfig {
 	@Value("${xss.urlPatterns}")
 	private String urlPatterns;
 
-	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Bean
 	public FilterRegistrationBean xssFilterRegistration() {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
@@ -37,7 +37,7 @@ public class FilterConfig {
 		registration.addUrlPatterns(StringUtils.split(urlPatterns, ","));
 		registration.setName("xssFilter");
 		registration.setOrder(FilterRegistrationBean.HIGHEST_PRECEDENCE);
-		Map<String, String> initParameters = new HashMap<String, String>();
+		Map<String, String> initParameters = new HashMap<>(2);
 		initParameters.put("excludes", excludes);
 		initParameters.put("enabled", enabled);
 		registration.setInitParameters(initParameters);

@@ -28,14 +28,14 @@ public class SysOperationLogController {
 
     @PreAuthorize("@ss.hasPermi('monitor:operlog:list')")
     @GetMapping("/list")
-    public Result<List<SysOperationLog>> list(SysOperationLog operLog, PageInfo pageInfo) {
-        return sysOperationLogService.list(operLog, pageInfo);
+    public Result<List<SysOperationLog>> list(SysOperationLog sysOperationLog, PageInfo pageInfo) {
+        return sysOperationLogService.list(sysOperationLog, pageInfo);
     }
 
     @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
-    @DeleteMapping("/{operIds}")
-    public Result<Void> remove(@PathVariable Long[] operIds) {
-        return sysOperationLogService.deleteOperationLogByIds(operIds);
+    @DeleteMapping("/{ids}")
+    public Result<Void> remove(@PathVariable Long[] ids) {
+        return sysOperationLogService.deleteOperationLogByIds(ids);
     }
 
     @Log(title = "操作日志", businessType = BusinessType.CLEAN)

@@ -5,8 +5,7 @@ package com.sixsixsix516.common.core.enums;
  *
  * @author SUN
  */
-public enum OperatorType
-{
+public enum OperatorType {
     /**
      * 其它
      */

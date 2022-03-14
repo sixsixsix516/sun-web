@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sixsixsix516.common.mapper.system.SysConfigMapper;
 import com.sixsixsix516.common.vo.Result;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sixsixsix516.common.core.constant.Constants;
@@ -20,6 +21,7 @@ import com.sixsixsix516.common.model.system.SysConfig;
  * @author SUN
  */
 @Service
+@RequiredArgsConstructor
 public class SysConfigService {
 
 	/**
@@ -43,17 +45,17 @@ public class SysConfigService {
 	/**
 	 * 根据键名查询参数配置信息
 	 */
-	public String selectConfigByKey(String configKey) {
+	public Result<String> selectConfigByKey(String configKey) {
 		String configValue = Convert.toStr(redisCache.getCacheObject(getCacheKey(configKey)));
 		if (StringUtils.isNotEmpty(configValue)) {
-			return configValue;
+			return Result.ok(configValue);
 		}
 		SysConfig retConfig = configMapper.selectOne(new QueryWrapper<SysConfig>().lambda().eq(SysConfig::getConfigKey, configKey));
 		if (StringUtils.isNotNull(retConfig)) {
 			redisCache.setCacheObject(getCacheKey(configKey), retConfig.getConfigValue());
-			return retConfig.getConfigValue();
+			return Result.ok(retConfig.getConfigValue());
 		}
-		return StringUtils.EMPTY;
+		return Result.ok(StringUtils.EMPTY);
 	}
 
 	/**
@@ -63,8 +65,6 @@ public class SysConfigService {
 		return Constants.SYS_CONFIG_KEY + configKey;
 	}
 
-	@Autowired
-	private SysConfigMapper configMapper;
-	@Autowired
-	private RedisCache redisCache;
+	private final SysConfigMapper configMapper;
+	private final RedisCache redisCache;
 }

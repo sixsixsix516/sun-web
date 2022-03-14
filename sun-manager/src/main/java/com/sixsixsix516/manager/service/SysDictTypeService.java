@@ -1,18 +1,21 @@
 package com.sixsixsix516.manager.service;
 
-import java.util.List;
-import javax.annotation.PostConstruct;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sixsixsix516.common.mapper.system.SysDictDataMapper;
-import com.sixsixsix516.common.mapper.system.SysDictTypeMapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.sixsixsix516.common.model.system.SysDictData;
-import com.sixsixsix516.common.model.system.SysDictType;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sixsixsix516.common.core.utils.DictUtils;
 import com.sixsixsix516.common.core.utils.StringUtils;
+import com.sixsixsix516.common.core.vo.PageInfo;
+import com.sixsixsix516.common.mapper.system.SysDictDataMapper;
+import com.sixsixsix516.common.mapper.system.SysDictTypeMapper;
+import com.sixsixsix516.common.model.system.SysDictData;
+import com.sixsixsix516.common.model.system.SysDictType;
+import com.sixsixsix516.common.vo.Result;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 /**
  * 字典 业务层处理
@@ -35,13 +38,19 @@ public class SysDictTypeService {
 		}
 	}
 
+	public Result<List<SysDictType>> list(SysDictType dictType, PageInfo pageInfo) {
+		IPage<SysDictType> sysDictTypePage = dictTypeMapper.selectDictTypeList(new Page<>(pageInfo.getPageNum(), pageInfo.getPageSize()), dictType);
+		return Result.ok(sysDictTypePage.getRecords(), sysDictTypePage.getTotal());
+	}
+
+
 	/**
 	 * 根据所有字典类型
 	 *
 	 * @return 字典类型集合信息
 	 */
-	public List<SysDictType> selectDictTypeAll() {
-		return dictTypeMapper.selectList(null);
+	public Result<List<SysDictType>> selectDictTypeAll() {
+		return Result.ok(dictTypeMapper.selectList(null));
 	}
 
 	/**
@@ -50,16 +59,16 @@ public class SysDictTypeService {
 	 * @param dictType 字典类型
 	 * @return 字典数据集合信息
 	 */
-	public List<SysDictData> selectDictDataByType(String dictType) {
+	public Result<List<SysDictData>> selectDictDataByType(String dictType) {
 		List<SysDictData> dictDatas = DictUtils.getDictCache(dictType);
 		if (StringUtils.isNotNull(dictDatas)) {
-			return dictDatas;
+			return Result.ok(dictDatas);
 		}
 		dictDatas = dictDataMapper.selectList(new QueryWrapper<SysDictData>().lambda()
 				.eq(SysDictData::getStatus, 0).eq(SysDictData::getDictType, dictType).orderByAsc(SysDictData::getDictSort));
 		if (StringUtils.isNotNull(dictDatas)) {
 			DictUtils.setDictCache(dictType, dictDatas);
-			return dictDatas;
+			return Result.ok(dictDatas);
 		}
 		return null;
 	}
@@ -67,8 +76,9 @@ public class SysDictTypeService {
 	/**
 	 * 清空缓存数据
 	 */
-	public void clearCache() {
+	public Result<Void> clearCache() {
 		DictUtils.clearDictCache();
+		return Result.ok();
 	}
 
 	private final SysDictTypeMapper dictTypeMapper;

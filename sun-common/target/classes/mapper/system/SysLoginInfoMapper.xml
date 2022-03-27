@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sixsixsix516.common.mapper.system.SysLogininforMapper">
+<mapper namespace="com.sixsixsix516.common.mapper.system.SysLoginInfoMapper">
 
-	<resultMap type="SysLogininfor" id="SysLogininforResult">
+	<resultMap type="SysLoginInfo" id="SysLogininforResult">
 		<id     property="infoId"        column="info_id"           />
 		<result property="userName"      column="user_name"         />
 		<result property="status"        column="status"            />
@@ -17,8 +17,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 
-	<select id="selectLogininforList" parameterType="SysLogininfor" resultMap="SysLogininforResult">
-		select info_id, user_name, ipaddr, login_location, browser, os, status, msg, login_time from sys_logininfor
+	<select id="selectLogininforList" parameterType="SysLoginInfo" resultMap="SysLogininforResult">
+		select info_id, user_name, ipaddr, login_location, browser, os, status, msg, login_time from sys_login_info
 		<where>
 			<if test="logininfor.ipaddr != null and logininfor.ipaddr != ''">
 				AND ipaddr like concat('%', #{logininfor.ipaddr}, '%')
@@ -40,14 +40,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<delete id="deleteLogininforByIds" parameterType="Long">
- 		delete from sys_logininfor where info_id in
+ 		delete from sys_login_info where info_id in
  		<foreach collection="array" item="infoId" open="(" separator="," close=")">
  			#{infoId}
         </foreach>
  	</delete>
 
     <update id="cleanLogininfor">
-        truncate table sys_logininfor
+        truncate table sys_login_info
     </update>
 
 </mapper>

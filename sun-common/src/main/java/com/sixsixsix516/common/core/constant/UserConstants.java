@@ -34,11 +34,6 @@ public class UserConstants {
     public static final String TYPE_MENU = "C";
 
     /**
-     * 菜单类型（按钮）
-     */
-    public static final String TYPE_BUTTON = "F";
-
-    /**
      * Layout组件标识
      */
     public final static String LAYOUT = "Layout";

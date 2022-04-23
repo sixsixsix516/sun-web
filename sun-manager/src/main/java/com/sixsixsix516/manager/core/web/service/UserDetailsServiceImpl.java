@@ -6,9 +6,8 @@ import com.sixsixsix516.common.core.utils.StringUtils;
 import com.sixsixsix516.common.model.system.SysUser;
 import com.sixsixsix516.manager.core.model.LoginUser;
 import com.sixsixsix516.manager.service.SysUserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,15 +18,10 @@ import org.springframework.stereotype.Service;
  *
  * @author SUN
  */
+@RequiredArgsConstructor
+@Slf4j
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-	private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
-
-	@Autowired
-	private SysUserService userService;
-
-	@Autowired
-	private SysPermissionService permissionService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -45,4 +39,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails createLoginUser(SysUser user) {
 		return new LoginUser(user, permissionService.getMenuPermission(user));
 	}
+
+	private final SysUserService userService;
+	private final SysPermissionService permissionService;
 }

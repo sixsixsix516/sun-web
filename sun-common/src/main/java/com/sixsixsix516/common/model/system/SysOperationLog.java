@@ -12,8 +12,6 @@ import com.sixsixsix516.common.core.annotation.Excel;
  */
 public class SysOperationLog extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * 日志主键
      */

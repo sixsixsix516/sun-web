@@ -110,7 +110,18 @@ public @interface Excel {
     Type type() default Type.ALL;
 
     enum Type {
-        ALL(0), EXPORT(1), IMPORT(2);
+        /**
+         * 全部
+         */
+        ALL(0),
+        /**
+         * 导出
+         */
+        EXPORT(1),
+        /**
+         * 导入
+         */
+        IMPORT(2);
         private final int value;
 
         Type(int value) {
@@ -123,7 +134,14 @@ public @interface Excel {
     }
 
     enum ColumnType {
-        NUMERIC(0), STRING(1);
+        /**
+         * 字段类型：数值
+         */
+        NUMERIC(0),
+        /**
+         * 字段类型：字符串
+         */
+        STRING(1);
         private final int value;
 
         ColumnType(int value) {

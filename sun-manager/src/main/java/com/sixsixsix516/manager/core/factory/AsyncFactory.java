@@ -80,7 +80,7 @@ public class AsyncFactory {
 	 * @param operLog 操作日志信息
 	 * @return 任务task
 	 */
-	public static TimerTask recordOper(final SysOperationLog operLog) {
+	public static TimerTask record(final SysOperationLog operLog) {
 		return new TimerTask() {
 			@Override
 			public void run() {

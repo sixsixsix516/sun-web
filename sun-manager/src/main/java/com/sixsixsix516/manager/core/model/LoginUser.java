@@ -20,6 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginUser implements UserDetails {
+
     private static final long serialVersionUID = 1L;
 
     /**

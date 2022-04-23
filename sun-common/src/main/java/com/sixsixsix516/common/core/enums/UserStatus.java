@@ -6,17 +6,31 @@ package com.sixsixsix516.common.core.enums;
  * @author SUN
  */
 public enum UserStatus {
-    OK("0", "正常"), DISABLE("1", "停用"), DELETED("2", "删除");
 
-    private final String code;
+    /**
+     * 正常状态
+     */
+    OK(0, "正常"),
+
+    /**
+     * 停用状态
+     */
+    DISABLE(1, "停用"),
+
+    /**
+     * 删除状态
+     */
+    DELETED(2, "删除");
+
+    private final Integer code;
     private final String info;
 
-    UserStatus(String code, String info) {
+    UserStatus(Integer code, String info) {
         this.code = code;
         this.info = info;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 

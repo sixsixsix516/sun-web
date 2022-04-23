@@ -1,14 +1,14 @@
 package com.sixsixsix516.common.model.system;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.sixsixsix516.common.core.annotation.Excel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * 字典类型表 sys_dict_type
@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class SysDictType extends BaseEntity {
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 字典主键
@@ -33,7 +32,7 @@ public class SysDictType extends BaseEntity {
 	 */
 	@Excel(name = "字典名称")
 	@NotBlank(message = "字典名称不能为空")
-	@Size(min = 0, max = 100, message = "字典类型名称长度不能超过100个字符")
+	@Size(max = 100, message = "字典类型名称长度不能超过100个字符")
 	private String dictName;
 
 	/**
@@ -41,7 +40,7 @@ public class SysDictType extends BaseEntity {
 	 */
 	@Excel(name = "字典类型")
 	@NotBlank(message = "字典类型不能为空")
-	@Size(min = 0, max = 100, message = "字典类型类型长度不能超过100个字符")
+	@Size(max = 100, message = "字典类型类型长度不能超过100个字符")
 	private String dictType;
 
 	/**

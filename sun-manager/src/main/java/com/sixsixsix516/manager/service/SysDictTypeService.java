@@ -33,8 +33,8 @@ public class SysDictTypeService {
 	public void init() {
 		List<SysDictType> dictTypeList = dictTypeMapper.selectList(null);
 		for (SysDictType dictType : dictTypeList) {
-			List<SysDictData> dictDatas = dictDataMapper.selectList(new QueryWrapper<SysDictData>().lambda().eq(SysDictData::getDictType, dictType.getDictType()));
-			DictUtils.setDictCache(dictType.getDictType(), dictDatas);
+			List<SysDictData> dictDataList = dictDataMapper.selectList(new QueryWrapper<SysDictData>().lambda().eq(SysDictData::getDictType, dictType.getDictType()));
+			DictUtils.setDictCache(dictType.getDictType(), dictDataList);
 		}
 	}
 
@@ -60,17 +60,17 @@ public class SysDictTypeService {
 	 * @return 字典数据集合信息
 	 */
 	public Result<List<SysDictData>> selectDictDataByType(String dictType) {
-		List<SysDictData> dictDatas = DictUtils.getDictCache(dictType);
-		if (StringUtils.isNotNull(dictDatas)) {
-			return Result.ok(dictDatas);
+		List<SysDictData> dictDataList = DictUtils.getDictCache(dictType);
+		if (StringUtils.isNotNull(dictDataList)) {
+			return Result.ok(dictDataList);
 		}
-		dictDatas = dictDataMapper.selectList(new QueryWrapper<SysDictData>().lambda()
+		dictDataList = dictDataMapper.selectList(new QueryWrapper<SysDictData>().lambda()
 				.eq(SysDictData::getStatus, 0).eq(SysDictData::getDictType, dictType).orderByAsc(SysDictData::getDictSort));
-		if (StringUtils.isNotNull(dictDatas)) {
-			DictUtils.setDictCache(dictType, dictDatas);
-			return Result.ok(dictDatas);
+		if (StringUtils.isNotNull(dictDataList)) {
+			DictUtils.setDictCache(dictType, dictDataList);
+			return Result.ok(dictDataList);
 		}
-		return null;
+		return Result.ok();
 	}
 
 	/**

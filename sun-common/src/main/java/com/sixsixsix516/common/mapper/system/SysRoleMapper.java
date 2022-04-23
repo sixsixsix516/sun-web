@@ -1,10 +1,10 @@
 package com.sixsixsix516.common.mapper.system;
 
-import java.util.List;
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sixsixsix516.common.model.system.SysRole;
+
+import java.util.List;
 
 /**
  * 角色表 数据层
@@ -18,7 +18,7 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
 	 * @param role 角色信息
 	 * @return 角色数据集合信息
 	 */
-	IPage<SysRole> selectRoleList(IPage page, SysRole role);
+	IPage<SysRole> selectRoleList(IPage<SysRole> page, SysRole role);
 
 	/**
 	 * 根据用户ID查询角色

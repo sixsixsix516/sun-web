@@ -13,9 +13,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * @author SUN
  */
 public class SecurityUtils {
+
     /**
      * 获取用户账户
-     **/
+     */
     public static String getUsername() {
         try {
             return getLoginUser().getUsername();

@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
+
     public final String REPEAT_PARAMS = "repeatParams";
 
     public final String REPEAT_TIME = "repeatTime";
@@ -39,7 +40,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
      * <p>
      * 两次相同参数的请求，如果间隔时间大于该参数，系统不会认定为重复提交的数据
      */
-    private int intervalTime = 10;
+    private final int intervalTime = 10;
 
 
     @Override
@@ -68,9 +69,9 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
         }
 
         // 唯一标识（指定key + 消息头）
-        String cache_repeat_key = Constants.REPEAT_SUBMIT_KEY + submitKey;
+        String cacheRepeatKey = Constants.REPEAT_SUBMIT_KEY + submitKey;
 
-        Object sessionObj = redisCache.getCacheObject(cache_repeat_key);
+        Object sessionObj = redisCache.getCacheObject(cacheRepeatKey);
         if (sessionObj != null) {
             Map<String, Object> sessionMap = (Map<String, Object>) sessionObj;
             if (sessionMap.containsKey(url)) {
@@ -80,9 +81,9 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
                 }
             }
         }
-        Map<String, Object> cacheMap = new HashMap<String, Object>();
+        Map<String, Object> cacheMap = new HashMap<>();
         cacheMap.put(url, nowDataMap);
-        redisCache.setCacheObject(cache_repeat_key, cacheMap, intervalTime, TimeUnit.SECONDS);
+        redisCache.setCacheObject(cacheRepeatKey, cacheMap, intervalTime, TimeUnit.SECONDS);
         return false;
     }
 
@@ -101,9 +102,6 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
     private boolean compareTime(Map<String, Object> nowMap, Map<String, Object> preMap) {
         long time1 = (Long) nowMap.get(REPEAT_TIME);
         long time2 = (Long) preMap.get(REPEAT_TIME);
-        if ((time1 - time2) < (this.intervalTime * 1000)) {
-            return true;
-        }
-        return false;
+        return (time1 - time2) < (this.intervalTime * 1000);
     }
 }

@@ -25,7 +25,7 @@ import java.util.List;
 public class SysDictTypeController {
 
 
-    @PreAuthorize("@ss.hasPermi('system:dict:list')")
+    @PreAuthorize("@ss.hasPermissions('system:dict:list')")
     @GetMapping("/list")
     public Result<List<SysDictType>> list(SysDictType dictType, PageInfo pageInfo) {
         return dictTypeService.list(dictType, pageInfo);
@@ -34,7 +34,7 @@ public class SysDictTypeController {
     /**
      * 清空缓存
      */
-    @PreAuthorize("@ss.hasPermi('system:dict:remove')")
+    @PreAuthorize("@ss.hasPermissions('system:dict:remove')")
     @Log(title = "字典类型", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clearCache")
     public Result<Void> clearCache() {
@@ -44,8 +44,8 @@ public class SysDictTypeController {
     /**
      * 获取字典选择框列表
      */
-    @GetMapping("/optionselect")
-    public Result<List<SysDictType>> optionselect() {
+    @GetMapping("/optionSelect")
+    public Result<List<SysDictType>> optionSelect() {
         return dictTypeService.selectDictTypeAll();
     }
 

@@ -6,10 +6,6 @@ package com.sixsixsix516.common.core.constant;
  * @author SUN
  */
 public class Constants {
-    /**
-     * UTF-8 字符集
-     */
-    public static final String UTF8 = "UTF-8";
 
     /**
      * GBK 字符集
@@ -80,9 +76,4 @@ public class Constants {
      * 字典管理 cache key
      */
     public static final String SYS_DICT_KEY = "sys_dict:";
-
-    /**
-     * 资源映射路径 前缀
-     */
-    public static final String RESOURCE_PREFIX = "/profile";
 }

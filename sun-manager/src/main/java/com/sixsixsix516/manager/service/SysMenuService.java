@@ -1,15 +1,21 @@
 package com.sixsixsix516.manager.service;
 
+import com.sixsixsix516.common.core.constant.Constants;
 import com.sixsixsix516.common.core.constant.UserConstants;
+import com.sixsixsix516.common.core.utils.ServletUtils;
 import com.sixsixsix516.common.core.utils.StringUtils;
 import com.sixsixsix516.common.mapper.system.SysMenuMapper;
 import com.sixsixsix516.common.mapper.system.SysRoleMenuMapper;
 import com.sixsixsix516.common.model.system.SysMenu;
 import com.sixsixsix516.common.model.system.SysUser;
 import com.sixsixsix516.common.model.system.TreeSelect;
+import com.sixsixsix516.common.vo.Result;
+import com.sixsixsix516.manager.core.model.LoginUser;
+import com.sixsixsix516.manager.core.web.service.TokenService;
 import com.sixsixsix516.manager.util.SecurityUtils;
 import com.sixsixsix516.manager.vo.MetaVo;
 import com.sixsixsix516.manager.vo.RouterVo;
+import com.sixsixsix516.manager.vo.response.menu.MenuListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +35,18 @@ public class SysMenuService {
     /**
      * 根据用户查询系统菜单列表
      *
-     * @param userId 用户ID
      * @return 菜单列表
      */
-    public List<SysMenu> selectMenuList(Long userId) {
-        return selectMenuList(new SysMenu(), userId);
+    public Result<MenuListResponse> selectMenuList(Long roleId) {
+        LoginUser loginUser = tokenService.getLoginUser(ServletUtils.getRequest());
+        SysUser user = loginUser.getUser();
+        List<SysMenu> menuList = selectMenuList(new SysMenu(), user.getUserId());
+
+        MenuListResponse menuListResponse = new MenuListResponse();
+        menuListResponse.setMenus(buildMenuTreeSelect(menuList));
+        menuListResponse.setCheckedKeys(selectMenuListByRoleId(roleId));
+
+        return Result.ok(menuListResponse);
     }
 
     /**
@@ -174,8 +187,8 @@ public class SysMenuService {
      * @param menuId 菜单ID
      * @return 菜单信息
      */
-    public SysMenu selectMenuById(Long menuId) {
-        return menuMapper.selectMenuById(menuId);
+    public Result<SysMenu> selectMenuById(Long menuId) {
+        return Result.ok(menuMapper.selectMenuById(menuId));
     }
 
     /**
@@ -205,8 +218,16 @@ public class SysMenuService {
      * @param menu 菜单信息
      * @return 结果
      */
-    public int insertMenu(SysMenu menu) {
-        return menuMapper.insertMenu(menu);
+    public Result<Void> insertMenu(SysMenu menu) {
+        if (UserConstants.NOT_UNIQUE.equals(checkMenuNameUnique(menu))) {
+            return Result.fail("新增菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
+        } else if (UserConstants.YES_FRAME.equals(menu.getIsFrame())
+                && !StringUtils.startsWithAny(menu.getPath(), Constants.HTTP, Constants.HTTPS)) {
+            return Result.fail("新增菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
+        }
+        menu.setCreateBy(SecurityUtils.getUsername());
+        menuMapper.insertMenu(menu);
+        return Result.ok();
     }
 
     /**
@@ -215,8 +236,19 @@ public class SysMenuService {
      * @param menu 菜单信息
      * @return 结果
      */
-    public int updateMenu(SysMenu menu) {
-        return menuMapper.updateMenu(menu);
+    public Result<Void> updateMenu(SysMenu menu) {
+        if (UserConstants.NOT_UNIQUE.equals(checkMenuNameUnique(menu))) {
+            return Result.fail("修改菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
+        } else if (UserConstants.YES_FRAME.equals(menu.getIsFrame())
+                && !StringUtils.startsWithAny(menu.getPath(), Constants.HTTP, Constants.HTTPS)) {
+            return Result.fail("新增菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
+        } else if (menu.getMenuId().equals(menu.getParentId())) {
+            return Result.fail("新增菜单'" + menu.getMenuName() + "'失败，上级菜单不能选择自己");
+        }
+        menu.setUpdateBy(SecurityUtils.getUsername());
+
+        menuMapper.updateMenu(menu);
+        return Result.ok();
     }
 
     /**
@@ -225,8 +257,15 @@ public class SysMenuService {
      * @param menuId 菜单ID
      * @return 结果
      */
-    public int deleteMenuById(Long menuId) {
-        return menuMapper.deleteMenuById(menuId);
+    public Result<Void> deleteMenuById(Long menuId) {
+        if (hasChildByMenuId(menuId)) {
+            return Result.fail("存在子菜单,不允许删除");
+        }
+        if (checkMenuExistRole(menuId)) {
+            return Result.fail("菜单已分配,不允许删除");
+        }
+        menuMapper.deleteMenuById(menuId);
+        return Result.ok();
     }
 
     /**
@@ -360,4 +399,6 @@ public class SysMenuService {
 
     private final SysMenuMapper menuMapper;
     private final SysRoleMenuMapper roleMenuMapper;
+    private final TokenService tokenService;
+
 }

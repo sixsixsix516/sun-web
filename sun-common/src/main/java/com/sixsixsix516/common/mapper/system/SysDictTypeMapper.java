@@ -10,6 +10,7 @@ import com.sixsixsix516.common.model.system.SysDictType;
  * @author SUN
  */
 public interface SysDictTypeMapper extends BaseMapper<SysDictType> {
+
 	/**
 	 * 根据条件分页查询字典类型
 	 *

@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LoginBody {
 
-
     /**
      * 用户名
      */

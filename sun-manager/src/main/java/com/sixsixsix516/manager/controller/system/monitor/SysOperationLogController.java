@@ -26,20 +26,20 @@ import java.util.List;
 @RequestMapping("/monitor/operationLog")
 public class SysOperationLogController {
 
-    @PreAuthorize("@ss.hasPermi('monitor:operlog:list')")
+    @PreAuthorize("@ss.hasPermissions('monitor:operlog:list')")
     @GetMapping("/list")
     public Result<List<SysOperationLog>> list(SysOperationLog sysOperationLog, PageInfo pageInfo) {
         return sysOperationLogService.list(sysOperationLog, pageInfo);
     }
 
-    @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
+    @PreAuthorize("@ss.hasPermissions('monitor:operlog:remove')")
     @DeleteMapping("/{ids}")
     public Result<Void> remove(@PathVariable Long[] ids) {
         return sysOperationLogService.deleteOperationLogByIds(ids);
     }
 
     @Log(title = "操作日志", businessType = BusinessType.CLEAN)
-    @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
+    @PreAuthorize("@ss.hasPermissions('monitor:operlog:remove')")
     @DeleteMapping("/clean")
     public Result<Void> clean() {
         return sysOperationLogService.cleanOperationLog();

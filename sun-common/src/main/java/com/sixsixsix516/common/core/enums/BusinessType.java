@@ -27,26 +27,6 @@ public enum BusinessType {
     DELETE,
 
     /**
-     * 授权
-     */
-    GRANT,
-
-    /**
-     * 导出
-     */
-    EXPORT,
-
-    /**
-     * 导入
-     */
-    IMPORT,
-
-    /**
-     * 强退
-     */
-    FORCE,
-
-    /**
      * 清空数据
      */
     CLEAN,

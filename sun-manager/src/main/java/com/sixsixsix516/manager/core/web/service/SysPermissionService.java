@@ -1,24 +1,21 @@
 package com.sixsixsix516.manager.core.web.service;
 
+import com.sixsixsix516.common.model.system.SysUser;
+import com.sixsixsix516.manager.service.SysMenuService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import com.sixsixsix516.manager.service.SysMenuService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import com.sixsixsix516.common.model.system.SysUser;
 
 /**
  * 用户权限处理
  *
  * @author SUN
  */
+@RequiredArgsConstructor
 @Component
 public class SysPermissionService {
-
-	@Autowired
-	private SysMenuService menuService;
-
 
 	/**
 	 * 获取菜单数据权限
@@ -36,4 +33,6 @@ public class SysPermissionService {
 		}
 		return perms;
 	}
+
+	private final SysMenuService menuService;
 }

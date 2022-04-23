@@ -1,16 +1,16 @@
 package com.sixsixsix516.common.model.system;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.sixsixsix516.common.core.annotation.Excel;
+import com.sixsixsix516.common.core.annotation.Excel.ColumnType;
 import com.sixsixsix516.common.core.constant.UserConstants;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.sixsixsix516.common.core.annotation.Excel;
-import com.sixsixsix516.common.core.annotation.Excel.ColumnType;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * 字典数据表 sys_dict_data
@@ -41,7 +41,7 @@ public class SysDictData extends BaseEntity {
 	 */
 	@Excel(name = "字典标签")
 	@NotBlank(message = "字典标签不能为空")
-	@Size(min = 0, max = 100, message = "字典标签长度不能超过100个字符")
+	@Size(max = 100, message = "字典标签长度不能超过100个字符")
 	private String dictLabel;
 
 	/**
@@ -49,7 +49,7 @@ public class SysDictData extends BaseEntity {
 	 */
 	@Excel(name = "字典键值")
 	@NotBlank(message = "字典键值不能为空")
-	@Size(min = 0, max = 100, message = "字典键值长度不能超过100个字符")
+	@Size(max = 100, message = "字典键值长度不能超过100个字符")
 	private String dictValue;
 
 	/**
@@ -57,13 +57,13 @@ public class SysDictData extends BaseEntity {
 	 */
 	@Excel(name = "字典类型")
 	@NotBlank(message = "字典类型不能为空")
-	@Size(min = 0, max = 100, message = "字典类型长度不能超过100个字符")
+	@Size(max = 100, message = "字典类型长度不能超过100个字符")
 	private String dictType;
 
 	/**
 	 * 样式属性（其他样式扩展）
 	 */
-	@Size(min = 0, max = 100, message = "样式属性长度不能超过100个字符")
+	@Size(max = 100, message = "样式属性长度不能超过100个字符")
 	private String cssClass;
 
 	/**

@@ -26,20 +26,20 @@ import java.util.List;
 @RequestMapping("/monitor/loginInfo")
 public class SysLoginInfoController {
 
-    @PreAuthorize("@ss.hasPermi('monitor:logininfor:list')")
+    @PreAuthorize("@ss.hasPermissions('monitor:logininfor:list')")
     @GetMapping("/list")
     public Result<List<SysLoginInfo>> list(SysLoginInfo loginInfo, PageInfo pageInfo) {
         return sysLoginInfoService.list(loginInfo, pageInfo);
     }
 
-    @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
+    @PreAuthorize("@ss.hasPermissions('monitor:logininfor:remove')")
     @Log(title = "登陆日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{infoIds}")
     public Result<Void> remove(@PathVariable Long[] infoIds) {
         return sysLoginInfoService.deleteLoginInfoByIds(infoIds);
     }
 
-    @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
+    @PreAuthorize("@ss.hasPermissions('monitor:logininfor:remove')")
     @Log(title = "登陆日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
     public Result<Void> clean() {

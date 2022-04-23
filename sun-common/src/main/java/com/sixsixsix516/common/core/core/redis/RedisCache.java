@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
  **/
 @Component
 public class RedisCache {
+
     @Autowired
     public RedisTemplate redisTemplate;
 
@@ -40,17 +41,6 @@ public class RedisCache {
         redisTemplate.opsForValue().set(key, value, timeout, timeUnit);
     }
 
-    /**
-     * 设置有效时间
-     *
-     * @param key     Redis键
-     * @param timeout 超时时间
-     * @param unit    时间单位
-     * @return true=设置成功；false=设置失败
-     */
-    public boolean expire(final String key, final long timeout, final TimeUnit unit) {
-        return redisTemplate.expire(key, timeout, unit);
-    }
 
     /**
      * 获得缓存的基本对象。
@@ -65,8 +55,6 @@ public class RedisCache {
 
     /**
      * 删除单个对象
-     *
-     * @param key
      */
     public boolean deleteObject(final String key) {
         return redisTemplate.delete(key);
@@ -74,9 +62,6 @@ public class RedisCache {
 
     /**
      * 删除集合对象
-     *
-     * @param collection 多个对象
-     * @return
      */
     public long deleteObject(final Collection collection) {
         return redisTemplate.delete(collection);

@@ -1,21 +1,24 @@
 package com.sixsixsix516.manager.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sixsixsix516.common.model.system.SysRole;
-import com.sixsixsix516.common.model.system.SysUser;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sixsixsix516.common.core.exception.CustomException;
+import com.sixsixsix516.common.core.utils.StringUtils;
+import com.sixsixsix516.common.core.vo.PageInfo;
 import com.sixsixsix516.common.mapper.system.SysRoleMapper;
 import com.sixsixsix516.common.mapper.system.SysUserMapper;
 import com.sixsixsix516.common.mapper.system.SysUserRoleMapper;
+import com.sixsixsix516.common.model.system.SysRole;
+import com.sixsixsix516.common.model.system.SysUser;
 import com.sixsixsix516.common.model.system.SysUserRole;
-import com.sixsixsix516.manager.util.SecurityUtils;
-import com.sixsixsix516.common.core.utils.StringUtils;
 import com.sixsixsix516.common.vo.Result;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sixsixsix516.manager.util.SecurityUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -24,8 +27,27 @@ import java.util.List;
  * @author SUN
  */
 @Service
+@RequiredArgsConstructor
 public class SysUserService {
 
+    /**
+     * 获取用户列表
+     */
+    public Result<List<SysUser>> list(SysUser user, PageInfo pageInfo) {
+        IPage<SysUser> sysUserPage = sysUserMapper.listUser(new Page<>(pageInfo.getPageNum(), pageInfo.getPageSize()), user);
+        return Result.ok(sysUserPage.getRecords(), sysUserPage.getTotal());
+    }
+
+    /**
+     * 根据用户编号获取详细信息
+     */
+    public Result<HashMap<String, Object>> getInfo(Long userId) {
+        return Result.ok(new HashMap<String, Object>(3) {{
+            put("roleIds", roleService.selectRoleListByUserId(userId));
+            put("roles", sysRoleMapper.selectList(null));
+            put("data", userService.selectUserById(userId));
+        }});
+    }
 
     /**
      * 通过用户名查询用户
@@ -55,7 +77,7 @@ public class SysUserService {
      */
     public String selectUserRoleGroup(String userName) {
         List<SysRole> list = roleMapper.selectRolesByUserName(userName);
-        StringBuffer idsStr = new StringBuffer();
+        StringBuilder idsStr = new StringBuilder();
         for (SysRole role : list) {
             idsStr.append(role.getRoleName()).append(",");
         }
@@ -82,8 +104,7 @@ public class SysUserService {
      * @param user 用户信息
      * @return 结果
      */
-    @Transactional
-    public Result insertUser(SysUser user) {
+    public Result<Void> insertUser(SysUser user) {
         if (sysUserMapper.selectCount(new QueryWrapper<SysUser>().lambda().eq(SysUser::getRealname, user.getRealname())) > 0) {
             return Result.fail("新增用户'" + user.getRealname() + "'失败，姓名已存在");
         }
@@ -109,15 +130,16 @@ public class SysUserService {
      * @param user 用户信息
      * @return 结果
      */
-    @Transactional
-    public int updateUser(SysUser user) {
+    public Result<Void> updateUser(SysUser user) {
+        user.setUpdateBy(SecurityUtils.getUsername());
         Long userId = user.getUserId();
         // 删除用户与角色关联
         userRoleMapper.deleteUserRoleByUserId(userId);
         // 新增用户与角色管理
         insertUserRole(user);
         user.setPassword(null);
-        return sysUserMapper.updateById(user);
+        sysUserMapper.updateById(user);
+        return Result.ok();
     }
 
     /**
@@ -126,8 +148,11 @@ public class SysUserService {
      * @param user 用户信息
      * @return 结果
      */
-    public int updateUserStatus(SysUser user) {
-        return sysUserMapper.updateById(user);
+    public Result<Void> updateUserStatus(SysUser user) {
+        checkUserAllowed(user);
+        user.setUpdateBy(SecurityUtils.getUsername());
+        sysUserMapper.updateById(user);
+        return Result.ok();
     }
 
     /**
@@ -157,8 +182,12 @@ public class SysUserService {
      * @param user 用户信息
      * @return 结果
      */
-    public int resetPwd(SysUser user) {
-        return sysUserMapper.updateById(user);
+    public Result<Void> resetPwd(SysUser user) {
+        checkUserAllowed(user);
+        user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
+        user.setUpdateBy(SecurityUtils.getUsername());
+        sysUserMapper.updateById(user);
+        return Result.ok();
     }
 
     /**
@@ -184,23 +213,23 @@ public class SysUserService {
     /**
      * 批量删除用户信息
      */
-    public Result deleteUserByIds(List<Long> userIds) {
+    public Result<Void> deleteUserByIds(List<Long> userIds) {
         userIds.forEach(userId -> {
             // 不允许删除超级管理员
             checkUserAllowed(new SysUser(userId));
             // 删除用户
             sysUserMapper.deleteById(userId);
             // 删除用户角色关联
-            userRoleMapper.delete(new QueryWrapper<SysUserRole>().lambda().eq(SysUserRole::getUserId,userId));
+            userRoleMapper.delete(new QueryWrapper<SysUserRole>().lambda().eq(SysUserRole::getUserId, userId));
         });
         return Result.ok();
     }
 
+    private final SysUserMapper sysUserMapper;
+    private final SysRoleMapper roleMapper;
+    private final SysUserRoleMapper userRoleMapper;
+    private final SysRoleMapper sysRoleMapper;
+    private final SysUserService userService;
+    private final SysRoleService roleService;
 
-    @Autowired
-    private SysUserMapper sysUserMapper;
-    @Autowired
-    private SysRoleMapper roleMapper;
-    @Autowired
-    private SysUserRoleMapper userRoleMapper;
 }

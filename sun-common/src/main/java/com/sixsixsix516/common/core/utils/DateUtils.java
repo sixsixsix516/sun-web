@@ -12,7 +12,7 @@ import java.util.Date;
 public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
     public static String YYYY_MM_DD = "yyyy-MM-dd";
-
+    public static final String FULL_TIME_PATTERN = "yyyyMMddHHmmss";
     public static String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 
     private static final String[] PARSE_PATTERNS = {
@@ -41,6 +41,16 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         return new SimpleDateFormat(format).format(date);
     }
 
+    public static String getOrderNoCurrentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat(FULL_TIME_PATTERN);
+        return sdf.format(new Date());
+    }
+
+
+    public static String getYMDHMS() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(new Date());
+    }
 
     /**
      * 日期型字符串转化为日期 格式

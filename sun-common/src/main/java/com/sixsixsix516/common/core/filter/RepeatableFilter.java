@@ -1,16 +1,11 @@
 package com.sixsixsix516.common.core.filter;
 
-import java.io.IOException;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-
 import com.sixsixsix516.common.core.utils.StringUtils;
 import org.springframework.http.MediaType;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 /**
  * Repeatable 过滤器
@@ -18,6 +13,7 @@ import org.springframework.http.MediaType;
  * @author SUN
  */
 public class RepeatableFilter implements Filter {
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 

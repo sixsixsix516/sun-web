@@ -14,10 +14,6 @@ import java.util.List;
  * @author SUN
  */
 public class DictUtils {
-    /**
-     * 分隔符
-     */
-    public static final String SEPARATOR = ",";
 
     /**
      * 设置字典缓存
@@ -48,46 +44,26 @@ public class DictUtils {
      *
      * @param dictType  字典类型
      * @param dictValue 字典值
-     * @return 字典标签
-     */
-    public static String getDictLabel(String dictType, String dictValue) {
-        return getDictLabel(dictType, dictValue, SEPARATOR);
-    }
-
-    /**
-     * 根据字典类型和字典标签获取字典值
-     *
-     * @param dictType  字典类型
-     * @param dictLabel 字典标签
-     * @return 字典值
-     */
-    public static String getDictValue(String dictType, String dictLabel) {
-        return getDictValue(dictType, dictLabel, SEPARATOR);
-    }
-
-    /**
-     * 根据字典类型和字典值获取字典标签
-     *
-     * @param dictType  字典类型
-     * @param dictValue 字典值
      * @param separator 分隔符
      * @return 字典标签
      */
     public static String getDictLabel(String dictType, String dictValue, String separator) {
         StringBuilder propertyString = new StringBuilder();
-        List<SysDictData> datas = getDictCache(dictType);
+        List<SysDictData> dataList = getDictCache(dictType);
 
-        if (StringUtils.containsAny(separator, dictValue) && StringUtils.isNotEmpty(datas)) {
-            for (SysDictData dict : datas) {
+        if (StringUtils.containsAny(separator, dictValue) && StringUtils.isNotEmpty(dataList)) {
+            assert dataList != null;
+            for (SysDictData dict : dataList) {
                 for (String value : dictValue.split(separator)) {
                     if (value.equals(dict.getDictValue())) {
-                        propertyString.append(dict.getDictLabel() + separator);
+                        propertyString.append(dict.getDictLabel()).append(separator);
                         break;
                     }
                 }
             }
         } else {
-            for (SysDictData dict : datas) {
+            assert dataList != null;
+            for (SysDictData dict : dataList) {
                 if (dictValue.equals(dict.getDictValue())) {
                     return dict.getDictLabel();
                 }
@@ -106,10 +82,11 @@ public class DictUtils {
      */
     public static String getDictValue(String dictType, String dictLabel, String separator) {
         StringBuilder propertyString = new StringBuilder();
-        List<SysDictData> datas = getDictCache(dictType);
+        List<SysDictData> dataList = getDictCache(dictType);
 
-        if (StringUtils.containsAny(separator, dictLabel) && StringUtils.isNotEmpty(datas)) {
-            for (SysDictData dict : datas) {
+        if (StringUtils.containsAny(separator, dictLabel) && StringUtils.isNotEmpty(dataList)) {
+            assert dataList != null;
+            for (SysDictData dict : dataList) {
                 for (String label : dictLabel.split(separator)) {
                     if (label.equals(dict.getDictLabel())) {
                         propertyString.append(dict.getDictValue()).append(separator);
@@ -118,7 +95,8 @@ public class DictUtils {
                 }
             }
         } else {
-            for (SysDictData dict : datas) {
+            assert dataList != null;
+            for (SysDictData dict : dataList) {
                 if (dictLabel.equals(dict.getDictLabel())) {
                     return dict.getDictValue();
                 }

@@ -11,6 +11,7 @@ import java.util.concurrent.*;
  * @author SUN
  */
 public class Threads {
+
     private static final Logger logger = LoggerFactory.getLogger(Threads.class);
 
 

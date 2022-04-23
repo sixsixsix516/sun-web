@@ -20,6 +20,8 @@ import java.util.Date;
  */
 @Slf4j
 public class ReflectUtils {
+
+
     private static final String SETTER_PREFIX = "set";
 
     private static final String GETTER_PREFIX = "get";
@@ -71,12 +73,12 @@ public class ReflectUtils {
      * 用于一次性调用的情况，否则应使用getAccessibleMethodByName()函数获得Method后反复调用.
      * 只匹配函数名，如果有多个同名函数调用第一个。
      */
-    public static <E> E invokeMethodByName(final Object obj, final String methodName, final Object[] args) {
+    public static <E> void invokeMethodByName(final Object obj, final String methodName, final Object[] args) {
         Method method = getAccessibleMethodByName(obj, methodName, args.length);
         if (method == null) {
             // 如果为空不报错，直接返回空。
             log.debug("在 [" + obj.getClass() + "] 中，没有找到 [" + methodName + "] 方法 ");
-            return null;
+            return;
         }
         try {
             // 类型转换（将参数数据类型转换为目标方法参数类型）
@@ -105,7 +107,7 @@ public class ReflectUtils {
                     }
                 }
             }
-            return (E) method.invoke(obj, args);
+            method.invoke(obj, args);
         } catch (Exception e) {
             String msg = "method: " + method + ", obj: " + obj + ", args: " + Arrays.toString(args) + "";
             throw convertReflectionExceptionToUnchecked(msg, e);

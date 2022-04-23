@@ -23,7 +23,7 @@ public class SysConfigController {
     /**
      * 根据参数编号获取详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:config:query')")
+    @PreAuthorize("@ss.hasPermissions('system:config:query')")
     @GetMapping(value = "/{configId}")
     public Result<SysConfig> getInfo(@PathVariable Long configId) {
         return configService.selectConfigById(configId);

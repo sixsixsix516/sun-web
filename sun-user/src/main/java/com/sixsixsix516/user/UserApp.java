@@ -1,20 +1,19 @@
-package com.sixsixsix516.manager;
+package com.sixsixsix516.user;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 启动程序
- *
  * @author SUN
+ * @date 23/04/2022
  */
 @MapperScan("com.sixsixsix516.common.mapper")
-@SpringBootApplication(scanBasePackages = {"com.sixsixsix516.manager", "com.sixsixsix516.common"})
-public class SunApp {
+@SpringBootApplication(scanBasePackages = {"com.sixsixsix516.user", "com.sixsixsix516.common"})
+public class UserApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(SunApp.class, args);
+        SpringApplication.run(UserApp.class, args);
     }
 
 }

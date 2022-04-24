@@ -14,10 +14,6 @@ spring:
       connection-test-query: SELECT 1
       # 多长时间没有被使用 则回收链接 单位毫秒
       max-lifetime: 120000
-  servlet:
-     multipart:
-       max-file-size:  10MB
-       max-request-size:  20MB
   redis:
     port: 6379
     timeout: 10s
@@ -28,20 +24,5 @@ spring:
         max-active: 8
         max-wait: -1ms
 
-token:
-    header: Authorization
-    secret: abcdefghijklmnopqrstuvwxyz
-    expireTime: 30
-
-mybatis-plus:
-  mapper-locations:
-    - classpath:mapper/*Mapper.xml
-    - classpath:mapper/*/*Mapper.xml
-  type-aliases-package: com.sixsixsix516.common.model
-  configuration:
-    map-underscore-to-camel-case: true
-
-xss:
-  enabled: true
-  excludes: /system/notice/*
-  urlPatterns: /system/*,/monitor/*,/tool/*
+path:
+  project_path: http://test:8080/

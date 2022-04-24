@@ -6,9 +6,10 @@
         placeholder="请输入菜单名称"
         clearable
         style="width: 240px"
+        @change="handleQuery"
         @keyup.enter.native="handleQuery"
       />
-      <el-select v-model="queryParams.status" placeholder="菜单状态" clearable>
+      <el-select v-model="queryParams.status" placeholder="菜单状态" clearable @change="handleQuery">
         <el-option
           v-for="dict in statusOptions"
           :key="dict.dictValue"

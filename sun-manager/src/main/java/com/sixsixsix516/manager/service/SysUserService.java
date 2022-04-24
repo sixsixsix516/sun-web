@@ -43,9 +43,9 @@ public class SysUserService {
      */
     public Result<HashMap<String, Object>> getInfo(Long userId) {
         return Result.ok(new HashMap<String, Object>(3) {{
-            put("roleIds", roleService.selectRoleListByUserId(userId));
+            put("roleIds", roleMapper.selectRoleListByUserId(userId));
             put("roles", sysRoleMapper.selectList(null));
-            put("data", userService.selectUserById(userId));
+            put("data", selectUserById(userId));
         }});
     }
 
@@ -229,7 +229,5 @@ public class SysUserService {
     private final SysRoleMapper roleMapper;
     private final SysUserRoleMapper userRoleMapper;
     private final SysRoleMapper sysRoleMapper;
-    private final SysUserService userService;
-    private final SysRoleService roleService;
 
 }

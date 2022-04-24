@@ -55,10 +55,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				AND oper_name like concat('%', #{operLog.operName}, '%')
 			</if>
 			<if test="operLog.beginTime != null and operLog.beginTime != ''"><!-- 开始时间检索 -->
-				and date_format(operLog.oper_time,'%y%m%d') &gt;= date_format(#{operLog.beginTime},'%y%m%d')
+				and date_format(oper_time,'%y%m%d') &gt;= date_format(#{operLog.beginTime},'%y%m%d')
 			</if>
 			<if test="operLog.endTime != null and operLog.endTime != ''"><!-- 结束时间检索 -->
-				and date_format(operLog.oper_time,'%y%m%d') &lt;= date_format(#{operLog.endTime},'%y%m%d')
+				and date_format(oper_time,'%y%m%d') &lt;= date_format(#{operLog.endTime},'%y%m%d')
 			</if>
 		</where>
 		order by oper_id desc

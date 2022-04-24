@@ -5,14 +5,9 @@
 
     <div class="right-menu">
 
-      <el-tooltip content="夜间模式" effect="dark" placement="bottom">
-        <svg-icon icon-class="nightMode" class="right-menu-item hover-effect" style="width: 2em;" />
-      </el-tooltip>
-
-
       <template v-if="device!=='mobile'">
         <el-tooltip content="全屏" effect="dark" placement="bottom">
-          <screenfull id="screenfull" class="right-menu-item hover-effect"  @click="click"/>
+          <screenfull id="screenfull" class="right-menu-item hover-effect"/>
         </el-tooltip>
       </template>
 

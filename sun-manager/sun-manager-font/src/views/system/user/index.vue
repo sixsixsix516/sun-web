@@ -1,57 +1,61 @@
 <template>
   <div class="app-container">
-      <div class="searchWrapper">
-        <el-input v-model="queryParams.realname" placeholder="查询姓名" clearable   style="width: 240px" @keyup.enter.native="handleQuery"/>
+    <div class="searchWrapper">
+      <el-input v-model="queryParams.realname" placeholder="查询姓名" clearable style="width: 240px"
+                @keyup.enter.native="handleQuery" @change="handleQuery"/>
 
-        <el-input v-model="queryParams.phone" placeholder="查询手机号" clearable   style="width: 240px" @keyup.enter.native="handleQuery"/>
+      <el-input v-model="queryParams.phone" placeholder="查询手机号" clearable style="width: 240px"
+                @keyup.enter.native="handleQuery" @change="handleQuery"/>
 
-        <el-select v-model="queryParams.status" placeholder="查询用户状态" clearable   style="width: 240px">
-          <el-option v-for="dict in statusOptions" :key="dict.dictValue" :label="dict.dictLabel"
-                     :value="dict.dictValue"/>
-        </el-select>
+      <el-select v-model="queryParams.status" placeholder="查询用户状态" clearable style="width: 240px" @change="handleQuery">
+        <el-option v-for="dict in statusOptions" :key="dict.dictValue" :label="dict.dictLabel"
+                   :value="dict.dictValue"/>
+      </el-select>
 
-        <el-date-picker v-model="dateRange"  style="width: 240px" value-format="yyyy-MM-dd" type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-      </div>
+      <el-date-picker v-model="dateRange" style="width: 240px" value-format="yyyy-MM-dd" type="daterange"
+                      range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" @change="handleQuery"/>
+      <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+    </div>
 
 
     <div class="pageContent">
 
       <div class="featureList">
-        <el-button type="primary" icon="el-icon-plus"  @click="handleAdd" v-hasPermi="['system:user:add']">新增</el-button>
+        <el-button type="primary" icon="el-icon-plus" @click="handleAdd" v-hasPermi="['system:user:add']">新增</el-button>
       </div>
 
-    <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
-      <el-table-column label="用户编号" align="center" prop="userId"  />
-      <el-table-column label="姓名" align="center" prop="realname" :show-overflow-tooltip="true"/>
-      <el-table-column label="手机号码" align="center" prop="phone"  />
-      <el-table-column label="状态" align="center">
-        <template slot-scope="scope">
-          <el-switch v-model="scope.row.status" :active-value="0" :inactive-value="1"
-                     @change="handleStatusChange(scope.row)"></el-switch>
-        </template>
-      </el-table-column>
-      <el-table-column label="创建时间" align="center" prop="createTime"  >
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.createTime) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" align="center"   class-name="small-padding fixed-width">
-        <template slot-scope="scope">
-          <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
-                     v-hasPermi="['system:user:edit']">修改
-          </el-button>
-          <el-button v-if="scope.row.userId !== 1" size="mini" type="text" icon="el-icon-delete"
-                     @click="handleDelete(scope.row)" v-hasPermi="['system:user:remove']">删除
-          </el-button>
-          <el-button size="mini" type="text" icon="el-icon-key" @click="handleResetPwd(scope.row)"
-                     v-hasPermi="['system:user:resetPwd']">重置
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+      <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
+        <el-table-column label="用户编号" align="center" prop="userId"/>
+        <el-table-column label="姓名" align="center" prop="realname" :show-overflow-tooltip="true"/>
+        <el-table-column label="手机号码" align="center" prop="phone"/>
+        <el-table-column label="状态" align="center">
+          <template slot-scope="scope">
+            <el-switch v-model="scope.row.status" :active-value="0" :inactive-value="1"
+                       @change="handleStatusChange(scope.row)"></el-switch>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" align="center" prop="createTime">
+          <template slot-scope="scope">
+            <span>{{ parseTime(scope.row.createTime) }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+          <template slot-scope="scope">
+            <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
+                       v-hasPermi="['system:user:edit']">修改
+            </el-button>
+            <el-button v-if="scope.row.userId !== 1" size="mini" type="text" icon="el-icon-delete"
+                       @click="handleDelete(scope.row)" v-hasPermi="['system:user:remove']">删除
+            </el-button>
+            <el-button size="mini" type="text" icon="el-icon-key" @click="handleResetPwd(scope.row)"
+                       v-hasPermi="['system:user:resetPwd']">重置
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
 
-    <pagination v-show="total>0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize" @pagination="getList"/>
+      <pagination :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize"
+                  @pagination="getList"/>
     </div>
 
     <!-- 添加或修改参数配置对话框 -->
@@ -93,9 +97,8 @@
           <el-col :span="12">
             <el-form-item label="状态">
               <el-radio-group v-model="form.status">
-                <el-radio v-for="dict in statusOptions" :key="dict.dictValue" :label="Number(dict.dictValue)">
-                  {{ dict.dictLabel }}
-                </el-radio>
+                <el-radio :label="0">正常</el-radio>
+                <el-radio :label="1">停用</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -280,7 +283,7 @@ export default {
         phone: undefined,
         email: undefined,
         sex: undefined,
-        status: "0",
+        status: 0,
         remark: undefined,
         postIds: [],
         roleIds: [],

@@ -32,7 +32,7 @@ import java.util.List;
 public class SysRoleService {
 
     public Result<List<SysRole>> list(SysRole role, PageInfo pageInfo) {
-        IPage<SysRole> sysRolePage = sysRoleMapper.selectRoleList(new Page<>(pageInfo.getPageNum(), pageInfo.getPageSize()), role);
+        IPage<SysRole> sysRolePage = roleMapper.selectRoleList(new Page<>(pageInfo.getPageNum(), pageInfo.getPageSize()), role);
         return Result.ok(sysRolePage.getRecords(), sysRolePage.getTotal());
     }
 
@@ -221,7 +221,6 @@ public class SysRoleService {
     private final SysRoleMapper roleMapper;
     private final SysRoleMenuMapper roleMenuMapper;
     private final SysUserRoleMapper userRoleMapper;
-    private final SysRoleMapper sysRoleMapper;
     private final TokenService tokenService;
     private final SysPermissionService permissionService;
     private final SysUserService userService;

@@ -1,12 +1,8 @@
 package com.sixsixsix516.common.pay.util;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.core.util.QuickWriter;
-import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
-import com.thoughtworks.xstream.io.xml.XppDriver;
 import net.sf.json.xml.XMLSerializer;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -14,7 +10,6 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import java.io.InputStream;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,36 +18,6 @@ import java.util.Map;
  * @author admin
  */
 public class XmlUtil {
-    /**
-     * 扩展xstream，使其支持CDATA块
-     *
-     * @date 2013-05-19
-     */
-    public static XStream xstream = new XStream(new XppDriver() {
-        @Override
-        public HierarchicalStreamWriter createWriter(Writer out) {
-            return new PrettyPrintWriter(out) {
-                // 对所有xml节点的转换都增加CDATA标记
-                final boolean cdata = true;
-
-                @Override
-                public void startNode(String name, @SuppressWarnings("rawtypes") Class clazz) {
-                    super.startNode(name, clazz);
-                }
-
-                @Override
-                protected void writeText(QuickWriter writer, String text) {
-                    if (cdata) {
-                        writer.write("<![CDATA[");
-                        writer.write(text);
-                        writer.write("]]>");
-                    } else {
-                        writer.write(text);
-                    }
-                }
-            };
-        }
-    });
 
 
     public static Map<String, String> parseXml(InputStream inputStream) {

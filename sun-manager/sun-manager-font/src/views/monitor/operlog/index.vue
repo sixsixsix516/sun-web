@@ -7,6 +7,7 @@
         placeholder="请输入系统模块"
         clearable
         style="width: 240px;"
+        @change="handleQuery"
         @keyup.enter.native="handleQuery"
       />
       <el-input
@@ -14,6 +15,7 @@
         placeholder="请输入操作人员"
         clearable
         style="width: 240px;"
+        @change="handleQuery"
         @keyup.enter.native="handleQuery"
       />
       <el-select
@@ -21,6 +23,7 @@
         placeholder="操作类型"
         clearable
         style="width: 240px"
+        @change="handleQuery"
       >
         <el-option
           v-for="dict in typeOptions"
@@ -33,6 +36,7 @@
         v-model="queryParams.status"
         placeholder="操作状态"
         clearable
+        @change="handleQuery"
         style="width: 240px"
       >
         <el-option
@@ -45,6 +49,7 @@
       <el-date-picker
         v-model="dateRange"
         style="width: 240px"
+        @change="handleQuery"
         value-format="yyyy-MM-dd"
         type="daterange"
         range-separator="-"

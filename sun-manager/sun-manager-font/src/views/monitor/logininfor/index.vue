@@ -7,6 +7,7 @@
         clearable
         style="width: 240px;"
         size="small"
+        @change="handleQuery"
         @keyup.enter.native="handleQuery"
       />
       <el-input
@@ -15,6 +16,7 @@
         clearable
         style="width: 240px;"
         size="small"
+        @change="handleQuery"
         @keyup.enter.native="handleQuery"
       />
 
@@ -23,6 +25,7 @@
         placeholder="登录状态"
         clearable
         size="small"
+        @change="handleQuery"
         style="width: 240px"
       >
         <el-option
@@ -37,6 +40,7 @@
         size="small"
         style="width: 240px"
         value-format="yyyy-MM-dd"
+        @change="handleQuery"
         type="daterange"
         range-separator="-"
         start-placeholder="开始日期"

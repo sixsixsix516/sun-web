@@ -6,6 +6,7 @@
         placeholder="查询角色名称"
         clearable
         style="width: 240px"
+        @change="handleQuery"
         @keyup.enter.native="handleQuery"
       />
 
@@ -13,6 +14,7 @@
         v-model="queryParams.status"
         placeholder="角色状态"
         clearable
+        @change="handleQuery"
         style="width: 240px"
       >
         <el-option
@@ -27,6 +29,7 @@
         v-model="dateRange"
         style="width: 240px"
         value-format="yyyy-MM-dd"
+        @change="handleQuery"
         type="daterange"
         range-separator="-"
         start-placeholder="开始日期"
